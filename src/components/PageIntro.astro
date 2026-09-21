@@ -1,0 +1,54 @@
+---
+import Stamp from './Stamp.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+}
+const { eyebrow, title, lead } = Astro.props;
+---
+
+<header class="page-intro">
+  <div class="container">
+    {eyebrow && (
+      <div class="page-intro__eyebrow-row">
+        <Stamp size={16} class="page-intro__stamp" />
+        <p class="eyebrow page-intro__eyebrow">{eyebrow}</p>
+      </div>
+    )}
+    <h1 class="page-intro__title">{title}</h1>
+    {lead && <p class="lead page-intro__lead">{lead}</p>}
+  </div>
+</header>
+
+<style>
+  .page-intro {
+    padding-block: clamp(3rem, 5vw + 2rem, 6rem) clamp(2rem, 3vw + 1rem, 3.5rem);
+    border-bottom: 1px solid var(--rule);
+  }
+  .page-intro__eyebrow-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.875rem;
+    color: var(--brand-red);
+  }
+  .page-intro__eyebrow {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+  .page-intro__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .page-intro__lead {
+    margin-top: 1.25rem;
+    max-width: 60ch;
+  }
+</style>

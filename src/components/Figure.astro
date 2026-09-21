@@ -1,0 +1,109 @@
+---
+/**
+ * Editorial figure component for narrative pages.
+ *
+ * Layout variants:
+ *   "wide"      — full container width, 16:9 ratio. Hero-position between PageIntro and content.
+ *   "inset"     — floats right within a reading column, 4:5 ratio, ~22rem wide. Editorial magazine pattern.
+ *   "split"     — pair of two photos side by side at the same width, 4:3 each.
+ *   "portrait"  — tall portrait, centered, 4:5, max 28rem. For named-person photos.
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  variant?: 'wide' | 'inset' | 'portrait';
+  loading?: 'eager' | 'lazy';
+}
+
+const {
+  src,
+  alt,
+  caption,
+  variant = 'wide',
+  loading = 'lazy',
+} = Astro.props;
+---
+
+<figure class={`fig fig--${variant}`}>
+  <div class="fig__frame">
+    <img src={src} alt={alt} loading={loading} decoding="async" />
+  </div>
+  {caption && <figcaption class="fig__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .fig {
+    margin: 0;
+    padding: 0;
+  }
+
+  .fig__frame {
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--paper-deep);
+    position: relative;
+  }
+  .fig__frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Subtle warm overlay to unify photography across the site. */
+  .fig__frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, oklch(0.36 0.14 22 / 0.05));
+    pointer-events: none;
+  }
+
+  .fig__caption {
+    margin-top: 0.625rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    max-width: 60ch;
+  }
+
+  /* ──── Wide ──────────────────────────────────────────── */
+  .fig--wide {
+    margin-block: 2.5rem;
+  }
+  .fig--wide .fig__frame {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ──── Inset (floats right within a reading column) ─── */
+  .fig--inset {
+    float: right;
+    width: 18rem;
+    max-width: 45%;
+    margin: 0.25rem 0 1rem 1.5rem;
+    shape-outside: margin-box;
+  }
+  .fig--inset .fig__frame {
+    aspect-ratio: 4 / 5;
+  }
+  @media (max-width: 720px) {
+    .fig--inset {
+      float: none;
+      width: 100%;
+      max-width: 100%;
+      margin: 1.25rem 0;
+    }
+  }
+
+  /* ──── Portrait (centered, tall) ─────────────────────── */
+  .fig--portrait {
+    margin: 2rem auto;
+    max-width: 28rem;
+  }
+  .fig--portrait .fig__frame {
+    aspect-ratio: 4 / 5;
+  }
+</style>

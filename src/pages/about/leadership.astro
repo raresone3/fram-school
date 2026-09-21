@@ -1,0 +1,289 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import LeaderProfile from '~/components/LeaderProfile.astro';
+import { breadcrumb, person } from '~/lib/schema';
+
+const all = await getCollection('leaders');
+const leaders = all.sort((a, b) => a.data.order - b.data.order);
+const slt = leaders.filter((l) => l.data.order > 2);
+
+const anchorOf = (name: string) =>
+  name
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const schema = [
+  breadcrumb([
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Leadership', href: '/about/leadership' },
+  ]),
+  ...leaders.map((l) =>
+    person({
+      name: l.data.name,
+      role: l.data.role,
+      url: `/about/leadership#${anchorOf(l.data.name)}`,
+      image: l.data.portrait,
+      qualifications: l.data.qualifications,
+      email: l.data.email,
+    })
+  ),
+];
+---
+
+<Layout title="Leadership & governance at FRAM" description="How FRAM is governed and who runs it: founder, headmaster, the five-person senior leadership team, the school board, and the bodies the school reports to." current="/about/leadership" schema={schema}>
+  <PageIntro
+    eyebrow="Leadership & governance"
+    title="The six people who run FRAM."
+    lead="FRAM is led by a small senior team that knows every child. Below: how the school is governed, then the people themselves, in their own words and ours."
+  />
+
+  <section class="gov section--tight" aria-labelledby="gov-heading">
+    <div class="container">
+      <p class="eyebrow gov__intro-eyebrow" id="governance">How the school is governed</p>
+      <h2 class="gov__intro" id="gov-heading">Each role is held by a person you can write to.</h2>
+
+      <div class="gov__tree">
+        <article class="gov__layer gov__layer--top">
+          <p class="eyebrow">Founder</p>
+          <h3 class="gov__name">Ileana Vrânceanu</h3>
+          <p class="gov__role">Founder &amp; CEO</p>
+          <p class="gov__copy">
+            Sets the school's strategic direction and is responsible to the school community for the long-term vision. Read her <a href="/about/founder">letter to families</a>.
+          </p>
+        </article>
+
+        <span class="gov__rule" aria-hidden="true"></span>
+
+        <article class="gov__layer">
+          <p class="eyebrow">Headmaster</p>
+          <h3 class="gov__name">Tiberiu Popescu</h3>
+          <p class="gov__role">Headmaster</p>
+          <p class="gov__copy">
+            Day-to-day leadership of the school: families, staff, programme, campus, safeguarding sign-off. The principal point of contact for the school's regulators and for inspectors.
+          </p>
+        </article>
+
+        <span class="gov__rule" aria-hidden="true"></span>
+
+        <article class="gov__layer">
+          <p class="eyebrow">Senior Leadership Team</p>
+          <h3 class="gov__layer-title">Five named heads, working as a team.</h3>
+          <ul class="gov__slt">
+            {slt.map((l) => (
+              <li class="gov__slt-item">
+                <a class="gov__slt-link" href={`#${anchorOf(l.data.name)}`}>
+                  <span class="gov__slt-name">{l.data.name}</span>
+                  <span class="gov__slt-role">{l.data.role}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="gov__copy">
+            The SLT meets weekly to review safeguarding, academics, pastoral care, skills and events. Each pillar has a named lead with full responsibility and accountability. Profiles below.
+          </p>
+        </article>
+
+        <span class="gov__rule" aria-hidden="true"></span>
+
+        <article class="gov__layer">
+          <p class="eyebrow">School Board</p>
+          <h3 class="gov__name"><em>Being constituted</em></h3>
+          <p class="gov__role">2026–2027 academic year</p>
+          <p class="gov__copy">
+            A formal School Board is currently being constituted, with named roles for governance, finance, and educational oversight, supporting the Headmaster and the SLT and reporting on long-term strategy. The composition and biographies will be published here once the appointments are complete.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="profiles section--tight" aria-labelledby="profiles-heading">
+    <div class="container">
+      <p class="eyebrow profiles__eyebrow">Profiles</p>
+      <h2 class="profiles__heading" id="profiles-heading">In their own words and ours.</h2>
+    </div>
+    <div class="container leaders">
+      {leaders.map((leader) => (
+        <div id={anchorOf(leader.data.name)} class="leader-wrap">
+          <LeaderProfile leader={leader} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section--tight section--paper-deep">
+    <div class="reading">
+      <p class="eyebrow">Reporting &amp; accountability</p>
+      <h2 class="gov__h">Who the school answers to.</h2>
+      <p class="reporting__p">
+        FRAM reports to the Romanian Ministry of Education through ARACIP, the Romanian national accreditation agency, and to Cambridge Assessment International Education for the international line. The school is subject to regular inspection by both bodies. The most recent pre-inspection visit from the British Schools Overseas team took place in March 2026.
+      </p>
+      <p class="reporting__p">
+        Safeguarding concerns can be raised directly with the Designated Safeguarding Lead, Marieluise Knobloch, at <a href="mailto:safeguarding@framschool.com">safeguarding@framschool.com</a>. Any complaint about the school's operations follows the FRAM Complaints procedure, available on request from the school office.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .leader-wrap {
+    scroll-margin-top: 6rem;
+  }
+
+  .gov__intro-eyebrow {
+    margin-bottom: 0.625rem;
+  }
+  .gov__intro {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    max-width: 32ch;
+    margin: 0 0 2.25rem;
+  }
+
+  .gov__tree {
+    max-width: 50rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .gov__layer {
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    padding: 1.5rem 1.75rem 1.75rem;
+  }
+  .gov__layer--top {
+    background: var(--brand-red-soft);
+    border-color: color-mix(in oklch, var(--brand-red) 30%, transparent);
+  }
+  .gov__layer--top .eyebrow { color: var(--brand-red); }
+  .gov__layer--top .gov__name { color: var(--brand-red-deep); }
+
+  .gov__rule {
+    width: 1px;
+    height: 2.5rem;
+    background: var(--rule);
+    margin-inline: auto;
+  }
+
+  .gov__layer .eyebrow {
+    margin-bottom: 0.5rem;
+  }
+  .gov__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.25rem;
+  }
+  .gov__name em {
+    font-style: italic;
+    color: var(--brand-red);
+  }
+  .gov__role {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--t-body);
+    color: var(--ink-muted);
+    margin: 0 0 0.875rem;
+  }
+  .gov__layer-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.375rem;
+    line-height: 1.2;
+    margin: 0 0 1rem;
+  }
+  .gov__copy {
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 56ch;
+  }
+  .gov__copy a { color: var(--brand-red); }
+
+  .gov__slt {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .gov__slt-item {
+    border-bottom: 1px solid var(--rule);
+  }
+  .gov__slt-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  @media (min-width: 600px) {
+    .gov__slt-link {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+  }
+  .gov__slt-link:hover .gov__slt-name { color: var(--brand-red); }
+  .gov__slt-name {
+    font-weight: 500;
+    color: var(--ink);
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .gov__slt-role {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .profiles__eyebrow {
+    margin-bottom: 0.625rem;
+  }
+  .profiles__heading {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin: 0 0 2rem;
+    max-width: 32ch;
+  }
+  .leaders {
+    padding-block: 0.5rem 0;
+  }
+
+  .gov__h {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem);
+    letter-spacing: -0.005em;
+    margin: 0.625rem 0 1rem;
+  }
+  .reporting__p {
+    color: var(--ink);
+    line-height: 1.65;
+    margin: 0 0 1rem;
+    max-width: 65ch;
+  }
+  .reporting__p a {
+    color: var(--brand-red);
+  }
+</style>

@@ -1,0 +1,234 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+import { SITE } from '~/lib/site';
+---
+
+<Layout title="Welfare & Pastoral Pillar · FRAM" description="Safeguarding, behaviour, anti-bullying, wellbeing, mental health and counselling at FRAM. The Designated Safeguarding Lead is Marieluise Knobloch." current="/curriculum/welfare-pastoral">
+  <PageIntro
+    eyebrow="Welfare & Pastoral Pillar"
+    title="Children's safety and wellbeing, named and resourced."
+    lead="Safeguarding is the foundation of school, not an attachment to it. The Welfare & Pastoral Pillar runs through every part of FRAM, from how a five-year-old is welcomed at the gate to how we handle a difficult conversation with a family."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/houses-photos/dog.jpg"
+      alt="Habermann Campus during a school-wide afternoon"
+      caption="Pastoral care, woven through the school day."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="safeguarding-callout container">
+    <div class="safeguarding-callout__inner">
+      <p class="eyebrow">Safeguarding contact</p>
+      <p class="safeguarding-callout__lead">
+        Marieluise Knobloch is FRAM's Designated Safeguarding Lead. If you have any concern about the safety or wellbeing of a child at FRAM, write to her directly.
+      </p>
+      <a href={`mailto:${SITE.contact.safeguardingEmail}`} class="safeguarding-callout__email">
+        {SITE.contact.safeguardingEmail}
+      </a>
+    </div>
+  </section>
+
+  <section class="container welfare-toc" aria-label="On this page">
+    <ul>
+      <li><a href="#approach">Our approach</a></li>
+      <li><a href="#framework">Framework</a></li>
+      <li><a href="#behaviour">Behaviour &amp; anti-bullying</a></li>
+      <li><a href="#wellbeing">Wellbeing &amp; counselling</a></li>
+      <li><a href="#policies">Policies</a></li>
+    </ul>
+  </section>
+
+  <section class="section reading">
+    <Prose>
+      <h2 id="approach">Our approach</h2>
+      <p class="lead">
+        FRAM aims to create a safe, secure and nurturing environment where every child is protected from harm, neglect, abuse, discrimination and unsafe situations. We work to national Romanian child protection laws and international frameworks including the UN Convention on the Rights of the Child.
+      </p>
+
+      <h2 id="framework">The framework, in plain language</h2>
+      <ul>
+        <li>A <strong>Designated Safeguarding Lead</strong> oversees this work day to day.</li>
+        <li>There are <strong>clear reporting routes</strong> for any concern, children, parents, staff and visitors all know how to raise one.</li>
+        <li>Staff receive <strong>regular child-protection training</strong>, refreshed annually.</li>
+        <li>Records are kept <strong>securely and confidentially</strong>, in line with GDPR.</li>
+        <li>We hold <strong>working partnerships with external agencies</strong> for rapid intervention when it's needed.</li>
+      </ul>
+
+      <h3>When a concern is raised</h3>
+      <p>
+        Every disclosure or worry is treated seriously, recorded accurately, and handled by trained safeguarding staff in line with the school's policies. We respond immediately, professionally, and with great care. Families are kept informed except where doing so would put a child at greater risk.
+      </p>
+
+      <h3>Pastoral life</h3>
+      <p>
+        Beyond safeguarding, the Welfare & Pastoral Pillar holds the everyday work of children's social and emotional development: settling new starters, supporting friendships, working with families through transitions, and giving children language for their own feelings. Pastoral check-ins are timetabled, not improvised.
+      </p>
+
+      <h3>Physical safety</h3>
+      <p>
+        The campus has secured access, supervised drop-off and pick-up, practised emergency drills, on-site first-aid trained staff, and safe daily routines that prevent avoidable risks.
+      </p>
+
+      <h2 id="behaviour">Behaviour, relationships &amp; anti-bullying</h2>
+      <p class="lead">
+        At FRAM we treat behaviour and relationships as essential parts of how children learn. Through clear expectations, warm guidance, and a strong culture of inclusion, we help children understand how their actions affect others and how to make positive choices.
+      </p>
+
+      <h3>Behaviour</h3>
+      <p>
+        Behaviour expectations are clearly taught and consistently applied so that children learn to act with respect, responsibility and self-control in a calm, orderly environment. Staff use positive reinforcement, modelling and structured routines to guide behaviour, helping children understand the impact of their choices and develop internal discipline.
+      </p>
+      <p>
+        When behaviour falls below expectations, responses are <strong>proportionate, fair and restorative</strong>, aimed at repairing relationships and supporting long-term change in line with our Behaviour Policy. We never take points away from a child once earned through the House System; consequences when needed are about repair, not punishment.
+      </p>
+
+      <h3>Building positive relationships</h3>
+      <p>
+        We intentionally build trusting relationships between children and adults so that every child feels known, listened to, and safe to share worries or concerns. Inclusion is central: every child is welcomed, respected, and encouraged to celebrate differences. Social and emotional skills, empathy, active listening, cooperation, are taught through daily interactions, circle times and class routines, supporting healthy, sustainable friendships.
+      </p>
+
+      <h3>Preventing and responding to bullying</h3>
+      <p>
+        Bullying is never tolerated. We work proactively through supervision, emotional education and awareness to prevent it. When a concern arises:
+      </p>
+      <ul>
+        <li><strong>Every concern is taken seriously</strong> and investigated promptly and sensitively by trained staff, following our Anti-Bullying and Safeguarding procedures.</li>
+        <li>Support is provided <strong>both for the child who has experienced bullying</strong> and for <strong>the child whose behaviour has caused harm</strong>, with focus on safety, accountability, and reintegration into the community.</li>
+        <li>Parents are kept informed throughout, except where doing so would put a child at greater risk.</li>
+      </ul>
+      <p>
+        If you have a concern, speak to your child's class teacher first, they are the person who knows your child best at school. If a concern needs escalating, the Head of the relevant year and the Headmaster are next. For anything relating to safety or wellbeing, write directly to our Designated Safeguarding Lead at <a href={`mailto:${SITE.contact.safeguardingEmail}`}>{SITE.contact.safeguardingEmail}</a>.
+      </p>
+
+      <h2 id="wellbeing">Wellbeing, mental health &amp; counselling</h2>
+      <p class="lead">
+        At FRAM, wellbeing is not an add-on, it is the foundation for everything else we do. We work to ensure that every child feels emotionally safe, connected and confident, and that they have trusted adults they can turn to when life feels challenging.
+      </p>
+
+      <h3>Principles</h3>
+      <ul>
+        <li>Child-centeredness</li>
+        <li>Safety and protection</li>
+        <li>Respect and dignity</li>
+        <li>Participation and empowerment</li>
+        <li>Inclusion and equity</li>
+        <li>Holistic development</li>
+        <li>Collaboration with families and external agencies</li>
+      </ul>
+
+      <h3>Mental health in daily school life</h3>
+      <p>
+        Mental health is supported through a planned wellbeing and PSHE curriculum that helps children explore emotions, relationships, challenges and personal growth in an age-appropriate way. In everyday lessons, social-emotional learning is woven into the classroom so children learn to recognise feelings, manage stress, show empathy and make thoughtful decisions in a positive, inclusive climate.
+      </p>
+      <p>
+        Alongside this universal approach, we offer extra support, small-group or individual interventions, mentoring, and collaboration with external professionals, for children who are experiencing more complex emotional or mental health needs.
+      </p>
+
+      <h3>In-school counselling</h3>
+      <p>
+        Our in-school counselling service offers a calm, confidential space where children can seek help with academic, social or emotional difficulties, using a person-centred approach that respects each child's dignity and individuality.
+      </p>
+
+      <h3>A tiered system of support</h3>
+      <p>
+        Support follows a tiered model, so the right intervention reaches the right child:
+      </p>
+      <ol>
+        <li><strong>In the classroom:</strong> teachers provide strategies and check-ins as the first line of support. Most concerns are resolved here.</li>
+        <li><strong>Heads of Year:</strong> offer more targeted assistance where needed, working with class teachers and families.</li>
+        <li><strong>The counselling department:</strong> becomes involved for children facing significant or ongoing challenges, with parental consent and confidentiality.</li>
+      </ol>
+
+      <h3>Support for parents and staff</h3>
+      <p>
+        The counsellor also supports parents and staff through guidance, consultations and whole-school prevention work, promoting mental health awareness and ensuring vulnerable groups are identified early and supported in partnership with families and external agencies when appropriate.
+      </p>
+
+      <h2 id="policies">Read the policies</h2>
+      <p>
+        The full <a href="/policies">FRAM Safeguarding Policy and Child Protection Policy</a> are available on the policies page, alongside our Behaviour, Anti-Bullying, Counselling, Medical, Diversity and Inclusion, Physical Contact and Lockdown policies.
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    eyebrow="If you need us"
+    title="For any safeguarding concern, write to the DSL directly."
+    primaryCta={{ label: 'Email the DSL', href: `mailto:${SITE.contact.safeguardingEmail}` }}
+    secondaryCta={{ label: 'Read the policies', href: '/policies' }}
+  />
+</Layout>
+
+<style>
+  .safeguarding-callout {
+    padding-block: 2rem;
+  }
+  .safeguarding-callout__inner {
+    background: var(--brand-red-soft);
+    border-radius: 4px;
+    padding: 2rem 2.25rem;
+    color: var(--brand-red-deep);
+    max-width: var(--container-reading);
+  }
+  .safeguarding-callout__inner .eyebrow {
+    color: var(--brand-red);
+    margin-bottom: 0.5rem;
+  }
+  .safeguarding-callout__lead {
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    max-width: 50ch;
+  }
+  .safeguarding-callout__email {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--brand-red);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .welfare-toc {
+    padding-block: 0.5rem 2rem;
+    max-width: var(--container-reading);
+    margin: 0 auto;
+  }
+  .welfare-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.625rem;
+    border-top: 1px solid var(--rule);
+  }
+  .welfare-toc li { margin: 0; }
+  .welfare-toc a {
+    display: inline-block;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease-out-quart),
+                border-color var(--t-fast) var(--ease-out-quart),
+                background var(--t-fast) var(--ease-out-quart);
+  }
+  .welfare-toc a:hover {
+    color: var(--brand-red);
+    border-color: var(--brand-red);
+    background: var(--brand-red-soft);
+  }
+</style>

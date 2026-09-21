@@ -1,0 +1,157 @@
+---
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('pillars');
+const pillars = all.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="pillars">
+  <div class="container">
+    <header class="pillars__head">
+      <p class="eyebrow">Three pillars</p>
+      <h2 class="pillars__title">How the school is built.</h2>
+    </header>
+
+    <div class="pillars__grid">
+      {pillars.map((pillar) => (
+        <article class="pillar rise">
+          <div class="pillar__media">
+            {pillar.data.image ? (
+              <img src={pillar.data.image} alt={`${pillar.data.name} at FRAM`} loading="lazy" decoding="async" />
+            ) : (
+              <div class="pillar__media-inner" data-pillar-image={pillar.data.slug}>
+                <span class="pillar__media-fallback">{pillar.data.name}</span>
+              </div>
+            )}
+          </div>
+          <div class="pillar__body">
+            <h3 class="pillar__name">
+              <a href={`/curriculum/${pillar.data.slug}`}>{pillar.data.name}</a>
+            </h3>
+            <p class="pillar__summary">{pillar.data.summary}</p>
+            {pillar.data.leadName && (
+              <p class="pillar__lead">
+                <span class="muted">Led by</span>{' '}
+                <strong>{pillar.data.leadName}</strong>{pillar.data.leadRole && <span class="muted">, {pillar.data.leadRole}</span>}
+              </p>
+            )}
+            <a href={`/curriculum/${pillar.data.slug}`} class="pillar__link">
+              Read more →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pillars { padding-block: clamp(3rem, 5vw + 1.5rem, 6rem); }
+
+  .pillars__head { margin-bottom: 2.5rem; }
+  .pillars__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    max-width: 18ch;
+  }
+
+  .pillars__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .pillars__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    cursor: pointer;
+  }
+
+  .pillar__media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--brand-red-soft);
+    position: relative;
+  }
+  .pillar__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 600ms var(--ease-out-quart);
+  }
+  .pillar:hover .pillar__media img {
+    transform: scale(1.03);
+  }
+  .pillar__media-inner {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    display: grid;
+    place-items: center;
+    color: var(--brand-red);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+  }
+  .pillar__media-inner[data-pillar-image='academic'] {
+    background: linear-gradient(135deg, var(--brand-red-soft), var(--ochre-soft));
+  }
+  .pillar__media-inner[data-pillar-image='welfare-pastoral'] {
+    background: linear-gradient(135deg, var(--ochre-soft), var(--brand-red-soft));
+  }
+  .pillar__media-inner[data-pillar-image='skills-events'] {
+    background: linear-gradient(135deg, var(--paper-deep), var(--brand-red-soft));
+  }
+
+  .pillar__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+  .pillar__name a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .pillar:hover .pillar__name a,
+  .pillar__name a:hover {
+    color: var(--brand-red);
+  }
+
+  .pillar__summary {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .pillar__lead {
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  .pillar__link {
+    margin-top: auto;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--brand-red);
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .pillar__link:hover { color: var(--brand-red-deep); }
+</style>

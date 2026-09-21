@@ -1,0 +1,350 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import CtaBand from '~/components/CtaBand.astro';
+
+interface Term {
+  label: string;
+  rough: string;
+  weeks: string;
+  breaks: string[];
+}
+
+const terms: Term[] = [
+  {
+    label: 'Autumn term',
+    rough: 'Early September to mid-December',
+    weeks: 'About 14 teaching weeks',
+    breaks: ['Mid-term break, last week of October', 'Winter break, from mid-December'],
+  },
+  {
+    label: 'Spring term',
+    rough: 'Mid-January to early April',
+    weeks: 'About 11 teaching weeks',
+    breaks: ['Spring half-term, mid-February', 'Spring break, the week before Orthodox Easter'],
+  },
+  {
+    label: 'Summer term',
+    rough: 'Mid-April to late June',
+    weeks: 'About 9 teaching weeks',
+    breaks: ['School year closes in late June', 'Summer School runs through July'],
+  },
+];
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://framschool.com/' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://framschool.com/about' },
+    { '@type': 'ListItem', position: 3, name: 'Calendar', item: 'https://framschool.com/about/calendar' },
+  ],
+};
+---
+
+<Layout
+  title="Academic calendar · FRAM"
+  description="FRAM's academic year structure: three terms, mid-term breaks, school holidays, and Summer School through July. Detailed dates emailed each August."
+  current="/about/calendar"
+  schema={breadcrumb}
+>
+  <PageIntro
+    eyebrow="Academic calendar"
+    title="The school year, in three terms."
+    lead="The FRAM academic year follows a three-term structure aligned with the Romanian state calendar and the Cambridge International calendar. Detailed dates for the current year are emailed to families each August and are available from the school office between issues."
+  />
+
+  <section class="cal-visual section--paper-deep">
+    <div class="container cal-visual__inner">
+      <div class="cal-visual__copy">
+        <p class="eyebrow">2025–2026 school year</p>
+        <h2 class="cal-visual__title">The full calendar, at a glance.</h2>
+        <p class="cal-visual__body">
+          Ten months, colour-coded modules, every break week marked. Click the image to view full-size, or save it to your phone for offline reference.
+        </p>
+        <ul class="cal-visual__key" aria-label="Calendar key">
+          <li><span class="dot dot--m1"></span> Module 1 · 8 Sep–17 Oct</li>
+          <li><span class="dot dot--m2"></span> Module 2 · 3 Nov–19 Dec</li>
+          <li><span class="dot dot--m3"></span> Module 3 · 8 Jan–20 Feb</li>
+          <li><span class="dot dot--m4"></span> Module 4 · 2 Mar–27 Mar</li>
+          <li><span class="dot dot--m5"></span> Module 5 · 15 May–19 Jun</li>
+          <li><span class="dot dot--break"></span> Different / Green / Ski weeks &amp; holidays</li>
+        </ul>
+        <a href="/images/about/calendar-2025-26.jpg" class="cal-visual__dl" download>
+          Save the calendar (JPEG, full size) ↓
+        </a>
+      </div>
+      <a href="/images/about/calendar-2025-26.jpg" class="cal-visual__sheet" aria-label="Open the 2025-2026 calendar full-size" target="_blank" rel="noopener">
+        <img
+          src="/images/about/calendar-2025-26.jpg"
+          alt="FRAM School calendar for the 2025-2026 academic year, ten monthly grids from September to June with colour-coded modules and break weeks"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          width="1810"
+          height="2560"
+        />
+      </a>
+    </div>
+  </section>
+
+  <section class="cal section">
+    <div class="container">
+      <ol class="cal__terms">
+        {terms.map((t, i) => (
+          <li class="term rise">
+            <header class="term__head">
+              <p class="term__index">Term {String(i + 1).padStart(2, '0')}</p>
+              <h2 class="term__name">{t.label}</h2>
+              <p class="term__rough">{t.rough}</p>
+            </header>
+            <div class="term__body">
+              <p class="term__weeks"><span class="term__weeks-num">{t.weeks}</span></p>
+              <ul class="term__breaks">
+                {t.breaks.map((b) => (
+                  <li class="term__break">{b}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section reading">
+    <div class="container reading">
+      <h2 class="cal__h">Within the term</h2>
+      <p>
+        The school week runs Monday to Friday. The Cambridge school day is 8:30 to 3:15. The House programme and Clubs run from 3:30 to 4:15 on Tuesdays and Fridays. Lunch is hot, included in the fee, and eaten together. For the hour-by-hour pattern, read <a href="/curriculum/day">A day at FRAM</a>.
+      </p>
+      <h2 class="cal__h">Romanian national days and observances</h2>
+      <p>
+        Days marked as Romanian national or religious holidays follow the Romanian Ministry of Education calendar. These include 1 December (Romania National Day), 24 January, 1 May, Orthodox Easter, and Pentecost.
+      </p>
+      <h2 class="cal__h">School events and observances</h2>
+      <p>
+        FRAM holds a school-wide programme of events through the year: the Autumn Harvest event, the Diversity Festival, World Book Day and 100 Days of School, Anti-Bullying Day, Green Week, the Imagine Art Festival, the Spring assembly for the School President, and the House Cup ceremony. Read more on <a href="/curriculum/clubs">Clubs &amp; Events</a>.
+      </p>
+      <h2 class="cal__h">Receiving the dated calendar</h2>
+      <p>
+        Each August the school office emails the dated academic calendar to every family, with all term-by-term dates, school events, parent-teacher meetings, and break weeks. To request the current calendar at any other time of year, write to <a href="mailto:office@framschool.com">office@framschool.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Ready for next year?"
+    title="Visits are easiest to arrange in Spring and early Summer term."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'See A day at FRAM', href: '/curriculum/day' }}
+  />
+</Layout>
+
+<style>
+  .cal { padding-block: clamp(2.5rem, 5vw + 1rem, 5rem); }
+
+  .cal__terms {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 880px) {
+    .cal__terms {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+  }
+
+  .term {
+    position: relative;
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    padding: 1.75rem 1.875rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .term__head { padding-bottom: 1.125rem; border-bottom: 1px solid var(--rule); }
+  .term__index {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-red);
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 0.5rem;
+  }
+  .term__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+    letter-spacing: -0.005em;
+    line-height: 1.15;
+    margin: 0 0 0.5rem;
+  }
+  .term__rough {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .term__body { flex: 1; }
+  .term__weeks {
+    font-size: 0.9375rem;
+    color: var(--ink);
+    margin: 0 0 1rem;
+  }
+  .term__weeks-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--brand-red);
+  }
+
+  .term__breaks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .term__break {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ink);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .term__break:last-child { border-bottom: 0; }
+
+  .cal__h {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+    letter-spacing: -0.005em;
+    margin: 2.25rem 0 0.75rem;
+  }
+  .cal__h:first-child { margin-top: 0; }
+
+  /* ──────── Calendar visual (the official sheet) ──────── */
+  .cal-visual {
+    padding-block: clamp(2.5rem, 5vw + 1rem, 5rem);
+  }
+  .cal-visual__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (min-width: 880px) {
+    .cal-visual__inner {
+      grid-template-columns: 1fr 1.05fr;
+      gap: clamp(2.5rem, 4vw, 4rem);
+    }
+  }
+
+  .cal-visual__copy {
+    max-width: 36rem;
+  }
+  @media (min-width: 880px) {
+    .cal-visual__copy {
+      position: sticky;
+      top: 5.5rem;
+    }
+  }
+
+  .cal-visual__copy .eyebrow {
+    color: var(--brand-red);
+    margin-bottom: 0.5rem;
+  }
+  .cal-visual__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+  .cal-visual__body {
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+    max-width: 50ch;
+  }
+
+  .cal-visual__key {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  @media (min-width: 540px) {
+    .cal-visual__key { grid-template-columns: 1fr 1fr; }
+  }
+  .cal-visual__key li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.875rem;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    border: 1px solid oklch(0.22 0.012 50 / 0.15);
+  }
+  .dot--m1 { background: oklch(0.92 0.10 145); }
+  .dot--m2 { background: oklch(0.90 0.05 250); }
+  .dot--m3 { background: oklch(0.92 0.08 25); }
+  .dot--m4 { background: oklch(0.88 0.08 290); }
+  .dot--m5 { background: oklch(0.92 0.10 80); }
+  .dot--break { background: oklch(0.70 0.08 220); }
+
+  .cal-visual__dl {
+    display: inline-block;
+    color: var(--brand-red);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklch, var(--brand-red) 50%, transparent);
+    padding-bottom: 0.125rem;
+    transition: color var(--t-fast) var(--ease-out-quart), border-color var(--t-fast) var(--ease-out-quart);
+  }
+  .cal-visual__dl:hover {
+    color: var(--brand-red-deep);
+    border-bottom-color: var(--brand-red-deep);
+  }
+
+  .cal-visual__sheet {
+    display: block;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    transition: transform var(--t-base) var(--ease-out-quart), box-shadow var(--t-base) var(--ease-out-quart);
+    will-change: transform;
+  }
+  .cal-visual__sheet:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px oklch(0.22 0.012 50 / 0.10);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cal-visual__sheet:hover { transform: none; }
+  }
+  .cal-visual__sheet img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

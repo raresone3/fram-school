@@ -1,0 +1,55 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import PillarsTeaser from '~/components/PillarsTeaser.astro';
+import DayInTheLife from '~/components/DayInTheLife.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+---
+
+<Layout title="Curriculum · FRAM" description="The FRAM curriculum: Cambridge Primary, Romanian national content, and three pillars, Academic, Welfare & Pastoral, Skills, Events & Houses." current="/curriculum">
+  <PageIntro
+    eyebrow="Curriculum"
+    title="Two stages, two lines, one place."
+    lead="FRAM is a Cambridge International School and a Romanian-recognised school. Children move seamlessly from pre-school into primary, learning under both curricula, with subject specialists across both languages."
+  />
+
+  <section class="section reading">
+    <Prose>
+      <p class="lead">
+        We currently run two parallel study lines:
+      </p>
+      <ul>
+        <li><strong>The English Line</strong>, Reception to Y5, instructional programme follows the Cambridge Primary Curriculum; students take Cambridge International Examinations.</li>
+        <li><strong>The Romanian Line</strong>, Pre-Primary to Grade IV, first language of teaching is Romanian, following the national curricula for Kindergarten and Primary level.</li>
+      </ul>
+      <p>
+        Each programme is enriched with subjects from the other curriculum. Children on the English Line take Romanian content; children on the Romanian Line take Cambridge subjects in English. Read more about <a href="/curriculum/cambridge">Cambridge at FRAM</a>.
+      </p>
+
+      <h2>Six Key Developmental Areas</h2>
+      <p>
+        Across both lines, the curriculum is organised around six areas of development. They run through every subject, every age group, every term:
+      </p>
+      <ol>
+        <li><strong>Social &amp; Emotional Development</strong>, building strong relationships, managing emotions, becoming confident and kind.</li>
+        <li><strong>Language &amp; Literacy</strong>, speaking, listening, reading and writing in a rich bilingual environment.</li>
+        <li><strong>Mathematics &amp; Problem-Solving</strong>, number sense, logical thinking and reasoning through hands-on activities.</li>
+        <li><strong>Creativity &amp; Imagination</strong>, expressing ideas and exploring possibilities through art and projects.</li>
+        <li><strong>Science &amp; Discovery</strong>, inquiry, observation and understanding the world around us.</li>
+        <li><strong>Fine &amp; Gross Motor Skills</strong>, coordination, independence and physical confidence in a variety of contexts.</li>
+      </ol>
+
+      <h2>Three pillars</h2>
+      <p>
+        The curriculum sits inside our three-pillar structure: Academic, Welfare &amp; Pastoral Care, and Skills &amp; Events. They share the day, share the week, and share the children. None is a programme bolted on to the others.
+      </p>
+    </Prose>
+  </section>
+
+  <PillarsTeaser />
+
+  <hr class="hairline" />
+
+  <DayInTheLife variant="teaser" />
+</Layout>

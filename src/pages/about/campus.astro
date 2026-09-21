@@ -1,0 +1,171 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import { SITE } from '~/lib/site';
+---
+
+<Layout title="Habermann Campus · FRAM" description="The Habermann Learning Campus at Berăriei 4, Sibiu, where FRAM is taught." current="/about/campus">
+  <PageIntro
+    eyebrow="Habermann Campus"
+    title="Berăriei 4, Sibiu."
+    lead="Where children learn matters as much as what they learn. Our campus is in central Sibiu, on a quiet street five minutes from the old town."
+  />
+
+  <figure class="campus-hero container">
+    <img src="/images/campus/main.jpg" alt="Habermann Learning Campus, Berăriei 4, Sibiu" loading="eager" decoding="async" fetchpriority="high" />
+  </figure>
+
+  <section class="campus-gallery container">
+    <figure class="campus-gallery__item rise">
+      <img src="/images/campus/classroom.jpg" alt="A FRAM classroom in use" loading="lazy" decoding="async" />
+      <figcaption>A primary classroom during a morning lesson.</figcaption>
+    </figure>
+    <figure class="campus-gallery__item rise">
+      <img src="/images/campus/classroom-2.jpg" alt="Inside the school building" loading="lazy" decoding="async" />
+      <figcaption>The reading corner that opens onto the library.</figcaption>
+    </figure>
+    <figure class="campus-gallery__item rise">
+      <img src="/images/campus/gallery-1.jpg" alt="Children at FRAM" loading="lazy" decoding="async" />
+      <figcaption>Mixed-age moments are part of how the days run.</figcaption>
+    </figure>
+    <figure class="campus-gallery__item rise">
+      <img src="/images/campus/gallery-2.jpg" alt="Outdoor activity at FRAM" loading="lazy" decoding="async" />
+      <figcaption>Outside in the playground at morning break.</figcaption>
+    </figure>
+    <figure class="campus-gallery__item rise">
+      <img src="/images/campus/gallery-3.jpg" alt="Around the FRAM campus" loading="lazy" decoding="async" />
+      <figcaption>Around the building during a school day.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section reading">
+    <Prose>
+      <p class="lead">
+        The Habermann Learning Campus is around 1,000 square metres of classroom, library, sports hall, cafeteria and outdoor playground. The building takes its name from the Habermanns, a Saxon-Transylvanian family who shaped Sibiu's intellectual life across several centuries, a small piece of context the children come to know.
+      </p>
+
+      <h2>What's here</h2>
+      <ul>
+        <li>Eight classrooms, sized for groups that stay small</li>
+        <li>A library used daily by every year group</li>
+        <li>A full-size sports hall for PE and after-school clubs</li>
+        <li>Cafeteria where the whole school eats together at lunch</li>
+        <li>Outdoor playground with shaded seating for warmer terms</li>
+        <li>Quiet rooms for one-to-one pastoral or learning support</li>
+      </ul>
+
+      <h2>Getting here</h2>
+      <p>
+        {SITE.address.line1}<br />
+        {SITE.address.line2}, {SITE.address.city}, {SITE.address.country}<br />
+        Phone: <a href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`}>{SITE.contact.phoneDisplay}</a><br />
+        Email: <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>
+      </p>
+    </Prose>
+  </section>
+
+  <section class="campus-map container">
+    <div class="campus-map__frame" aria-label="Map of Berăriei 4, Sibiu">
+      <a class="campus-map__link" href={`https://www.openstreetmap.org/?mlat=45.795&mlon=24.151#map=16/45.795/24.151`} target="_blank" rel="noopener">
+        <span class="campus-map__pin" aria-hidden="true"></span>
+        <span class="campus-map__label">Berăriei 4, Sibiu</span>
+        <span class="campus-map__open">Open in maps →</span>
+      </a>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Visit"
+    title="The campus is the most honest part of FRAM. Come and see it."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+  />
+</Layout>
+
+<style>
+  .campus-hero {
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 2vw + 0.5rem, 2rem) 0;
+  }
+  .campus-hero img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    margin-block: 1.5rem 0;
+  }
+
+  .campus-gallery {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    padding-block: 2rem;
+  }
+  @media (min-width: 720px) {
+    .campus-gallery {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+  .campus-gallery__item {
+    margin: 0;
+  }
+  .campus-gallery__item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+  .campus-gallery__item figcaption {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .campus-map { padding-block: 2rem 4rem; }
+  .campus-map__frame {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--paper-deep), var(--ochre-soft));
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .campus-map__link {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--ink);
+    background: radial-gradient(circle at 35% 45%, oklch(0.93 0.04 25 / 0.6), transparent 60%);
+  }
+  .campus-map__pin {
+    width: 1rem;
+    height: 1rem;
+    background: var(--brand-red);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    margin: 0 auto 0.5rem;
+    box-shadow: 0 4px 12px oklch(0.36 0.14 22 / 0.3);
+  }
+  .campus-map__label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--brand-red-deep);
+  }
+  .campus-map__open {
+    font-size: 0.875rem;
+    color: var(--brand-red);
+  }
+</style>

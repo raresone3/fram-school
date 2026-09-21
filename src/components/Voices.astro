@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import Stamp from './Stamp.astro';
+
+const all = await getCollection('testimonials');
+const voices = all.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="voices section--paper-deep">
+  <div class="container">
+    <header class="voices__head">
+      <Stamp size={28} class="voices__head-mark" />
+      <p class="eyebrow">Voices</p>
+      <h2 class="voices__title">From our parents.</h2>
+    </header>
+
+    <div class="voices__grid">
+      {voices.map((v, i) => (
+        <figure class={`voice rise voice--${i === 0 ? 'lead' : 'side'}`} style={`--i: ${i}`}>
+          <span class="voice__mark" aria-hidden="true">"</span>
+          <blockquote class="pullquote">{v.data.quote}</blockquote>
+          <figcaption class="cite">{v.data.name}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .voices { padding-block: clamp(3rem, 5vw + 1.5rem, 6rem); }
+  .voices__head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
+  }
+  .voices__head :global(.voices__head-mark) {
+    color: var(--brand-red);
+    margin-bottom: 0.5rem;
+  }
+  .voices__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.75rem);
+    letter-spacing: -0.005em;
+  }
+
+  .voices__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 880px) {
+    .voices__grid {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+  }
+
+  .voice {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    transition-delay: calc(var(--i) * 80ms);
+  }
+  .voice__mark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 4rem;
+    line-height: 0.6;
+    color: var(--brand-red);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .voice .pullquote {
+    margin: 0 0 1.25rem 0;
+  }
+  .voice .cite { display: block; }
+
+  /* Lead voice (first one) gets a larger pull-quote on desktop */
+  @media (min-width: 880px) {
+    .voice--lead .voice__mark {
+      font-size: 6rem;
+    }
+    .voice--lead .pullquote {
+      font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.25rem);
+      line-height: 1.25;
+    }
+  }
+</style>

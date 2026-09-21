@@ -1,0 +1,78 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import StatsRow from '~/components/StatsRow.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+---
+
+<Layout title="About FRAM" description="FRAM School: history, philosophy, leadership, teachers, values, and the Habermann Campus in Sibiu." current="/about">
+  <PageIntro
+    eyebrow="About FRAM"
+    title="A school built around how children actually learn."
+    lead="FRAM is a Romanian primary and kindergarten in Sibiu, teaching alongside the Cambridge international curriculum. We started in 2014 with a kindergarten; primary opened in 2022. Everything we do sits on three pillars, Academic, Welfare & Pastoral, and Skills, Events & Houses."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/campus/whole-school.jpg"
+      alt="FRAM children, teachers and families gathered in the Habermann Campus yard with painted rocks spelling STOP between them"
+      caption="The whole school, gathered for a Kindness Alley assembly at Habermann Campus."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="section reading">
+    <Prose>
+      <h2>What we're for</h2>
+      <p class="lead">
+        FRAM exists to give children the foundation of a serious academic education and the kind of childhood adults look back on with affection: secure, curious, friendly, and quietly demanding.
+      </p>
+
+      <Figure
+        src="/images/scenes/assembly-wave.jpg"
+        alt="FRAM children at an outdoor school gathering, mixed years"
+        caption="A whole-school gathering. Mixed years, every class."
+        variant="inset"
+      />
+
+      <p>
+        We take character and wellbeing as seriously as we take maths. The seven values we name, kindness, curiosity, awareness, leadership, fairness, resilience, respect, are not posters on a wall. They show up in how a teacher answers a question, how a child handles a setback, how a class settles back to work after lunch.
+      </p>
+
+      <h2>How we work</h2>
+      <p>
+        Classes are small and stay small. Teachers know every child by name and family. We teach in English using the Cambridge Primary Curriculum across English, Mathematics, Science and the wider subjects, and we teach the Romanian language and content alongside it, not as a translation but as its own thing.
+      </p>
+      <p>
+        After 3:15 the day continues with our House programme and Clubs until 4:15. Both are included in fees. Families never pay extra for what makes a school feel like a school.
+      </p>
+
+      <h2>Where we are</h2>
+      <p>
+        Our campus is the Habermann Learning Campus at Berăriei 4, in central Sibiu, a Saxon-Transylvanian city that has been a place of European exchange for nine hundred years. Some of that shows up in our work: in the languages we teach, in the families we serve, in the way we think about belonging.
+      </p>
+      <p>
+        <a href="/about/campus">More about the campus →</a>
+      </p>
+    </Prose>
+  </section>
+
+  <hr class="hairline" />
+
+  <StatsRow stats={[
+    { value: '2014', label: 'Kindergarten opened' },
+    { value: '2022', label: 'Primary school opened' },
+    { value: '20', label: 'Teachers and assistants' },
+    { value: '6', label: 'Senior leaders' },
+  ]} />
+
+  <CtaBand
+    eyebrow="See it in person"
+    title="The honest answer to what we're like is the school itself."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'Meet our leadership', href: '/about/leadership' }}
+  />
+</Layout>

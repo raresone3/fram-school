@@ -1,0 +1,169 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '~/lib/site';
+import Figure from '~/components/Figure.astro';
+
+const all = await getCollection('vacancies');
+const vacancies = all.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<Layout title="Work at FRAM" description="Teaching and support roles at FRAM School in Sibiu. A primary school worth working in." current="/vacancies">
+  <PageIntro
+    eyebrow="Vacancies"
+    title="A primary school worth teaching at."
+    lead="FRAM hires teachers who want to be in a small school, who want to know every child they teach, and who care about the work itself more than about a CV line. Below are the roles we are currently hiring for."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/campus/whole-school.jpg"
+      alt="FRAM children, teachers and staff gathered in the campus yard"
+      caption="The whole community, on a school morning."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="container vacancies">
+    {vacancies.length === 0 ? (
+      <div class="vacancies__empty">
+        <p class="lead">
+          We have no open positions advertised at the moment. We do, however, accept speculative applications from teachers who would like to be considered for future roles in either kindergarten, primary, or as subject specialists.
+        </p>
+        <p>
+          Write to <a href={`mailto:${SITE.contact.vacanciesEmail}`}>{SITE.contact.vacanciesEmail}</a> with your CV, a covering letter, and the year groups or subjects you would like to teach. We reply to every application personally.
+        </p>
+      </div>
+    ) : (
+      <>
+        <aside class="vacancies__notice rise">
+          <span class="vacancies__notice-rule" aria-hidden="true"></span>
+          <p class="eyebrow vacancies__notice-eyebrow">2026–2027 academic year</p>
+          <h2 class="vacancies__notice-title"><em>Three teaching positions,</em> August 2026 start.</h2>
+          <p class="vacancies__notice-body">
+            <strong>Candidates currently residing in Romania are strongly encouraged to apply</strong> and will be given priority consideration during the selection process.
+          </p>
+        </aside>
+
+        <ul class="vacancies__list">
+          {vacancies.map((v) => (
+            <li class="vacancy rise">
+              <h2 class="vacancy__title">{v.data.title}</h2>
+              <p class="muted vacancy__meta">{v.data.contract}{v.data.closes ? ` · Closes ${v.data.closes}` : ''}</p>
+              <p class="vacancy__summary">{v.data.summary}</p>
+              <a href={`mailto:${v.data.applyEmail}`} class="vacancy__apply">Apply by email →</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+  </section>
+
+  <section class="section reading">
+    <Prose>
+      <h2>Why FRAM</h2>
+      <p>
+        FRAM is a small, founder-led primary in Sibiu, Romania, a Saxon-Transylvanian city of around 150,000 in the foothills of the Carpathians, three hours by road from Bucharest. The school teaches the Cambridge Primary Curriculum alongside the Romanian national line, in two languages, with class sizes that stay small.
+      </p>
+      <p>
+        Teachers at FRAM are part of every conversation about how the school runs. We pay attention to professional development, run a serious safeguarding programme, and protect teachers' time with families and lesson planning rather than with administration.
+      </p>
+      <h2>What we look for</h2>
+      <ul>
+        <li>Native-level proficiency in English</li>
+        <li>A bachelor's degree or higher in a relevant field</li>
+        <li>Valid teaching certification</li>
+        <li>Strong classroom management and clear communication</li>
+        <li>A commitment to student-centred learning and to working closely with colleagues and families</li>
+      </ul>
+      <p>
+        We also value experience teaching in international schools, and the willingness to contribute beyond the classroom, to clubs, events, and the wider life of the school.
+      </p>
+      <h2>How to apply</h2>
+      <p>
+        Send a CV/resume and a covering letter outlining your teaching philosophy and relevant experience to <a href={`mailto:${SITE.contact.vacanciesEmail}`}>{SITE.contact.vacanciesEmail}</a>. We respond personally to every application.
+      </p>
+    </Prose>
+  </section>
+</Layout>
+
+<style>
+  .vacancies { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+  .vacancies__empty {
+    max-width: var(--container-reading);
+    padding: 2.5rem 2rem;
+    background: var(--paper-deep);
+    border-radius: 4px;
+  }
+  .vacancies__empty p { margin-bottom: 1rem; }
+  .vacancies__empty p:last-child { margin-bottom: 0; }
+  .vacancies__empty a { color: var(--brand-red); }
+
+  .vacancies__notice {
+    position: relative;
+    padding: 1.75rem 2rem 1.875rem;
+    margin-bottom: 2.5rem;
+    max-width: var(--container-reading);
+    background: var(--paper-deep);
+    border-radius: var(--r-card);
+    overflow: hidden;
+  }
+  .vacancies__notice-rule {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--brand-red);
+  }
+  .vacancies__notice-eyebrow {
+    margin-bottom: 0.5rem;
+    color: var(--brand-red);
+  }
+  .vacancies__notice-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.05rem + 1.6vw, 2rem);
+    line-height: 1.2;
+    margin: 0 0 0.875rem;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .vacancies__notice-title em {
+    font-style: italic;
+    color: var(--brand-red);
+  }
+  .vacancies__notice-body {
+    margin: 0;
+    color: var(--ink);
+    max-width: 56ch;
+  }
+  .vacancies__notice-body strong {
+    font-weight: 600;
+  }
+
+  .vacancies__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  .vacancy { padding-block: 2rem; border-bottom: 1px solid var(--rule); }
+  .vacancy__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1rem + 1.4vw, 1.75rem);
+    margin-bottom: 0.25rem;
+  }
+  .vacancy__meta {
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+  .vacancy__summary {
+    max-width: 60ch;
+    margin-bottom: 1rem;
+  }
+  .vacancy__apply {
+    color: var(--brand-red);
+    font-weight: 500;
+    text-decoration: none;
+  }
+</style>

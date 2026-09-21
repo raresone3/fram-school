@@ -1,0 +1,107 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import { SITE } from '~/lib/site';
+---
+
+<Layout title="Safeguarding · FRAM" description="FRAM's Designated Safeguarding Lead and how to raise a concern about a child's safety or wellbeing." current="/safeguarding">
+  <PageIntro
+    eyebrow="Safeguarding"
+    title="If you have a concern about a child."
+    lead="Safeguarding is FRAM's highest responsibility. If you are worried about the safety or wellbeing of a child at FRAM, please contact our Designated Safeguarding Lead directly. You will hear back personally."
+  />
+
+  <section class="container dsl-card">
+    <article class="dsl">
+      <figure class="dsl__portrait">
+        <img src="/images/leaders/marieluise-knobloch.jpg" alt="Portrait of Marieluise Knobloch, Designated Safeguarding Lead" loading="eager" decoding="async" />
+      </figure>
+      <div class="dsl__body">
+        <p class="eyebrow">Designated Safeguarding Lead</p>
+        <h2 class="dsl__name">Marieluise Knobloch</h2>
+        <p class="dsl__role">Head of Welfare & Pastoral Care</p>
+        <a href={`mailto:${SITE.contact.safeguardingEmail}`} class="dsl__email">{SITE.contact.safeguardingEmail}</a>
+        <p class="dsl__note">Replies are personal and confidential. Where a concern relates to immediate danger, contact emergency services (112) first and FRAM after.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="section reading">
+    <Prose>
+      <h2>Our safeguarding statement</h2>
+      <p>
+        FRAM creates a safe, secure and nurturing environment where every child is protected from harm, neglect, abuse, discrimination and unsafe situations. We work to national Romanian child protection laws and international frameworks including the UN Convention on the Rights of the Child. Every disclosure or worry is treated seriously, recorded accurately, and handled by trained safeguarding staff.
+      </p>
+      <h2>Read the policies</h2>
+      <ul>
+        <li><a href="/policies/safeguarding.pdf">FRAM Safeguarding Policy (PDF)</a></li>
+        <li><a href="/policies/child-protection.pdf">FRAM Child Protection Policy (PDF)</a></li>
+        <li><a href="/policies">All FRAM policies →</a></li>
+      </ul>
+    </Prose>
+  </section>
+</Layout>
+
+<style>
+  .dsl-card { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+  .dsl {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    grid-template-columns: 1fr;
+    background: var(--brand-red-soft);
+    border-radius: 4px;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--brand-red-deep);
+    align-items: center;
+  }
+  @media (min-width: 720px) {
+    .dsl { grid-template-columns: 12rem 1fr; }
+  }
+
+  .dsl__portrait {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 4px;
+    max-width: 16rem;
+    background: var(--paper-deep);
+  }
+  .dsl__portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .dsl__body .eyebrow { color: var(--brand-red); margin-bottom: 0.375rem; }
+  .dsl__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+    color: var(--brand-red-deep);
+  }
+  .dsl__role {
+    color: oklch(0.40 0.10 25);
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .dsl__email {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.25rem, 1rem + 0.6vw, 1.5rem);
+    color: var(--brand-red);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    margin-bottom: 1.5rem;
+  }
+  .dsl__note {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    max-width: 50ch;
+    color: oklch(0.40 0.10 25);
+  }
+</style>

@@ -1,0 +1,15 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import TeacherGrid from '~/components/TeacherGrid.astro';
+---
+
+<Layout title="Teachers at FRAM" description="The twenty teachers and assistants at FRAM School, including class teachers, subject specialists, and pastoral staff." current="/about/teachers">
+  <PageIntro
+    eyebrow="Our teachers"
+    title="Twenty teachers, every child known by name."
+    lead="A school is the people who teach in it. FRAM's teaching team are class teachers, subject specialists and assistants, working across kindergarten and primary years."
+  />
+
+  <TeacherGrid />
+</Layout>

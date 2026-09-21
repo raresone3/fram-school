@@ -1,0 +1,86 @@
+/* FRAM School — design tokens.
+   See DESIGN.md for the rationale behind every value. */
+
+:root {
+  /* ──── Color ──────────────────────────────────────────────── */
+  /* Brand red — aligned to the FRAM logo / current-site red. */
+  --brand-red-deep: oklch(0.36 0.14 22);
+  --brand-red:      oklch(0.52 0.20 25);
+  --brand-red-warm: oklch(0.62 0.20 28);
+  --brand-red-soft: oklch(0.93 0.04 25);
+
+  /* Ochre — sparing accent, max 8% of any page. */
+  --ochre:      oklch(0.74 0.13 75);
+  --ochre-soft: oklch(0.95 0.04 80);
+
+  /* Ink — body text. Tinted toward warm, never #000. */
+  --ink:       oklch(0.22 0.012 50);
+  --ink-muted: oklch(0.46 0.010 50);
+  --rule:      oklch(0.86 0.008 50);
+
+  /* Paper — page surface. Warm cream-white, never #fff. */
+  --paper:      oklch(0.985 0.005 80);
+  --paper-deep: oklch(0.95 0.012 80);
+  --paper-pure: oklch(0.99 0.003 80);
+
+  /* ──── Type ───────────────────────────────────────────────── */
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  --font-body:    'Mona Sans Variable', 'Mona Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid type scale, mobile-first. clamp(min, ideal, max). */
+  --t-display:  clamp(2.875rem, 1.6rem + 6.4vw, 5.5rem);   /* 46 → 88 */
+  --t-h1:       clamp(2rem, 1.4rem + 3vw, 3rem);           /* 32 → 48 */
+  --t-h2:       clamp(1.5rem, 1.2rem + 1.5vw, 2rem);       /* 24 → 32 */
+  --t-h3:       clamp(1.125rem, 1rem + 0.6vw, 1.375rem);   /* 18 → 22 */
+  --t-body-lg:  1.1875rem;  /* 19 */
+  --t-body:     1.0625rem;  /* 17 */
+  --t-body-sm:  0.9375rem;  /* 15 */
+  --t-micro:    0.8125rem;  /* 13 */
+
+  --lh-display: 1.04;
+  --lh-heading: 1.16;
+  --lh-body:    1.62;
+
+  /* ──── Layout ─────────────────────────────────────────────── */
+  --container-wide:    1200px;
+  --container-reading: 720px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 9rem;
+
+  /* ──── Radius / shadow ───────────────────────────────────── */
+  --r-input: 2px;
+  --r-card:  4px;
+  --shadow-soft:
+    0 1px 2px oklch(0.22 0.012 50 / 0.06),
+    0 8px 24px oklch(0.22 0.012 50 / 0.04);
+  --shadow-lift:
+    0 2px 4px oklch(0.22 0.012 50 / 0.08),
+    0 16px 40px oklch(0.22 0.012 50 / 0.08);
+
+  /* ──── Motion ─────────────────────────────────────────────── */
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast:   180ms;
+  --t-base:   220ms;
+  --t-slow:   320ms;
+  --t-hero:   600ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

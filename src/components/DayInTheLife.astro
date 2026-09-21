@@ -1,0 +1,182 @@
+---
+interface Stop {
+  time: string;
+  title: string;
+  desc: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+interface Props {
+  variant?: 'full' | 'teaser';
+  stops?: Stop[];
+}
+
+const { variant = 'full', stops } = Astro.props;
+
+const defaultStops: Stop[] = [
+  { time: '8:30', title: 'Arrival', desc: 'Children are welcomed at the gate by their class teacher. The day starts with a calm settle and a circle.', image: '/images/events/assembly-attendance.jpg', imageAlt: 'FRAM children at a morning gathering in the courtyard' },
+  { time: '9:00', title: 'First lessons', desc: 'Cambridge Primary curriculum, English, Mathematics, Science, taught in English, in mixed-ability classes that stay small.', image: '/images/events/reading-day-1.jpg', imageAlt: 'A FRAM lesson at the interactive whiteboard' },
+  { time: '11:00', title: 'Morning break', desc: 'Outside in the playground, snack from home or fruit provided by school.', image: '/images/houses-photos/joy.jpg', imageAlt: 'FRAM children outside at a school activity' },
+  { time: '11:30', title: 'Romanian, French, the arts', desc: 'Children move between subject specialists for Romanian language, French, drama, music and art.', image: '/images/events/reading-day-2.jpg', imageAlt: 'A FRAM lesson on the classroom screen' },
+  { time: '12:30', title: 'Lunch', desc: 'Hot lunch is included in the fee, eaten together in the cafeteria with teachers seated at every table.', image: '/images/campus/classroom-2.jpg', imageAlt: 'A FRAM classroom interior' },
+  { time: '13:15', title: 'Afternoon learning', desc: 'Project work, science investigations, P4C (Philosophy for Children), library, and PE rotate through the afternoon.', image: '/images/events/reading-day-3.jpg', imageAlt: 'A FRAM afternoon lesson at the interactive screen' },
+  { time: '15:15', title: 'School day ends', desc: 'Mandatory school day finishes. Pick-up window opens for families heading home.', image: '/images/houses-photos/sitting-attentive.jpg', imageAlt: 'A FRAM lesson in the late afternoon' },
+  { time: '15:30 – 16:15', title: 'Houses & Clubs', desc: 'Children stay on for extracurricular Clubs and the school House programme. Both are included in fees.', image: '/images/houses-photos/dog.jpg', imageAlt: 'A whole-school gathering at Habermann Campus' },
+];
+
+const items = stops ?? defaultStops;
+const display = variant === 'teaser' ? items.filter((_, i) => [1, 4, 7].includes(i)) : items;
+---
+
+<section class={`day day--${variant}`}>
+  <div class="container">
+    {variant === 'full' ? (
+      <header class="day__head">
+        <p class="eyebrow">A day at FRAM</p>
+        <h2 class="day__title">From 8:30 to 4:15.</h2>
+      </header>
+    ) : (
+      <header class="day__head day__head--teaser">
+        <p class="eyebrow">A day at FRAM</p>
+        <h2 class="day__title">From 8:30 to 4:15.</h2>
+        <a href="/curriculum/day" class="day__cta">
+          See the full day, hour by hour →
+        </a>
+      </header>
+    )}
+
+    <ol class="day__list">
+      {display.map((stop) => (
+        <li class="day__stop rise">
+          <div class="day__time">{stop.time}</div>
+          <div class="day__divider" aria-hidden="true"></div>
+          <div class="day__body">
+            <h3 class="day__name">{stop.title}</h3>
+            <p class="day__desc">{stop.desc}</p>
+          </div>
+          {stop.image && variant === 'full' && (
+            <figure class="day__media">
+              <img src={stop.image} alt={stop.imageAlt ?? stop.title} loading="lazy" decoding="async" />
+            </figure>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .day { padding-block: clamp(3rem, 5vw + 1.5rem, 6rem); }
+
+  .day__head { margin-bottom: 3rem; }
+  .day__head--teaser {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .day__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    flex: 1 1 auto;
+  }
+
+  .day__cta {
+    color: var(--brand-red);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .day__cta:hover { color: var(--brand-red-deep); }
+
+  .day__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .day__stop {
+    display: grid;
+    grid-template-columns: 4.5rem 2px 1fr;
+    gap: 1.25rem;
+    padding-block: 1.75rem;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  @media (min-width: 720px) {
+    .day--full .day__stop {
+      grid-template-columns: 7rem 2px 1.5fr 1fr;
+      gap: 2rem;
+      padding-block: 2.5rem;
+      align-items: center;
+    }
+    .day--teaser .day__stop {
+      grid-template-columns: 7rem 2px 1fr;
+      gap: 2rem;
+      padding-block: 2.25rem;
+    }
+  }
+
+  .day__media {
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--paper-deep);
+  }
+  .day__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 600ms var(--ease-out-quart);
+  }
+  .day__stop:hover .day__media img {
+    transform: scale(1.03);
+  }
+  /* On mobile the photo stacks below the body */
+  @media (max-width: 720px) {
+    .day__media {
+      grid-column: 3;
+      margin-top: 1rem;
+      max-width: 100%;
+    }
+  }
+
+  .day__time {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.125rem;
+    color: var(--brand-red);
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.125rem;
+  }
+
+  .day__divider {
+    width: 2px;
+    height: 1.5rem;
+    background: var(--rule);
+    margin-top: 0.625rem;
+  }
+
+  .day__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.125rem, 0.9rem + 0.6vw, 1.375rem);
+    line-height: 1.2;
+    margin-bottom: 0.375rem;
+  }
+
+  .day__desc {
+    color: var(--ink);
+    max-width: 60ch;
+  }
+</style>

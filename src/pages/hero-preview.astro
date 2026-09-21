@@ -1,0 +1,158 @@
+---
+import Layout from '~/components/Layout.astro';
+import HeroPrint from '~/components/HeroPrint.astro';
+---
+
+<Layout
+  title="Hero animation preview"
+  description="Sandbox for the FRAM Misregister Print hero."
+  current="/hero-preview"
+  noIndex={true}
+>
+  <HeroPrint
+    headline="What kind of school would you want for your child?"
+    subhead="FRAM is a Romanian primary and kindergarten taught alongside the Cambridge international curriculum, in Sibiu, for children aged 3 to 11."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'Meet the team', href: '/about/leadership' }}
+    meta="Founded 2014. Habermann Campus, Berăriei 4, Sibiu."
+    image={{
+      src: '/images/hero/home.jpg',
+      alt: 'FRAM children at the Habermann Campus during a school celebration',
+      caption: 'FRAM children, Habermann Campus, Sibiu.',
+    }}
+  />
+
+  <section class="preview-controls container">
+    <div class="preview-controls__inner">
+      <p class="eyebrow">Misregister Print hero, preview</p>
+      <h2 class="preview-controls__title">The printing press finds register.</h2>
+      <p class="preview-controls__copy">
+        On first paint, the headline and the photograph appear with cyan and ochre ghost layers offset from the ink. Over 700 ms the ghosts converge, the optical-size axis morphs, the press impacts, the registration crosshairs fade in. Plays once per session.
+      </p>
+      <div class="preview-controls__actions">
+        <button type="button" data-action="replay" class="btn btn--primary">Replay animation</button>
+        <button type="button" data-action="reset" class="btn btn--secondary">Clear session flag</button>
+        <a href="/" class="btn btn--secondary">Back to home (no animation)</a>
+      </div>
+
+      <details class="preview-notes">
+        <summary>What you should see, in order</summary>
+        <ol>
+          <li><strong>0 ms</strong>: page paints. Headline visibly misaligned (cyan ghost top-left, ochre ghost bottom-right), photo also misaligned. Paper grain barely visible.</li>
+          <li><strong>0–700 ms</strong>: cyan and ochre ghosts converge into perfect register. Photo ghosts converge alongside.</li>
+          <li><strong>600–1200 ms</strong>: Fraunces optical-size axis morphs (24→144), letterforms open up.</li>
+          <li><strong>700–920 ms</strong>: a tiny press-moment scale dip on the headline ink layer, simulating the printing impact.</li>
+          <li><strong>800–1300 ms</strong>: the ochre offset frame slides into place behind the photo.</li>
+          <li><strong>850–1450 ms</strong>: registration crosshairs fade in at the four corners of the photo (4 small targets).</li>
+          <li><strong>850–1170 ms</strong>: subhead fades up.</li>
+          <li><strong>950–1370 ms</strong>: primary CTA rises.</li>
+          <li><strong>1000–1350 ms</strong>: stamp tilts in next to the meta line.</li>
+          <li><strong>1000–1600 ms</strong>: crop marks fade in around the text block.</li>
+          <li><strong>1050–1370 ms</strong>: secondary CTA rises.</li>
+          <li><strong>1100–1420 ms</strong>: meta line settles in.</li>
+        </ol>
+        <p>Total: 1.6 s for the full sequence to settle. Headline is fully readable from frame 1 (just slightly misregistered).</p>
+        <p>If <code>prefers-reduced-motion: reduce</code> is set, all animations collapse to a single 200 ms fade.</p>
+      </details>
+
+      <details class="preview-notes">
+        <summary>Print-detail decoration on the page</summary>
+        <ul>
+          <li><strong>Paper grain</strong>: subtle SVG turbulence noise filter at 5% opacity. Adds the feel of being printed onto cream paper.</li>
+          <li><strong>Registration crosshairs</strong>: small ✚ marks at the four corners of the photo, in brand red. Real printers use these to align the press.</li>
+          <li><strong>Crop marks</strong>: small L-shaped lines at the corners of the text block (desktop only). The kind a printer adds to indicate where to cut.</li>
+          <li><strong>CMYK ghost colors</strong>: cyan oklch(0.55 0.15 220) at ~32%, ochre oklch(0.62 0.18 35) at ~22%, both with mix-blend-mode multiply. Sits under the brand-red ink.</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const REPLAY_KEY = 'fram:hero-print-played';
+
+  document.querySelector('[data-action="replay"]')?.addEventListener('click', () => {
+    try { sessionStorage.removeItem(REPLAY_KEY); } catch {}
+    document.documentElement.removeAttribute('data-hero-print-skip');
+    window.location.reload();
+  });
+
+  document.querySelector('[data-action="reset"]')?.addEventListener('click', () => {
+    try { sessionStorage.removeItem(REPLAY_KEY); } catch {}
+    document.documentElement.removeAttribute('data-hero-print-skip');
+    const btn = document.querySelector('[data-action="reset"]') as HTMLButtonElement | null;
+    if (btn) {
+      const original = btn.textContent;
+      btn.textContent = 'Cleared. Reload to replay.';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2000);
+    }
+  });
+</script>
+
+<style>
+  .preview-controls {
+    padding-block: 4rem 6rem;
+  }
+  .preview-controls__inner {
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 2rem 2.25rem;
+    max-width: var(--container-reading);
+  }
+  .preview-controls__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0.5rem 0 0.75rem;
+  }
+  .preview-controls__copy {
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    max-width: 60ch;
+  }
+  .preview-controls__copy code,
+  .preview-notes code {
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+    font-size: 0.875em;
+    background: var(--paper-pure);
+    padding: 0.125rem 0.375rem;
+    border-radius: 2px;
+    border: 1px solid var(--rule);
+    color: var(--brand-red-deep);
+  }
+  .preview-controls__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+  .preview-controls__actions :global(.btn) {
+    text-decoration: none;
+  }
+
+  .preview-notes {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9375rem;
+  }
+  .preview-notes summary {
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--brand-red);
+    user-select: none;
+  }
+  .preview-notes ol,
+  .preview-notes ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    line-height: 1.7;
+  }
+  .preview-notes p {
+    margin: 0.75rem 0;
+  }
+</style>

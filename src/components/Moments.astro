@@ -1,0 +1,118 @@
+---
+interface Moment {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  moments?: Moment[];
+}
+
+const {
+  eyebrow = 'Moments from this year',
+  title = 'A school in normal motion.',
+  moments = [
+    { src: '/images/scenes/assembly-wave.jpg', alt: 'FRAM children at an outdoor school event in the courtyard', caption: 'A school-wide gathering.' },
+    { src: '/images/scenes/bike-club-group.jpg', alt: 'FRAM children with bicycles at a school activity', caption: 'Bike Club, Tuesday afternoon.' },
+    { src: '/images/houses-photos/group-with-dog.jpg', alt: 'A whole-school gathering at Habermann Campus', caption: 'Habermann Campus, on event day.' },
+    { src: '/images/events/reading-day-1.jpg', alt: 'A FRAM lesson at the interactive whiteboard', caption: 'A morning lesson, on the screen.' },
+  ],
+} = Astro.props;
+---
+
+<section class="moments section--paper-deep">
+  <div class="container">
+    <header class="moments__head">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="moments__title">{title}</h2>
+      <p class="lead muted">Four glances at how the year actually runs: a morning assembly, a Tuesday Bike Club, a House gathering with the school dog, a World Book Day reading.</p>
+    </header>
+
+    <div class="moments__grid">
+      {moments.map((m, i) => (
+        <figure class={`moments__item rise moments__item--${i}`}>
+          <img src={m.src} alt={m.alt} loading="lazy" decoding="async" />
+          {m.caption && <figcaption>{m.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .moments { padding-block: clamp(3rem, 6vw + 1.5rem, 7rem); }
+
+  .moments__head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 60ch;
+  }
+  .moments__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.875rem, 1.4rem + 2.5vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .moments__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  @media (min-width: 720px) {
+    .moments__grid {
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.25rem;
+    }
+  }
+
+  .moments__item {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--paper);
+    transition: transform 600ms var(--ease-out-quart);
+    position: relative;
+  }
+  .moments__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 4 / 5;
+  }
+
+  /* The lead photo (group of children with FRAM signs) takes 2 columns + 2 rows on desktop */
+  @media (min-width: 720px) {
+    .moments__item--0 {
+      grid-row: span 2;
+    }
+    .moments__item--0 img { aspect-ratio: 4 / 5; }
+    .moments__item--1 img,
+    .moments__item--2 img,
+    .moments__item--3 img { aspect-ratio: 1 / 1; }
+  }
+
+  .moments__item:hover { transform: translateY(-2px); }
+
+  .moments__item figcaption {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 0.875rem 1rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--paper-pure);
+    background: linear-gradient(to top, oklch(0.22 0.012 50 / 0.65) 0%, transparent 100%);
+    line-height: 1.3;
+  }
+</style>

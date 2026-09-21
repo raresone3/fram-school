@@ -1,0 +1,301 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@import '@fontsource-variable/fraunces/index.css';
+@import '@fontsource-variable/mona-sans/index.css';
+
+/* ──── Base ────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  font-feature-settings: 'ss01', 'kern';
+  /* Subtle warm tone underneath everything. */
+  background: var(--paper);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; }
+
+::selection {
+  background: var(--brand-red-soft);
+  color: var(--brand-red-deep);
+}
+
+/* ──── Type ─────────────────────────────────────────────────── */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: -0.005em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--t-h1); }
+h2 { font-size: var(--t-h2); }
+h3 { font-size: var(--t-h3); }
+
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: inherit;
+  text-decoration-color: color-mix(in oklch, var(--ink) 30%, transparent);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: color var(--t-fast) var(--ease-out-quart),
+              text-decoration-color var(--t-fast) var(--ease-out-quart);
+}
+
+a:hover {
+  color: var(--brand-red);
+  text-decoration-color: var(--brand-red);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-red-warm);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ──── Layout helpers ──────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+}
+
+.reading {
+  width: 100%;
+  max-width: var(--container-reading);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.lead {
+  font-size: var(--t-body-lg);
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 60ch;
+}
+
+.muted { color: var(--ink-muted); }
+
+/* Tabular numerals: stack cleanly in fees, schedules, dates. */
+.tabular,
+time,
+.day__time,
+.ss-fact__v,
+.fee-tier__price {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+.hairline {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+/* Section rhythm — alternates 96 / 144 / 64 desktop, halved mobile. */
+.section { padding-block: clamp(3rem, 6vw + 1.5rem, 6rem); }
+.section--tight { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+.section--wide { padding-block: clamp(4rem, 8vw + 2rem, 9rem); }
+
+/* Brand-red full-bleed band. */
+.section--brand {
+  background: var(--brand-red);
+  color: var(--paper-pure);
+}
+.section--brand h1, .section--brand h2, .section--brand h3 { color: var(--paper-pure); }
+.section--brand .muted { color: oklch(0.93 0.04 25 / 0.85); }
+.section--brand a:hover { color: oklch(0.95 0.04 80); text-decoration-color: currentColor; }
+
+.section--paper-deep { background: var(--paper-deep); }
+
+/* ──── Pull-quote (italic Fraunces) ───────────────────────── */
+
+.pullquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.375rem, 0.9rem + 1.6vw, 1.875rem);
+  line-height: 1.32;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.pullquote--brand { color: var(--paper-pure); }
+
+.cite {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-muted);
+  font-size: var(--t-body);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.cite::before {
+  content: '';
+  display: inline-block;
+  width: 1.25rem;
+  height: 1px;
+  background: var(--brand-red);
+  flex-shrink: 0;
+}
+
+/* ──── Hero headline morph (one-shot, first paint only) ──── */
+
+@keyframes hero-optical-morph {
+  from {
+    font-variation-settings: 'opsz' 24, 'SOFT' 50;
+    letter-spacing: 0;
+  }
+  to {
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+    letter-spacing: -0.012em;
+  }
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--t-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  text-wrap: balance;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  animation: hero-optical-morph var(--t-hero) var(--ease-out-quart) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-headline { animation: none; }
+}
+
+/* ──── Scroll-rise (one-shot) ──────────────────────────────── */
+
+.rise {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--t-slow) var(--ease-out-quart),
+              transform var(--t-slow) var(--ease-out-quart);
+}
+
+.rise.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise { opacity: 1; transform: none; }
+}
+
+/* ──── Skip link ──────────────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  background: var(--ink);
+  color: var(--paper-pure);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  z-index: 100;
+  transition: top var(--t-base) var(--ease-out-quart);
+  text-decoration: none;
+}
+.skip-link:focus { top: 1rem; color: var(--paper-pure); }
+
+/* ──── Scroll-progress bar ─────────────────────────────── */
+
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--brand-red);
+  z-index: 60;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: transform 80ms linear;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ──── Inline link underline-grow (default body links) ──── */
+
+main p a:not(.btn):not(.nav__link),
+.prose :global(a),
+main li a:not(.btn) {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  text-decoration: none;
+  transition: background-size var(--t-fast) var(--ease-out-quart),
+              color var(--t-fast) var(--ease-out-quart);
+  padding-bottom: 0.05em;
+}
+main p a:not(.btn):hover,
+.prose :global(a):hover,
+main li a:not(.btn):hover {
+  background-size: 100% 2px;
+}
+
+/* ──── Click-affordance on every card-shaped link ─────── */
+
+a > article,
+a > .card {
+  cursor: pointer;
+}
+
+/* ──── Selection improvements ───────────────────────────── */
+
+img::selection,
+svg::selection {
+  background: transparent;
+}
+
+/* ──── Print stylesheet ─────────────────────────────────── */
+
+@media print {
+  .nav, .footer, .skip-link, .scroll-progress { display: none !important; }
+  body { background: white; color: black; }
+  a { text-decoration: underline; }
+  .section, .container { padding: 0 !important; }
+  .rise { opacity: 1 !important; transform: none !important; }
+}

@@ -1,0 +1,224 @@
+---
+import { SITE } from '~/lib/site';
+import Stamp from './Stamp.astro';
+import Icon from './Icon.astro';
+
+const yr = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__divider" aria-hidden="true">
+    <span class="footer__rule"></span>
+    <Stamp size={28} />
+    <span class="footer__rule"></span>
+  </div>
+  <div class="container footer__inner">
+    <div class="footer__col footer__col--brand">
+      <a href="/" class="footer__brand">
+        <img src="/images/logo/fram-logo.png" alt="" class="footer__logo" width="800" height="800" />
+        <span class="footer__brand-text-vh">FRAM School</span>
+      </a>
+      <p class="footer__tagline">A primary school and kindergarten in Sibiu, teaching the Cambridge curriculum alongside the Romanian national line.</p>
+      <p class="footer__address">
+        {SITE.address.line1}<br />
+        {SITE.address.line2}, {SITE.address.city}<br />
+        {SITE.address.country}
+      </p>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="footer__heading"><Icon name="door" size={16} class="footer__heading-icon" />Visit</h4>
+      <ul>
+        <li><a href="/admissions">Admissions</a></li>
+        <li><a href="/admissions/visit">Book a tour</a></li>
+        <li><a href="/admissions/fees">Fees</a></li>
+        <li><a href="/about/campus">Campus</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="footer__heading"><Icon name="building" size={16} class="footer__heading-icon" />The school</h4>
+      <ul>
+        <li><a href="/about/leadership">Leadership</a></li>
+        <li><a href="/about/teachers">Teachers</a></li>
+        <li><a href="/about/values">Values</a></li>
+        <li><a href="/curriculum/cambridge">About Cambridge</a></li>
+        <li><a href="/curriculum/houses">The House System</a></li>
+        <li><a href="/curriculum/clubs">Clubs &amp; Events</a></li>
+        <li><a href="/curriculum/day">A day at FRAM</a></li>
+        <li><a href="/about/schedule">Daily schedule</a></li>
+        <li><a href="/policies">Policies</a></li>
+        <li><a href="/vacancies">Vacancies</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="footer__heading"><Icon name="phone" size={16} class="footer__heading-icon" />Contact</h4>
+      <ul>
+        <li><a href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`}>{SITE.contact.phoneDisplay}</a></li>
+        <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
+        <li><a href={`mailto:${SITE.contact.admissionsEmail}`}>{SITE.contact.admissionsEmail}</a></li>
+      </ul>
+
+      <h4 class="footer__heading footer__heading--alert"><Icon name="shield" size={16} class="footer__heading-icon" />Safeguarding</h4>
+      <p class="footer__safeguarding">
+        <strong>{SITE.dsl.name}</strong><br />
+        <span class="muted">Designated Safeguarding Lead</span><br />
+        <a href={`mailto:${SITE.contact.safeguardingEmail}`}>{SITE.contact.safeguardingEmail}</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="container footer__legal">
+    <p>© {yr} FRAM School. All rights reserved.</p>
+    <p>
+      <a href="/safeguarding">Safeguarding</a>
+      <span aria-hidden="true">·</span>
+      <a href="/policies">Policies</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 4rem;
+    padding-top: 0;
+    padding-bottom: 2rem;
+    background: var(--paper-deep);
+    color: var(--ink);
+  }
+
+  .footer__divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 2.5rem 3.5rem;
+    color: var(--brand-red);
+  }
+  .footer__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .footer__inner {
+      grid-template-columns: 1.4fr 1fr 1fr;
+    }
+  }
+  @media (min-width: 1040px) {
+    .footer__inner {
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    }
+  }
+
+  .footer__brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+  }
+  .footer__logo {
+    display: block;
+    height: 6.5rem;
+    width: auto;
+    transition: opacity var(--t-fast) var(--ease-out-quart), transform var(--t-base) var(--ease-out-quart);
+  }
+  .footer__brand:hover .footer__logo {
+    opacity: 0.92;
+    transform: rotate(-2deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .footer__brand:hover .footer__logo { transform: none; }
+  }
+  .footer__brand-text-vh {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .footer__tagline {
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+    max-width: 36ch;
+  }
+  .footer__address {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  .footer__heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 0.875rem;
+  }
+  .footer__heading :global(.footer__heading-icon) {
+    color: var(--brand-red);
+    flex-shrink: 0;
+  }
+  .footer__heading--alert {
+    color: var(--brand-red);
+    margin-top: 1.5rem;
+  }
+  .footer__heading--alert :global(.footer__heading-icon) {
+    color: var(--brand-red);
+  }
+
+  .footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .footer__col a {
+    font-size: 0.9375rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .footer__col a:hover { color: var(--brand-red); }
+
+  .footer__safeguarding {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .footer__safeguarding a { color: var(--brand-red); }
+
+  .footer__legal {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+  .footer__legal a {
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+  .footer__legal a:hover { color: var(--brand-red); }
+  .footer__legal span[aria-hidden] { margin-inline: 0.5rem; opacity: 0.5; }
+</style>

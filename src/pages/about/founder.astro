@@ -1,0 +1,185 @@
+---
+import Layout from '~/components/Layout.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import { getEntry } from 'astro:content';
+import { render } from 'astro:content';
+
+const founder = await getEntry('leaders', '01-ileana-vranceanu');
+const { Content } = founder ? await render(founder) : { Content: null as any };
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://framschool.com/' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://framschool.com/about' },
+    { '@type': 'ListItem', position: 3, name: "Founder's letter", item: 'https://framschool.com/about/founder' },
+  ],
+};
+---
+
+<Layout
+  title="Founder's letter · FRAM"
+  description="A letter from Ileana Vrânceanu, founder and CEO of FRAM School, on what kind of school she set out to build for her own child, and yours."
+  current="/about/founder"
+  schema={breadcrumb}
+>
+  <header class="letter-head">
+    <div class="container letter-head__inner">
+      <p class="eyebrow letter-head__eyebrow">A letter from our founder</p>
+      <h1 class="letter-head__title"><em>Ileana Vrânceanu</em></h1>
+      <p class="letter-head__role">Founder &amp; CEO, FRAM School</p>
+    </div>
+  </header>
+
+  <article class="letter">
+    <div class="letter__inner">
+      <figure class="letter__portrait">
+        <img
+          src="/images/leaders/ileana-vranceanu.jpg"
+          alt="Ileana Vrânceanu, Founder and CEO of FRAM School"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <figcaption>Ileana Vrânceanu, Sibiu.</figcaption>
+      </figure>
+
+      <div class="letter__body">
+        {Content && <Content />}
+
+        <div class="letter__seal" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="8" r="3" />
+            <circle cx="23" cy="8" r="3" />
+            <ellipse cx="16" cy="16" rx="9" ry="8" />
+            <circle cx="12.5" cy="14" r="0.9" fill="currentColor" />
+            <circle cx="19.5" cy="14" r="0.9" fill="currentColor" />
+            <path d="M14.5 17.5 q1.5 2 1.5 2 q0 0 1.5 -2" />
+            <path d="M13 20 q3 2 6 0" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <CtaBand
+    tone="muted"
+    eyebrow="The next step"
+    title="The honest way to test the letter is to walk through the school."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'Meet the leadership', href: '/about/leadership' }}
+  />
+</Layout>
+
+<style>
+  .letter-head {
+    padding-block: clamp(3rem, 5vw + 1.5rem, 5rem) clamp(1.5rem, 2vw + 0.75rem, 2.5rem);
+    border-bottom: 1px solid var(--rule);
+  }
+  .letter-head__inner {
+    max-width: var(--container-reading);
+  }
+  .letter-head__eyebrow {
+    color: var(--brand-red);
+    margin-bottom: 0.75rem;
+  }
+  .letter-head__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.5rem, 1.8rem + 3vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.012em;
+    margin: 0 0 0.625rem;
+    color: var(--ink);
+  }
+  .letter-head__title em {
+    font-style: italic;
+    color: var(--brand-red);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+  .letter-head__role {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--t-body-lg);
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .letter { padding-block: clamp(2.5rem, 4vw + 1rem, 4rem); }
+  .letter__inner {
+    max-width: var(--container-wide);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 880px) {
+    .letter__inner {
+      grid-template-columns: 18rem 1fr;
+      gap: clamp(2.5rem, 4vw, 4.5rem);
+      align-items: start;
+    }
+  }
+
+  .letter__portrait {
+    margin: 0;
+    position: relative;
+  }
+  .letter__portrait img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
+    background: var(--paper-deep);
+    display: block;
+  }
+  .letter__portrait figcaption {
+    margin-top: 0.625rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+  @media (min-width: 880px) {
+    .letter__portrait { position: sticky; top: 5.5rem; }
+  }
+
+  .letter__body {
+    font-size: var(--t-body-lg);
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 60ch;
+  }
+  .letter__body :global(p) {
+    margin-bottom: 1.25rem;
+  }
+  .letter__body :global(p:first-of-type) {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.375rem, 1.05rem + 1vw, 1.625rem);
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+  }
+  .letter__body :global(em) {
+    font-style: italic;
+    color: var(--brand-red);
+  }
+  .letter__body :global(p:last-of-type) {
+    margin-bottom: 0;
+  }
+
+  .letter__seal {
+    margin-top: 2rem;
+    width: 2.5rem;
+    color: var(--brand-red);
+    transform: rotate(-6deg);
+  }
+  .letter__seal svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

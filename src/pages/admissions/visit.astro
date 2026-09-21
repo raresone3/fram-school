@@ -1,0 +1,140 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import { getCollection } from 'astro:content';
+import Button from '~/components/Button.astro';
+import Figure from '~/components/Figure.astro';
+
+const all = await getCollection('events');
+const events = all
+  .filter((e) => new Date(e.data.date) >= new Date(new Date().toISOString().slice(0, 10)))
+  .sort((a, b) => a.data.date.localeCompare(b.data.date));
+
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Layout title="Visit FRAM" description="Book a private tour of FRAM School, or attend an open day at the Habermann Campus in Sibiu." current="/admissions/visit">
+  <PageIntro
+    eyebrow="Visit"
+    title="Come and see FRAM in normal motion."
+    lead="The single most useful thing you can do before applying is walk through the school during a working day. We keep tours small. You meet the Headmaster, see classrooms in use, and have unhurried time to ask anything."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/campus/main.jpg"
+      alt="The Habermann Learning Campus at Berăriei 4, Sibiu"
+      caption="Habermann Learning Campus, Berăriei 4, Sibiu. Where the tour begins."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="container open-days">
+    <h2 class="open-days__title">Upcoming open days</h2>
+
+    {events.length === 0 ? (
+      <p class="open-days__empty muted">
+        No open days scheduled at the moment. Private tours run almost every week, write to <a href="mailto:admissions@framschool.com">admissions@framschool.com</a> and we'll find a time that works.
+      </p>
+    ) : (
+      <ul class="open-days__list">
+        {events.map((event) => (
+          <li class="open-day rise">
+            <div class="open-day__date">{fmt(event.data.date)}</div>
+            <div class="open-day__body">
+              <h3 class="open-day__title">{event.data.title}</h3>
+              {event.data.timeRange && <p class="muted">{event.data.timeRange}</p>}
+              {event.data.location && <p class="muted">{event.data.location}</p>}
+              {event.data.summary && <p class="open-day__summary">{event.data.summary}</p>}
+              <Button href={event.data.registerUrl ?? 'mailto:admissions@framschool.com'} variant="primary">
+                Reserve a place
+              </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+
+  <section class="section reading">
+    <Prose>
+      <h2>Or, a private tour</h2>
+      <p>
+        Write to <a href="mailto:admissions@framschool.com">admissions@framschool.com</a> with your child's age and a few times that work for you. Tours typically last 45 minutes to an hour. They include 15 minutes inside a classroom while a lesson is happening, time with the Headmaster, and a chance to walk the campus end to end.
+      </p>
+      <h2>What to expect on the day</h2>
+      <ul>
+        <li>You'll be met at the gate by name.</li>
+        <li>Bring your child if it works, they will get a parallel welcome from the relevant year teacher.</li>
+        <li>Wear what you'd wear to a school. (No special dress code; this is not a job interview.)</li>
+        <li>You'll leave with the prospectus and the current fee schedule.</li>
+      </ul>
+
+      <h2>Download the form before you come</h2>
+      <p>
+        Most families find it helpful to <a href="/forms/fram-application-form.pdf" download>download our application form</a> in advance and bring it filled in. If you'd rather hand it back at the visit, we'll have a copy on the day.
+      </p>
+
+      <h2>How to find us</h2>
+      <p>
+        Habermann Learning Campus, Berăriei 4, Sibiu. Five minutes' walk from the old town; on-street parking nearby. The gate is to the left of the main building.
+      </p>
+    </Prose>
+  </section>
+</Layout>
+
+<style>
+  .open-days { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+  .open-days__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+    letter-spacing: -0.005em;
+    margin-bottom: 1.5rem;
+  }
+  .open-days__empty {
+    font-size: var(--t-body-lg);
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+  .open-days__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .open-day {
+    display: grid;
+    gap: 1rem 2rem;
+    grid-template-columns: 1fr;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 720px) {
+    .open-day {
+      grid-template-columns: 14rem 1fr;
+      align-items: start;
+    }
+  }
+  .open-day__date {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--brand-red);
+  }
+  .open-day__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .open-day__summary {
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    margin: 0.75rem 0 1.25rem 0;
+    max-width: 56ch;
+  }
+</style>

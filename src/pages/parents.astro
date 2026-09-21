@@ -1,0 +1,624 @@
+---
+import Layout from '~/components/Layout.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import { SITE } from '~/lib/site';
+
+interface Channel {
+  topic: string;
+  use: string;
+  who: string;
+}
+
+const channels: Channel[] = [
+  { topic: 'General announcements',         use: 'Kinderpedia Feed and school newsletter', who: 'School office' },
+  { topic: 'Academic or progress questions', use: 'Kinderpedia message or email',          who: 'Class teacher, then Head of Year' },
+  { topic: 'Emergency or safety matter',     use: 'Kinderpedia chat or school phone',      who: 'Class teacher or office, immediately' },
+  { topic: 'Wellbeing concern, sensitive',   use: 'Email or in-person meeting',            who: 'Wellbeing counsellor, in confidence' },
+  { topic: 'Safeguarding concern',           use: `Email ${SITE.contact.safeguardingEmail}`, who: `${SITE.dsl.name}, ${SITE.dsl.role}` },
+];
+
+interface IllnessRule {
+  threshold: string;
+  detail: string;
+}
+
+const illness: IllnessRule[] = [
+  { threshold: 'Fever of 38°C or higher',                            detail: 'Children must be fever-free for 24 hours without medication before returning to school.' },
+  { threshold: 'Vomiting or diarrhoea in the past 24 hours',         detail: 'Please keep your child at home for a full 24 hours after the last episode.' },
+  { threshold: 'Unexplained rash, pink eye, or contagious illness',  detail: 'Children should stay home and be cleared by a doctor before returning.' },
+  { threshold: 'Persistent cough or congestion that affects breathing', detail: 'Children with breathing difficulty should stay home.' },
+  { threshold: 'After antibiotics',                                  detail: 'Children may return after 24 hours on antibiotic treatment.' },
+];
+
+interface Month {
+  name: string;
+  events: string[];
+}
+
+// The 12-month FRAM Skills & Events Calendar (parents-facing events in bold below)
+const calendar: Month[] = [
+  { name: 'September', events: ['8th: First Day of School', '15–19th: Parents Meetings', '15th: Houses Sorting Ceremony', '26th: Clubs Fair'] },
+  { name: 'October',   events: ['20–24th: Different School', '24th: UNESCO Diversity Fair', '27–31st: Autumn vacation'] },
+  { name: 'November',  events: ['3rd: UNESCO Anti-Bullying & Violence Day', '24th: School Assembly, Project Presenting by Houses'] },
+  { name: 'December',  events: ['2nd: School Assembly, Celebrating Romania', '17th: Christmas Fair', '19–31st: Christmas Holiday'] },
+  { name: 'January',   events: ['1–7th: Vacation', '12–16th: Mobility Week', '26th: School Assembly, Cereal Boxes Domino'] },
+  { name: 'February',  events: ['16th: UNESCO International Mother Language Day', '23–27th: Spring half-term vacation'] },
+  { name: 'March',     events: ['2nd: School Assembly', '6+9th: Women\'s Celebrations', '30th: UNESCO World Health Day', '31st: Green Week begins'] },
+  { name: 'April',     events: ['1–3rd: Green Week', '6–14th: Easter Holiday', '15th: School Assembly'] },
+  { name: 'May',       events: ['1st: International Workers\' Day, off', '31st: Sibiu International Marathon'] },
+  { name: 'June',      events: ['1st: Imagine ART Festival', '5th: Romanian Teacher\'s Day, off', '19th: Last Day of School'] },
+  { name: 'July',      events: ['FRAM Summer School, six weeks'] },
+  { name: 'August',    events: ['School closed, dated academic calendar emailed to families'] },
+];
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://framschool.com/' },
+    { '@type': 'ListItem', position: 2, name: 'For parents', item: 'https://framschool.com/parents' },
+  ],
+};
+---
+
+<Layout
+  title="For parents · FRAM"
+  description="Everything FRAM parents need at a glance: communication channels, illness and attendance policies, the annual events calendar, and direct contacts."
+  current="/parents"
+  schema={breadcrumb}
+>
+  {/* ──────── Boarding-pass header ──────── */}
+  <header class="parents-head">
+    <div class="container parents-head__inner">
+      <div class="parents-head__copy">
+        <p class="eyebrow parents-head__eyebrow">Parent Handbook · 2026–2027</p>
+        <h1 class="parents-head__title"><em>Welcome, and welcome back.</em></h1>
+        <p class="parents-head__lead">
+          A handbook for the parents and guardians of children at FRAM. Communication, the events year, the practical answers to the questions you always end up asking, all in one place. Bookmark it.
+        </p>
+      </div>
+      <nav class="parents-head__jump" aria-label="On this page">
+        <ul>
+          <li><a href="#contacts">Contacts</a></li>
+          <li><a href="#communication">How to communicate</a></li>
+          <li><a href="#attendance">Attendance</a></li>
+          <li><a href="#illness">Illness</a></li>
+          <li><a href="#calendar">Annual calendar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  {/* ──────── Contacts ──────── */}
+  <section id="contacts" class="section--paper-deep section">
+    <div class="container">
+      <header class="parents-section__head">
+        <p class="eyebrow">Contacts</p>
+        <h2 class="parents-section__title">Who to write to, and when.</h2>
+      </header>
+
+      <div class="contacts">
+        <article class="contact">
+          <p class="contact__role">Class teacher and Wellbeing counsellor</p>
+          <p class="contact__copy">
+            Your child's class teacher is your first point of contact for any day-to-day question. The Wellbeing counsellor is available for emotional or pastoral matters. Available twice a year as standard, plus on request.
+          </p>
+          <p class="contact__detail">
+            <span class="muted">Names and direct contacts arrive in your welcome pack at the start of each academic year, and on Kinderpedia.</span>
+          </p>
+        </article>
+
+        <article class="contact contact--kinderpedia">
+          <p class="contact__role">Main communication platform</p>
+          <p class="contact__platform">Kinderpedia</p>
+          <p class="contact__copy">
+            Your access codes are issued with the welcome pack and follow your family for the entire FRAM journey. Use Kinderpedia for daily attendance, photos, messages from teachers, event reminders, and the school calendar.
+          </p>
+          <p class="contact__detail">
+            <span class="muted">Lost or forgotten codes: write to <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>.</span>
+          </p>
+        </article>
+
+        <article class="contact">
+          <p class="contact__role">School office and administrative</p>
+          <p class="contact__copy">
+            For invoices, contracts, registration paperwork, schedule changes, and anything to do with admin. Hours: 8:00 to 16:30, Monday to Friday.
+          </p>
+          <ul class="contact__list">
+            <li><a href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`}>{SITE.contact.phoneDisplay}</a></li>
+            <li><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></li>
+          </ul>
+        </article>
+
+        <article class="contact contact--dsl">
+          <p class="contact__role">Safeguarding</p>
+          <p class="contact__copy">
+            For any concern about the safety or wellbeing of a child at FRAM, write to the Designated Safeguarding Lead directly. Replies are personal and confidential.
+          </p>
+          <p class="contact__platform contact__platform--small">{SITE.dsl.name}</p>
+          <p class="contact__detail">
+            <a href={`mailto:${SITE.contact.safeguardingEmail}`} class="contact__email">{SITE.contact.safeguardingEmail}</a>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* ──────── Communication channels ──────── */}
+  <section id="communication" class="section">
+    <div class="container">
+      <header class="parents-section__head">
+        <p class="eyebrow">Communication</p>
+        <h2 class="parents-section__title">The right channel for the topic.</h2>
+        <p class="parents-section__lead">
+          The campus has grown. To respect everyone's time and make sure the right person sees your message, here is which channel to use for which topic.
+        </p>
+      </header>
+
+      <ul class="channels">
+        {channels.map((c, i) => (
+          <li class="channel">
+            <span class="channel__topic">{c.topic}</span>
+            <span class="channel__arrow" aria-hidden="true">→</span>
+            <span class="channel__use">{c.use}</span>
+            <span class="channel__who">{c.who}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p class="parents-section__note">
+        For routine matters, please allow one working day for a written reply. Same-day responses are reserved for safety and time-sensitive issues.
+      </p>
+    </div>
+  </section>
+
+  {/* ──────── Attendance ──────── */}
+  <section id="attendance" class="section--paper-deep section">
+    <div class="container">
+      <header class="parents-section__head">
+        <p class="eyebrow">Attendance</p>
+        <h2 class="parents-section__title">Why regular attendance matters.</h2>
+        <p class="parents-section__lead">
+          Regular attendance is essential for a child's social, emotional and academic development. A consistent routine builds a sense of structure and responsibility.
+        </p>
+      </header>
+
+      <div class="att">
+        <article class="att__item">
+          <p class="att__h">Daily expectation</p>
+          <p>All students attend Monday to Friday during term, arriving on time for the 8:00 to 8:20 drop-off window. Late arrivals (after 8:30) require parents to notify the school through Kinderpedia in advance.</p>
+        </article>
+
+        <article class="att__item">
+          <p class="att__h">Unexcused absences</p>
+          <p>If a child accumulates <strong>10 unexcused absences in an academic year</strong>, the school will schedule a parent-teacher meeting to discuss the impact of attendance on the child's learning and development.</p>
+        </article>
+
+        <article class="att__item">
+          <p class="att__h">Planned absences and family vacations</p>
+          <p>The school understands that families have pre-planned trips or obligations. Parents are asked to notify the school in advance through Kinderpedia, and to provide written notice for absences longer than three school days.</p>
+        </article>
+
+        <article class="att__item">
+          <p class="att__h">Tardiness</p>
+          <p>Children arriving after 8:45 AM are marked as tardy. Three tardies in a term are followed up by the class teacher; persistent tardiness is reviewed with the Head of Year.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* ──────── Illness ──────── */}
+  <section id="illness" class="section">
+    <div class="container">
+      <header class="parents-section__head">
+        <p class="eyebrow">Illness</p>
+        <h2 class="parents-section__title">When to keep your child home.</h2>
+        <p class="parents-section__lead">
+          FRAM prioritises student health and the wellbeing of every classroom. Where any of the following apply, please keep your child at home and notify the school through Kinderpedia.
+        </p>
+      </header>
+
+      <ul class="illness">
+        {illness.map((r, i) => (
+          <li class="illness__row">
+            <span class="illness__bullet" aria-hidden="true">●</span>
+            <div class="illness__copy">
+              <p class="illness__threshold">{r.threshold}</p>
+              <p class="illness__detail">{r.detail}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="parents-section__note">
+        Children who become unwell during the school day are cared for at the school clinic and parents are contacted to collect them. The full <a href="/policies/medical-procedure.pdf" download>Medical Procedure Policy (PDF)</a> covers medication administration and emergencies.
+      </p>
+    </div>
+  </section>
+
+  {/* ──────── Annual calendar ──────── */}
+  <section id="calendar" class="section--paper-deep section">
+    <div class="container">
+      <header class="parents-section__head">
+        <p class="eyebrow">Annual events calendar</p>
+        <h2 class="parents-section__title">A year, month by month.</h2>
+        <p class="parents-section__lead">
+          The FRAM events year. Dated events for the current academic year are emailed each August and live in the Kinderpedia calendar.
+        </p>
+      </header>
+
+      <ol class="months">
+        {calendar.map((m, i) => (
+          <li class={`month month--${i % 2 === 0 ? 'a' : 'b'}`}>
+            <p class="month__name">{m.name}</p>
+            <ul class="month__events">
+              {m.events.map((e) => <li>{e}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ol>
+
+      <p class="parents-section__note">
+        For the dated 2026–2027 calendar, write to <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    tone="muted"
+    eyebrow="Something missing?"
+    title="If a question lives in your head longer than a day, write to the office. We answer everything."
+    primaryCta={{ label: 'Email the office', href: `mailto:${SITE.contact.email}` }}
+    secondaryCta={{ label: 'Read all policies', href: '/policies' }}
+  />
+</Layout>
+
+<style>
+  /* ──────── Header (boarding-pass framing without literal ticket) ──────── */
+  .parents-head {
+    padding-block: clamp(3rem, 5vw + 2rem, 5rem);
+    background: var(--brand-red);
+    color: var(--paper-pure);
+    position: relative;
+  }
+  .parents-head::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background-image: radial-gradient(circle at 8px 6px, var(--paper) 4px, transparent 4.5px);
+    background-size: 16px 12px;
+    background-repeat: repeat-x;
+  }
+  .parents-head__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 880px) {
+    .parents-head__inner {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
+  }
+  .parents-head__eyebrow {
+    color: oklch(0.95 0.04 25 / 0.85);
+    margin-bottom: 0.875rem;
+  }
+  .parents-head__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    margin: 0 0 1rem;
+    color: var(--paper-pure);
+    max-width: 16ch;
+  }
+  .parents-head__title em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+  .parents-head__lead {
+    color: oklch(0.95 0.04 25 / 0.95);
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .parents-head__jump ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .parents-head__jump a {
+    display: inline-block;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid oklch(0.95 0.04 25 / 0.4);
+    color: var(--paper-pure);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    transition: background 180ms var(--ease-out-quart), border-color 180ms var(--ease-out-quart);
+  }
+  .parents-head__jump a:hover {
+    background: oklch(0.95 0.04 25 / 0.18);
+    border-color: var(--paper-pure);
+  }
+
+  /* ──────── Section heads ──────── */
+  .parents-section__head {
+    max-width: var(--container-reading);
+    margin: 0 0 2.5rem;
+  }
+  .parents-section__head .eyebrow { color: var(--brand-red); margin-bottom: 0.5rem; }
+  .parents-section__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.875rem;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .parents-section__lead {
+    color: var(--ink);
+    line-height: 1.65;
+    max-width: 58ch;
+    margin: 0;
+  }
+  .parents-section__note {
+    margin-top: 2rem;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    max-width: 60ch;
+  }
+  .parents-section__note a { color: var(--brand-red); }
+
+  /* ──────── Contacts ──────── */
+  .contacts {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .contacts {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .contact {
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    padding: 1.5rem 1.75rem 1.75rem;
+  }
+  .contact--kinderpedia {
+    background: var(--ochre-soft);
+    border-color: oklch(0.86 0.10 80);
+  }
+  .contact--dsl {
+    background: var(--brand-red-soft);
+    border-color: color-mix(in oklch, var(--brand-red) 30%, transparent);
+    color: var(--brand-red-deep);
+  }
+  .contact__role {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-red);
+    margin: 0 0 0.625rem;
+  }
+  .contact--kinderpedia .contact__role,
+  .contact--dsl .contact__role {
+    color: var(--brand-red-deep);
+  }
+  .contact__platform {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.625rem, 1.2rem + 1.5vw, 2rem);
+    line-height: 1.1;
+    color: var(--brand-red);
+    letter-spacing: -0.01em;
+    margin: 0 0 0.875rem;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+  .contact__platform--small {
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+    color: var(--brand-red-deep);
+  }
+  .contact__copy {
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0 0 0.875rem;
+    font-size: 0.9375rem;
+  }
+  .contact--dsl .contact__copy { color: var(--brand-red-deep); }
+  .contact__detail { margin: 0; font-size: 0.875rem; }
+  .contact__list { list-style: none; margin: 0; padding: 0; }
+  .contact__list li { font-size: 0.9375rem; line-height: 1.6; }
+  .contact__list a, .contact__email { color: var(--brand-red); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .contact--dsl .contact__email {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.0625rem;
+  }
+
+  /* ──────── Communication channels ──────── */
+  .channels {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .channel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.375rem 1.5rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  @media (min-width: 880px) {
+    .channel {
+      grid-template-columns: 1.2fr auto 1.6fr 1fr;
+      gap: 1rem 1.75rem;
+      padding-block: 1.5rem;
+    }
+    .channel__arrow { display: inline-block; }
+  }
+  .channel__arrow {
+    display: none;
+    color: var(--brand-red);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .channel__topic {
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .channel__use {
+    color: var(--ink);
+    font-size: 0.9375rem;
+  }
+  .channel__who {
+    color: var(--ink-muted);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.9375rem;
+  }
+
+  /* ──────── Attendance ──────── */
+  .att {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .att {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem 2rem;
+    }
+  }
+  .att__item {
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    padding: 1.5rem 1.75rem 1.75rem;
+  }
+  .att__h {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--brand-red);
+    margin: 0 0 0.5rem;
+  }
+  .att__item p {
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+  .att__item p + p { margin-top: 0.5rem; }
+  .att__item strong { color: var(--ink); font-weight: 600; }
+
+  /* ──────── Illness ──────── */
+  .illness {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 50rem;
+    border-top: 1px solid var(--rule);
+  }
+  .illness__row {
+    display: grid;
+    grid-template-columns: 1.25rem 1fr;
+    gap: 1rem;
+    padding-block: 1.125rem;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .illness__bullet {
+    color: var(--brand-red);
+    line-height: 1;
+    font-size: 0.875rem;
+    transform: translateY(0.125rem);
+  }
+  .illness__threshold {
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 0.25rem;
+  }
+  .illness__detail {
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ──────── Months grid ──────── */
+  .months {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    counter-reset: months;
+  }
+  @media (min-width: 600px) {
+    .months { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  }
+  @media (min-width: 980px) {
+    .months { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  }
+
+  .month {
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    padding: 1.125rem 1.25rem 1.25rem;
+  }
+  .month--b {
+    background: var(--ochre-soft);
+    border-color: oklch(0.86 0.10 80);
+  }
+  .month__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--brand-red);
+    margin: 0 0 0.625rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .month--b .month__name { color: oklch(0.42 0.12 75); }
+  .month__events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .month__events li {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-block: 0.375rem;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .month__events li:last-child { border-bottom: 0; }
+</style>

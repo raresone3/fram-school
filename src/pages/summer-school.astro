@@ -1,0 +1,772 @@
+---
+import Layout from '~/components/Layout.astro';
+import Button from '~/components/Button.astro';
+import Stamp from '~/components/Stamp.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+import { breadcrumb, faq, event } from '~/lib/schema';
+
+const REGISTER_URL = 'https://forms.gle/ktSsD3zpyAhNSPFg9';
+
+const themes = [
+  {
+    label: 'Week of',
+    name: 'Around the World: Commonwealth Games',
+    summary: "An athletic and cultural tour of the Commonwealth. Children try new sports, learn about the countries the games come from, design their own country's flag, and finish the week with an opening ceremony of their own.",
+    pairs: 'Movement, geography, world cultures',
+  },
+  {
+    label: 'Week of',
+    name: 'Little Brits: Journey into British Culture',
+    summary: 'A week in Britain without leaving Sibiu. Tea, cricket, the Royal Mail, Shakespeare for children, Roald Dahl read aloud, fish and chips on Friday. The natural companion to a Cambridge-line school.',
+    pairs: 'Language, food, literature, traditions',
+  },
+  {
+    label: 'Week of',
+    name: 'Global Citizen',
+    summary: 'What does it mean to belong to a country, a region, a planet? Children explore citizenship, sustainability, languages and identity through games, group projects and small-group discussion.',
+    pairs: 'Civics, languages, sustainability',
+  },
+  {
+    label: 'Week of',
+    name: 'Where Science Sparks Creativity',
+    summary: 'The week where science is hands-on, messy, and creative. Children build, experiment and invent, framed by famous makers from Leonardo to contemporary engineers and artists.',
+    pairs: 'Science, design, engineering, art',
+  },
+];
+
+const schema = [
+  breadcrumb([
+    { label: 'Home', href: '/' },
+    { label: 'Summer School', href: '/summer-school' },
+  ]),
+  event({
+    name: 'FRAM Summer School 2026',
+    startDate: '2026-06-29',
+    endDate: '2026-08-07',
+    url: '/summer-school',
+    location: 'Habermann Learning Campus, Berăriei 4, Sibiu',
+    description: 'A six-week summer programme for children aged 6 to 10, on the Habermann Campus in Sibiu. A journey through arts, culture, science, movement and creativity, with FRAM teachers and visiting specialists. Open to current FRAM children, families joining FRAM in September 2026, and external children curious about FRAM.',
+  }),
+  faq([
+    { q: 'Who can attend FRAM Summer School?', a: 'Children aged 6 to 10. Open to current FRAM children, to families who will join FRAM in September 2026, and to children from other schools curious to spend a week with us.' },
+    { q: 'Do children attend the full six weeks?', a: "No. Families can register for a single week, several weeks, or the full six. Each week's programme is independent and can be joined on its own." },
+    { q: 'What are the daily hours?', a: 'Mornings begin at 9:00 and the day ends at 16:00, Monday to Friday, with the option of early drop-off from 8:00 and late pick-up until 16:30.' },
+    { q: 'Is lunch included?', a: 'Yes. A hot lunch and two snacks are included in the daily fee, eaten with teachers in the Habermann cafeteria.' },
+    { q: 'In which language does Summer School run?', a: 'Programming is in English with Romanian where helpful. Children who speak only Romanian are welcome; children with no Romanian will hear plenty of English.' },
+    { q: 'How do we register?', a: 'Use the registration form linked on this page. The school will reply within two working days with the fee schedule and weekly options.' },
+  ]),
+];
+---
+
+<Layout
+  title="FRAM Summer School 2026"
+  description="A six-week summer programme for children aged 6 to 10. 29 June to 7 August 2026, at the Habermann Campus, Sibiu. A journey through arts, culture, science, movement and creativity. Open to FRAM and non-FRAM children."
+  current="/summer-school"
+  schema={schema}
+  ogImage="/images/scenes/bike-club-group.jpg"
+>
+  {/* ──────────── 1. HERO ──────────── */}
+  <section class="ss-hero">
+    <div class="container ss-hero__inner">
+      <div class="ss-hero__text">
+        <p class="eyebrow ss-hero__eyebrow">
+          <Stamp size={14} />
+          <span>FRAM Summer School 2026</span>
+        </p>
+
+        <h1 class="ss-hero__title"><em>Ready for the summer.</em></h1>
+
+        <p class="ss-hero__sub">
+          A six-week adventure through arts, culture, science, movement and creativity. For children aged 6 to 10. From <strong>29 June to 7 August 2026</strong>, on the Habermann Campus, Sibiu.
+        </p>
+
+        <div class="ss-hero__ctas">
+          <Button href={REGISTER_URL} variant="primary">Reserve a place</Button>
+          <a href="#themes" class="ss-hero__link">See the four themes ↓</a>
+        </div>
+
+        <ul class="ss-hero__facts" aria-label="Programme at a glance">
+          <li><span class="ss-fact__k">Dates</span><span class="ss-fact__v">29 Jun – 7 Aug 2026</span></li>
+          <li><span class="ss-fact__k">Ages</span><span class="ss-fact__v">6 to 10</span></li>
+          <li><span class="ss-fact__k">Length</span><span class="ss-fact__v">Six weeks, joinable by week</span></li>
+          <li><span class="ss-fact__k">Open to</span><span class="ss-fact__v">FRAM and non-FRAM</span></li>
+        </ul>
+      </div>
+
+      <div class="ss-hero__art">
+        <span class="ss-hero__disc" aria-hidden="true"></span>
+        <figure class="ss-hero__photo">
+          <img src="/images/scenes/bike-club-group.jpg" alt="FRAM children with bicycles at a school activity" loading="eager" decoding="async" fetchpriority="high" />
+        </figure>
+        <span class="ss-hero__doodle ss-hero__doodle--star" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 4 L18 14 L28 16 L18 18 L16 28 L14 18 L4 16 L14 14 Z" />
+          </svg>
+        </span>
+        <span class="ss-hero__doodle ss-hero__doodle--cloud" aria-hidden="true">
+          <svg viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 22 q-6 0 -6 -7 q0 -8 8 -8 q1 -6 9 -6 q9 0 10 9 q9 0 9 8 q0 7 -7 7 z" />
+          </svg>
+        </span>
+        <span class="ss-hero__doodle ss-hero__doodle--bulb" aria-hidden="true">
+          <svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4 a8 8 0 0 1 5 14 v3 h-10 v-3 a8 8 0 0 1 5 -14 z" />
+            <path d="M9 23 h6" />
+            <path d="M10 26 h4" />
+            <path d="M12 28 h0" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  {/* ──────────── 2. WHAT IT IS ──────────── */}
+  <section class="ss-intro">
+    <div class="container ss-intro__inner">
+      <p class="ss-intro__lead">
+        <em>FRAM Summer School</em> is not childcare with a label. It is six weeks of properly structured learning experiences, with FRAM teachers and visiting specialists, on the campus children already know. Each week is built around a single theme drawn from the international curriculum. Children build something. Read something. Cook something. Make something. Take it home.
+      </p>
+      <p class="ss-intro__second">
+        It is open to children currently at FRAM, to families who will join us in September 2026, and to children from other schools who want to spend a week of summer with us. Families register for the weeks they want; you do not need to commit to all six.
+      </p>
+    </div>
+  </section>
+
+  {/* ──────────── 3. FOUR THEMES ──────────── */}
+  <section class="ss-themes" id="themes">
+    <div class="container">
+      <header class="ss-themes__head">
+        <p class="eyebrow">Four themes, six weeks</p>
+        <h2 class="ss-themes__title">A journey through arts, culture, science, movement and creativity.</h2>
+        <p class="ss-themes__lead">
+          Each themed week stands alone, with its own arc, its own visiting specialists, and its own Friday-afternoon presentation. Children can join one, several, or all six.
+        </p>
+      </header>
+
+      <ol class="ss-themes__list">
+        {themes.map((t, i) => (
+          <li class={`ss-theme ss-theme--${i % 2 === 0 ? 'left' : 'right'}`}>
+            <div class="ss-theme__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
+            <div class="ss-theme__body">
+              <p class="ss-theme__label">{t.label}</p>
+              <h3 class="ss-theme__name">{t.name}</h3>
+              <p class="ss-theme__summary">{t.summary}</p>
+              <p class="ss-theme__pairs"><span class="muted">Touches on:</span> {t.pairs}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {/* ──────────── 4. PHOTO STRIP ──────────── */}
+  <section class="ss-strip">
+    <div class="container ss-strip__grid">
+      <figure class="ss-strip__photo ss-strip__photo--a">
+        <img src="/images/houses-photos/joy.jpg" alt="FRAM children at an outdoor school activity" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="ss-strip__photo ss-strip__photo--b">
+        <img src="/images/scenes/world-book-cutout.jpg" alt="A FRAM lesson on the classroom screen" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="ss-strip__photo ss-strip__photo--c">
+        <img src="/images/scenes/assembly-wave.jpg" alt="FRAM children at an outdoor school gathering" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="ss-strip__photo ss-strip__photo--d">
+        <img src="/images/houses-photos/dog.jpg" alt="A whole-school gathering at Habermann Campus" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  {/* ──────────── 5. PRACTICAL ──────────── */}
+  <section class="ss-practical">
+    <div class="container ss-practical__inner">
+      <header class="ss-practical__head">
+        <p class="eyebrow">Practical information</p>
+        <h2 class="ss-practical__title">A normal FRAM day, in summer.</h2>
+      </header>
+
+      <div class="ss-practical__grid">
+        <article class="ss-card">
+          <h3>Hours</h3>
+          <p>Programme runs Monday to Friday, 9:00 to 16:00. Early drop-off from 8:00 and late pick-up until 16:30 are available on request.</p>
+        </article>
+        <article class="ss-card">
+          <h3>Meals</h3>
+          <p>A hot lunch and two snacks are included in the daily fee. Allergies and dietary requirements are noted at registration.</p>
+        </article>
+        <article class="ss-card">
+          <h3>Languages</h3>
+          <p>Programming runs in English with Romanian where helpful. The classroom is bilingual by default, the way FRAM normally is.</p>
+        </article>
+        <article class="ss-card">
+          <h3>Where</h3>
+          <p>Habermann Learning Campus, Berăriei 4, Sibiu. Five minutes' walk from the old town. Some themed days include outings.</p>
+        </article>
+        <article class="ss-card">
+          <h3>What to bring</h3>
+          <p>A water bottle, a hat, comfortable shoes, a change of clothes. The school provides everything else.</p>
+        </article>
+        <article class="ss-card">
+          <h3>Fees</h3>
+          <p>The fee schedule (per-week and full-programme options) is sent on enquiry. Sibling and FRAM-family rates apply.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* ──────────── 6. WHO IT'S FOR ──────────── */}
+  <section class="ss-audience">
+    <div class="container ss-audience__inner">
+      <header class="ss-audience__head">
+        <p class="eyebrow">Who can join</p>
+        <h2 class="ss-audience__title">Open to three kinds of family.</h2>
+      </header>
+      <ol class="ss-audience__list">
+        <li>
+          <span class="ss-audience__num">01</span>
+          <div>
+            <h3>Current FRAM children</h3>
+            <p>Continuing the FRAM week without breaking the routine. Familiar faces, the campus they already know, a new theme.</p>
+          </div>
+        </li>
+        <li>
+          <span class="ss-audience__num">02</span>
+          <div>
+            <h3>Families joining in September 2026</h3>
+            <p>A way to settle in early. Children meet their future teachers and friends. By September, FRAM is no longer a new place.</p>
+          </div>
+        </li>
+        <li>
+          <span class="ss-audience__num">03</span>
+          <div>
+            <h3>Children from other schools</h3>
+            <p>A summer week (or several) of structured learning at a Cambridge International school. No commitment beyond the week.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  {/* ──────────── 7. REGISTER ──────────── */}
+  <section class="ss-register section--brand">
+    <div class="container ss-register__inner">
+      <div class="ss-register__copy">
+        <p class="eyebrow ss-register__eyebrow">Reserve a place</p>
+        <h2 class="ss-register__title">Reserve your child's week, or weeks, now.</h2>
+        <p class="ss-register__lead">
+          The registration form takes about three minutes. The school will reply within two working days with the fee schedule, available weeks, and a welcome note.
+        </p>
+        <div class="ss-register__cta-row">
+          <Button href={REGISTER_URL} variant="inverse">Open the registration form</Button>
+          <a href="mailto:admissions@framschool.com?subject=FRAM%20Summer%20School%202026" class="ss-register__link">Or write to admissions →</a>
+        </div>
+        <p class="ss-register__small">
+          Form lives on Google Forms. We will move you to a private confirmation by email after you submit.
+        </p>
+      </div>
+
+      <aside class="ss-register__cambridge" aria-label="Cambridge accreditation">
+        <div class="ss-register__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 L15 8 L21 9 L17 13 L18 19 L12 16 L6 19 L7 13 L3 9 L9 8 Z" />
+          </svg>
+        </div>
+        <p>
+          <strong>FRAM is a fully accredited Cambridge International School.</strong>
+          The Summer School draws on the same international curriculum, taught by the same teachers, on the same campus.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  {/* ──────────── 8. CLOSE ──────────── */}
+  <CtaBand
+    tone="muted"
+    eyebrow="Visit before you decide"
+    title="Come and see Habermann Campus on a Tuesday."
+    body="Tours run on most weeks during term, including Easter. The same campus runs Summer School in July."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'Open the registration form', href: REGISTER_URL }}
+  />
+</Layout>
+
+<style>
+  /* ──────── 1. HERO ──────── */
+  .ss-hero {
+    padding-block: clamp(3rem, 5vw + 1.5rem, 5.5rem) clamp(2.5rem, 4vw + 1rem, 4rem);
+    overflow: hidden;
+    position: relative;
+  }
+  .ss-hero__inner {
+    display: grid;
+    gap: clamp(2.5rem, 4vw + 1.5rem, 4.5rem);
+    align-items: center;
+  }
+  @media (min-width: 980px) {
+    .ss-hero__inner { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  }
+
+  .ss-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--brand-red);
+    margin: 0 0 1.5rem;
+  }
+
+  .ss-hero__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(3rem, 1.6rem + 6.5vw, 6rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--brand-red);
+    margin: 0;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+
+  .ss-hero__sub {
+    margin-top: 1.5rem;
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 42ch;
+  }
+  .ss-hero__sub strong { font-weight: 600; }
+
+  .ss-hero__ctas {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+  .ss-hero__link {
+    color: var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.125rem;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .ss-hero__link:hover { color: var(--brand-red); }
+
+  .ss-hero__facts {
+    margin: 2.5rem 0 0;
+    padding: 1.5rem 0 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    gap: 0.875rem 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 720px) {
+    .ss-hero__facts { grid-template-columns: repeat(4, 1fr); }
+  }
+  .ss-hero__facts li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  .ss-fact__k {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+  }
+  .ss-fact__v {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  /* HERO ART, the brand-red disk + photo + decorative doodles. */
+  .ss-hero__art {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-width: 30rem;
+    width: 100%;
+    justify-self: end;
+  }
+  @media (min-width: 980px) {
+    .ss-hero__art { aspect-ratio: 5 / 6; max-width: 32rem; }
+  }
+  .ss-hero__disc {
+    position: absolute;
+    inset: 6% 18% 14% 6%;
+    background: var(--brand-red);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .ss-hero__photo {
+    margin: 0;
+    position: absolute;
+    inset: 12% 6% 6% 18%;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--paper-deep);
+    z-index: 1;
+    box-shadow: var(--shadow-lift);
+  }
+  .ss-hero__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1200ms var(--ease-out-quart);
+  }
+  .ss-hero__photo:hover img { transform: scale(1.03); }
+
+  .ss-hero__doodle {
+    position: absolute;
+    color: var(--ink);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  .ss-hero__doodle--star {
+    top: 4%;
+    right: 4%;
+    width: 64px;
+    color: var(--ink);
+  }
+  .ss-hero__doodle--cloud {
+    top: 38%;
+    right: -2%;
+    width: 96px;
+    color: var(--brand-red);
+    opacity: 0.8;
+  }
+  .ss-hero__doodle--bulb {
+    bottom: 0;
+    left: 4%;
+    width: 48px;
+    color: var(--ochre);
+    opacity: 0.85;
+  }
+  @media (max-width: 720px) {
+    .ss-hero__doodle--cloud { display: none; }
+  }
+
+  /* ──────── 2. INTRO ──────── */
+  .ss-intro {
+    padding-block: clamp(3rem, 6vw + 1.5rem, 5rem);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .ss-intro__inner { max-width: var(--container-reading); }
+  .ss-intro__lead {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1.05rem + 1.4vw, 1.875rem);
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    margin: 0 0 1.5rem;
+  }
+  .ss-intro__lead em {
+    font-style: italic;
+    color: var(--brand-red);
+    font-weight: 500;
+  }
+  .ss-intro__second {
+    font-size: var(--t-body-lg);
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* ──────── 3. THEMES ──────── */
+  .ss-themes { padding-block: clamp(3rem, 6vw + 1.5rem, 6rem); }
+  .ss-themes__head { margin-bottom: 3rem; max-width: 60ch; }
+  .ss-themes__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.875rem, 1.3rem + 2.4vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.012em;
+    margin: 0.5rem 0 0.875rem;
+  }
+  .ss-themes__lead {
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    color: var(--ink-muted);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .ss-themes__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: theme;
+    border-top: 1px solid var(--rule);
+  }
+  .ss-theme {
+    display: grid;
+    gap: 1.25rem 2.5rem;
+    grid-template-columns: 1fr;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  @media (min-width: 720px) {
+    .ss-theme { grid-template-columns: 5rem 1fr; padding-block: 2.5rem; }
+    .ss-theme--right { grid-template-columns: 1fr 5rem; }
+    .ss-theme--right .ss-theme__num { order: 2; text-align: right; }
+    .ss-theme--right .ss-theme__body { order: 1; }
+  }
+  .ss-theme__num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 1.8rem + 3vw, 4rem);
+    color: var(--brand-red);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .ss-theme__label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin: 0 0 0.5rem;
+  }
+  .ss-theme__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1.05rem + 1.4vw, 1.875rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.75rem;
+    text-wrap: balance;
+  }
+  .ss-theme__summary {
+    font-size: var(--t-body-lg);
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 60ch;
+    margin: 0 0 0.875rem;
+  }
+  .ss-theme__pairs {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  /* ──────── 4. PHOTO STRIP ──────── */
+  .ss-strip { padding-block: 0 clamp(2rem, 4vw + 1rem, 4rem); }
+  .ss-strip__grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 720px) {
+    .ss-strip__grid { grid-template-columns: 2fr 1fr 1fr 2fr; gap: 1rem; }
+  }
+  .ss-strip__photo {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--paper-deep);
+    aspect-ratio: 4 / 5;
+  }
+  @media (min-width: 720px) {
+    .ss-strip__photo--a, .ss-strip__photo--d { aspect-ratio: 4 / 5; }
+    .ss-strip__photo--b, .ss-strip__photo--c { aspect-ratio: 4 / 5; align-self: end; max-height: 80%; }
+  }
+  .ss-strip__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 800ms var(--ease-out-quart);
+  }
+  .ss-strip__photo:hover img { transform: scale(1.02); }
+
+  /* ──────── 5. PRACTICAL ──────── */
+  .ss-practical { padding-block: clamp(3rem, 6vw + 1.5rem, 6rem); }
+  .ss-practical__head { margin-bottom: 2.5rem; max-width: 50ch; }
+  .ss-practical__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0.5rem 0 0;
+  }
+  .ss-practical__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .ss-practical__grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .ss-card {
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.5rem 1.75rem 1.75rem;
+    transition: transform var(--t-base) var(--ease-out-quart),
+                border-color var(--t-base) var(--ease-out-quart);
+  }
+  .ss-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklch, var(--brand-red) 30%, var(--rule));
+  }
+  .ss-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--brand-red);
+    letter-spacing: -0.005em;
+    margin: 0 0 0.625rem;
+  }
+  .ss-card p {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ──────── 6. AUDIENCE ──────── */
+  .ss-audience {
+    padding-block: clamp(3rem, 6vw + 1.5rem, 6rem);
+    background: var(--paper-deep);
+  }
+  .ss-audience__head { margin-bottom: 2.5rem; max-width: 50ch; }
+  .ss-audience__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0.5rem 0 0;
+  }
+  .ss-audience__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ss-audience__list li {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: 1.25rem 1.75rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .ss-audience__list li:last-child { border-bottom: 1px solid var(--rule); }
+  .ss-audience__num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 2rem;
+    color: var(--brand-red);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .ss-audience__list h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.375rem;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.5rem;
+  }
+  .ss-audience__list p {
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* ──────── 7. REGISTER (full-bleed brand-red) ──────── */
+  .ss-register {
+    padding-block: clamp(3.5rem, 6vw + 1.5rem, 6rem);
+  }
+  .ss-register__inner {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  @media (min-width: 880px) {
+    .ss-register__inner { grid-template-columns: 1.5fr 1fr; gap: 4rem; }
+  }
+  .ss-register__eyebrow {
+    color: oklch(0.95 0.04 80 / 0.85);
+    margin: 0 0 0.75rem;
+  }
+  .ss-register__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.875rem, 1.3rem + 2.6vw, 2.875rem);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    color: var(--paper-pure);
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+  .ss-register__lead {
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    color: oklch(0.95 0.04 80 / 0.92);
+    margin: 0 0 1.5rem;
+    max-width: 50ch;
+  }
+  .ss-register__cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.75rem;
+    margin-bottom: 1rem;
+  }
+  .ss-register__link {
+    color: var(--paper-pure);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.125rem;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .ss-register__link:hover { color: oklch(0.95 0.04 80); }
+  .ss-register__small {
+    font-size: 0.8125rem;
+    color: oklch(0.95 0.04 80 / 0.75);
+    margin: 0;
+    max-width: 50ch;
+  }
+
+  .ss-register__cambridge {
+    background: oklch(0.95 0.04 80 / 0.1);
+    border: 1px solid oklch(0.95 0.04 80 / 0.25);
+    border-radius: 4px;
+    padding: 1.5rem 1.75rem;
+    color: var(--paper-pure);
+  }
+  .ss-register__badge {
+    width: 2.75rem;
+    height: 2.75rem;
+    color: var(--paper-pure);
+    margin-bottom: 0.875rem;
+  }
+  .ss-register__cambridge p {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .ss-register__cambridge strong { font-weight: 600; }
+</style>

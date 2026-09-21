@@ -1,0 +1,28 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import PolicyIndex from '~/components/PolicyIndex.astro';
+import { SITE } from '~/lib/site';
+---
+
+<Layout title="Policies · FRAM" description="The full set of FRAM School policies, including safeguarding, child protection, behavioural, anti-bullying, and academic policies." current="/policies">
+  <PageIntro
+    eyebrow="Policies"
+    title="Twenty policies, all in one place."
+    lead="A school's policies are how it has thought through its commitments. Ours are public, to families, to staff, to inspectors, and to anyone considering FRAM. The full set is below, grouped by pillar."
+  />
+
+  <PolicyIndex />
+
+  <section class="policies-foot container">
+    <p class="muted">
+      For any safeguarding concern, contact the Designated Safeguarding Lead Marieluise Knobloch directly at <a href={`mailto:${SITE.contact.safeguardingEmail}`}>{SITE.contact.safeguardingEmail}</a>. The full FRAM Safeguarding Policy and Child Protection Policy are linked above.
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .policies-foot { padding-block: 2rem 4rem; max-width: var(--container-reading); margin-inline: auto; }
+  .policies-foot p { font-size: 0.9375rem; line-height: 1.6; }
+  .policies-foot a { color: var(--brand-red); }
+</style>

@@ -1,0 +1,128 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  /** Visual tone. 'brand' = full-bleed red (default, high-impact). 'muted' = paper-deep with red accent (when the page already has a red moment). */
+  tone?: 'brand' | 'muted';
+}
+
+const { eyebrow, title, body, primaryCta, secondaryCta, tone = 'brand' } = Astro.props;
+const sectionCls = tone === 'brand' ? 'cta section--brand' : 'cta cta--muted';
+const isExternal = (href: string) => /^https?:\/\//i.test(href);
+const secondaryIsExternal = secondaryCta ? isExternal(secondaryCta.href) : false;
+---
+
+<section class={sectionCls}>
+  <div class="container cta__inner">
+    <div class="cta__text">
+      {tone === 'muted' && <span class="cta__accent" aria-hidden="true"></span>}
+      {eyebrow && <p class="eyebrow cta__eyebrow">{eyebrow}</p>}
+      <h2 class="cta__title">{title}</h2>
+      {body && <p class="cta__body">{body}</p>}
+    </div>
+    {(primaryCta || secondaryCta) && (
+      <div class="cta__actions">
+        {primaryCta && (
+          <Button href={primaryCta.href} variant={tone === 'brand' ? 'inverse' : 'primary'}>{primaryCta.label}</Button>
+        )}
+        {secondaryCta && (
+          <a
+            href={secondaryCta.href}
+            class="cta__link"
+            target={secondaryIsExternal ? '_blank' : undefined}
+            rel={secondaryIsExternal ? 'noopener noreferrer' : undefined}
+          >
+            {secondaryCta.label} {secondaryIsExternal ? '↗' : '→'}
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .cta { padding-block: clamp(3.5rem, 5vw + 2rem, 6rem); }
+
+  .cta__inner {
+    display: grid;
+    gap: 2rem;
+    align-items: end;
+  }
+  @media (min-width: 880px) {
+    .cta__inner {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .cta__eyebrow {
+    color: oklch(0.95 0.04 80 / 0.85);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(2rem, 1.4rem + 3.2vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+    color: var(--paper-pure);
+    max-width: 18ch;
+  }
+
+  .cta__body {
+    margin-top: 1rem;
+    color: oklch(0.95 0.04 80 / 0.9);
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    max-width: 50ch;
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 1.75rem;
+  }
+
+  .cta__link {
+    color: var(--paper-pure);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.125rem;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .cta__link:hover { color: oklch(0.95 0.04 80); }
+
+  /* ──── Muted tone: paper-deep with brand accent ────────── */
+  .cta--muted {
+    background: var(--paper-deep);
+    color: var(--ink);
+  }
+  .cta--muted .cta__title { color: var(--ink); }
+  .cta--muted .cta__eyebrow { color: var(--brand-red); }
+  .cta--muted .cta__body { color: var(--ink); }
+  .cta--muted .cta__link {
+    color: var(--brand-red);
+    border-bottom-color: color-mix(in oklch, var(--brand-red) 50%, transparent);
+  }
+  .cta--muted .cta__link:hover {
+    color: var(--brand-red-deep);
+    border-bottom-color: var(--brand-red-deep);
+  }
+  .cta__accent {
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--brand-red);
+    margin-bottom: 1.25rem;
+  }
+</style>

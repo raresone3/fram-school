@@ -1,0 +1,67 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+---
+
+<Layout title="Skills, Events & Houses Pillar · FRAM" description="Houses, clubs, trips, community service and service learning at FRAM School." current="/curriculum/skills-events">
+  <PageIntro
+    eyebrow="Skills, Events & Houses"
+    title="The part of school where children try things, lead things, find what they love."
+    lead="Academics matter. They are not the whole point. The third pillar holds the parts of childhood that don't appear on a Cambridge report, and that, twenty years from now, the children will remember as school."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/scenes/bike-club-portrait.jpg"
+      alt="FRAM children with bicycles at a school activity in the courtyard"
+      caption="Bike Club, mid-instruction."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="section reading">
+    <Prose>
+      <h2>Houses</h2>
+      <p class="lead">
+        Every child at FRAM belongs to a House, Alexandra David-Néel, Fernando Magellan, Amelia Earhart, or Neil Armstrong, kept across all the years they are with us. Each House has its own colour, element, animal, and pair of staff leaders. Sorting happens on the first day, around the FRAM Magic Moon. The House Cup is awarded each year for kindness and conduct, not just points won.
+      </p>
+      <p>
+        <a href="/curriculum/houses">Read the full FRAM House System →</a>
+      </p>
+
+      <h2>Clubs</h2>
+      <p>
+        After-school clubs run on Tuesday and Friday afternoons (3:30–4:15, with Friday extending to 4:30), and are <strong>included in fees</strong>. The programme rotates each term and currently includes Japanese, Choir, Crafts, Graffiti, Painting, Coding, Electronics, Dance, Kinetics, Ski Club, LEGO, and Outdoors. Children pick their own.
+      </p>
+      <p>
+        <a href="/curriculum/clubs">See the full clubs roster with named teachers →</a>
+      </p>
+
+      <h2>Trips</h2>
+      <p>
+        Termly day trips and longer residentials anchor learning to real places. We follow our Trips Policy on supervision ratios, transport and parental consent, published on the <a href="/policies">policies page</a>.
+      </p>
+
+      <h2>Community Service & Service Learning</h2>
+      <p>
+        Children at FRAM run small service projects each year, for the school, for Sibiu, for organisations they choose. Service Learning is the part where the work also teaches them something: how to plan, how to ask, how to follow through. This is the school living its values about leadership and responsibility, rather than printing them on a poster.
+      </p>
+
+      <h2>Children Leadership</h2>
+      <p>
+        From Y3 upwards, children take small but real leadership roles, house captains, library monitors, lunch-table helpers, project leads. The roles are rotated, briefed, and reviewed. The point is for children to find out what they're good at, and to know what it feels like to be relied on.
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    eyebrow="See it on the timetable"
+    title="The part of the day that makes FRAM different starts at 3:30."
+    primaryCta={{ label: 'A day at FRAM', href: '/curriculum/day' }}
+    secondaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+  />
+</Layout>

@@ -1,0 +1,148 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+---
+
+<Layout
+  title="Daily Schedule & Academic Year · FRAM"
+  description="The FRAM daily schedule: drop-off, pick-up, meals, school day. Plus the structure of the 2025-26 academic year."
+  current="/about/schedule"
+>
+  <PageIntro
+    eyebrow="Daily Schedule"
+    title="The day, the year, and what to expect."
+    lead="The school is open Monday to Friday, 8:00 AM to 4:30 PM. Below is what a normal day looks like, plus the operational details you need as a current or future parent."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/events/assembly-attendance.jpg"
+      alt="FRAM children at a morning gathering in the courtyard"
+      caption="A morning assembly. Most school days begin at this point."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="schedule container">
+    <div class="schedule__grid">
+      <article class="schedule__card">
+        <p class="eyebrow">Drop-off</p>
+        <h2>8:00 – 8:20 AM</h2>
+        <ul>
+          <li>Drop-off takes place at the front gate of the Habermann Campus.</li>
+          <li>All side entrances remain locked for safety.</li>
+          <li>Parents must sign in their child upon arrival.</li>
+          <li>If arriving after 8:30 AM, parents must notify the school through Kinderpedia in advance.</li>
+          <li>Children arriving after 8:45 AM are marked as tardy.</li>
+        </ul>
+      </article>
+
+      <article class="schedule__card">
+        <p class="eyebrow">Pick-up</p>
+        <h2>4:15 – 4:30 PM</h2>
+        <ul>
+          <li>Children wait at the front entrance.</li>
+          <li>Parents are expected to arrive on time, out of respect for staff supervision.</li>
+          <li>Parents must sign out their child before leaving.</li>
+          <li>Only individuals listed as authorised pick-up persons on the child's emergency form may collect the student.</li>
+        </ul>
+      </article>
+
+      <article class="schedule__card">
+        <p class="eyebrow">Meals</p>
+        <h2>Three a day, included.</h2>
+        <ul>
+          <li><strong>10:00 AM</strong>, Morning snack</li>
+          <li><strong>12:30 PM</strong>, Lunch (hot, eaten with teachers)</li>
+          <li><strong>3:20 PM</strong>, Afternoon snack</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="reading section">
+    <Prose>
+      <h2>The school day, hour by hour</h2>
+      <p>
+        Lessons run from 9:00 to 3:15 with a structured rhythm of breaks and meals. Houses & Clubs run from 3:30 until 4:15 (Tuesdays) or 4:30 (Fridays). For a full hour-by-hour walkthrough, read <a href="/curriculum/day">A day at FRAM</a>.
+      </p>
+
+      <h2>The academic year</h2>
+      <p>
+        FRAM follows a three-term structure aligned with the Romanian state calendar and the Cambridge International calendar. Term dates and key event dates for the current academic year are sent home each August and are available from the school office.
+      </p>
+
+      <h2>Summer School</h2>
+      <p>
+        FRAM's annual fee covers access to the optional Summer School programme through the month of July, for current FRAM children and a small number of external children depending on capacity.
+      </p>
+
+      <h2>Communication with parents</h2>
+      <p>
+        Day-to-day parent communication runs through <strong>Kinderpedia</strong>, daily updates, attendance notifications, photos, messages from class teachers, and event reminders. Parents are onboarded onto the platform before their child's first day.
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    eyebrow="Operational questions"
+    title="The school office answers operational questions within a working day."
+    primaryCta={{ label: 'Contact the office', href: 'mailto:office@framschool.com' }}
+    secondaryCta={{ label: 'A day at FRAM', href: '/curriculum/day' }}
+  />
+</Layout>
+
+<style>
+  .schedule { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+
+  .schedule__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .schedule__grid { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; } }
+
+  .schedule__card {
+    padding: 1.75rem 1.75rem 2rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .schedule__card .eyebrow { margin-bottom: 0.5rem; }
+  .schedule__card h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin-bottom: 1.25rem;
+    color: var(--brand-red);
+  }
+  .schedule__card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.625rem;
+  }
+  .schedule__card li {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-left: 1rem;
+    position: relative;
+  }
+  .schedule__card li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--brand-red);
+    font-weight: 700;
+  }
+  .schedule__card li strong { color: var(--ink); font-weight: 600; }
+</style>

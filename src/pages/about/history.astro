@@ -1,0 +1,420 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+import AccreditorBadge from '~/components/AccreditorBadge.astro';
+
+interface Milestone {
+  year: string;
+  title: string;
+  body: string;
+}
+
+const milestones: Milestone[] = [
+  {
+    year: '2014',
+    title: 'Kindergarten opens',
+    body: 'FRAM begins as a kindergarten for children aged 2 to 6, at the Habermann Learning Campus in central Sibiu. Two languages from day one. The founding ambition: build the kind of school a parent would want for her own child. Recognised by the Romanian Ministry of Education through ARACIP for both kindergarten and the early years line.',
+  },
+  {
+    year: '2022',
+    title: 'Primary school opens',
+    body: 'The first Reception class moves up to Year 1. The primary line opens, teaching the Cambridge Primary Curriculum in English alongside the Romanian national line. Class sizes stay small by design.',
+  },
+  {
+    year: '2023',
+    title: 'First in Romania for Cambridge Early Years',
+    body: 'FRAM becomes the first school in Romania to register for the Cambridge Early Years programme, launching that September with over seventy early-years learners. The Cambridge Pathway now runs continuously from preschool into primary, alongside the Romanian national line. Recognised by Cambridge Assessment International Education.',
+  },
+  {
+    year: '2024',
+    title: 'New leadership structure',
+    body: 'A new senior leadership structure is put in place to support the school\'s growth, organising the work into three pillars: Academic, Welfare and Pastoral, and Skills, Events and Houses.',
+  },
+  {
+    year: '2025',
+    title: 'House System launches',
+    body: 'Four Houses are introduced, named after explorers Alexandra David-Néel, Fernando Magellan, Amelia Earhart, and Neil Armstrong. Every child belongs to one. The Yellow Pillar takes its shape.',
+  },
+  {
+    year: '2026',
+    title: 'British Schools Overseas pre-inspection',
+    body: 'The British Schools Overseas inspection team conducts a pre-inspection visit in March, an early step toward formal BSO accreditation. The British International Line runs Year 1 through Year 5; planning continues for the full Reception-to-Year-6 pathway.',
+  },
+  {
+    year: '2027',
+    title: 'First Cambridge Checkpoint cohort',
+    body: 'The first cohort of Year 6 children sit the Cambridge Primary Checkpoint exams in English, mathematics, and science. Results published in summer of that academic year.',
+  },
+];
+
+interface Mark {
+  name: string;
+  status: 'accredited' | 'in-progress' | 'recognised';
+  since?: string;
+  body: string;
+  href?: string;
+}
+
+const marks: Mark[] = [
+  {
+    name: 'Cambridge International Education',
+    status: 'accredited',
+    since: '2022 (Primary) · 2023 (Early Years)',
+    body: 'FRAM is a fully accredited Cambridge International School. Cambridge accreditation covers the international primary curriculum, the assessment framework, and the qualifications of teachers delivering it. FRAM is also the first school in Romania registered for the Cambridge Early Years programme, published as a case study on the Cambridge International site.',
+    href: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-early-years/case-studies/fram-school/',
+  },
+  {
+    name: 'Romanian Ministry of Education',
+    status: 'accredited',
+    since: '2014',
+    body: 'FRAM is fully authorised and accredited by ARACIP, the Romanian national accreditation agency, for both kindergarten and primary education. Children educated at FRAM are recognised within the Romanian education system and can transfer to any Romanian state or private school without barrier. The school is also authorised by DSP and ISU.',
+  },
+  {
+    name: 'British Schools Overseas (BSO)',
+    status: 'in-progress',
+    body: 'A pre-inspection visit was completed in March 2026 by the British Schools Overseas inspection team. The full BSO inspection follows. BSO accreditation, awarded by the UK Department for Education, is the recognition framework for British international schools outside the UK.',
+  },
+  {
+    name: 'Cambridge Primary Checkpoint exam centre',
+    status: 'recognised',
+    body: 'FRAM is an authorised Cambridge Primary Checkpoint examination centre. The first FRAM cohort sits Checkpoint in the 2027 to 2028 academic year, with results published the same summer.',
+  },
+];
+
+const statusLabel = {
+  accredited: 'Accredited',
+  'in-progress': 'In progress',
+  recognised: 'Recognised',
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://framschool.com/' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://framschool.com/about' },
+    { '@type': 'ListItem', position: 3, name: 'History and accreditations', item: 'https://framschool.com/about/history' },
+  ],
+};
+---
+
+<Layout
+  title="History and accreditations · FRAM"
+  description="FRAM School began as a kindergarten in Sibiu in 2014. Primary opened in 2022. In 2023, FRAM became the first school in Romania to register for the Cambridge Early Years programme."
+  current="/about/history"
+  schema={breadcrumb}
+>
+  <PageIntro
+    eyebrow="History and accreditations"
+    title="Twelve years, year by year."
+    lead="FRAM started in 2014 with a kindergarten and the working belief that a serious academic education and a warm school childhood were not opposites. The primary opened eight years later. In 2023, FRAM became the first school in Romania registered for Cambridge Early Years. Below is the school's history, plainly, and a clean view of who recognises us today."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/campus/whole-school.jpg"
+      alt="Habermann Learning Campus on a school event afternoon"
+      caption="Habermann Campus today."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="timeline section" id="timeline">
+    <div class="container">
+      <header class="hist-head">
+        <p class="eyebrow">History</p>
+        <h2 class="hist-head__title">The school, year by year.</h2>
+      </header>
+      <ol class="timeline__list">
+        {milestones.map((m, i) => (
+          <li class="timeline__item rise">
+            <div class="timeline__year-col">
+              <span class="timeline__year">{m.year}</span>
+              <span class="timeline__dot" aria-hidden="true"></span>
+            </div>
+            <div class="timeline__body">
+              <h3 class="timeline__title">{m.title}</h3>
+              <p class="timeline__copy">{m.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="marks section section--paper-deep" id="accreditations">
+    <div class="container">
+      <header class="hist-head">
+        <p class="eyebrow">Accreditations</p>
+        <h2 class="hist-head__title">Who recognises FRAM today.</h2>
+        <p class="hist-head__lead">
+          A school's accreditations matter because they are the frame against which its work is judged from outside. FRAM is recognised by Cambridge International and the Romanian Ministry of Education, with the British Schools Overseas inspection process under way.
+        </p>
+      </header>
+
+      <div class="badges">
+        <AccreditorBadge type="cambridge" />
+        <AccreditorBadge type="aracip" />
+        <AccreditorBadge type="bso" />
+        <AccreditorBadge type="checkpoint" />
+      </div>
+
+      <ol class="marks__list">
+        {marks.map((m, i) => (
+          <li class="mark rise">
+            <span class="mark__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div class="mark__head">
+              <h3 class="mark__name">{m.name}</h3>
+              <p class="mark__meta">
+                <span class={`mark__status mark__status--${m.status}`}>{statusLabel[m.status]}</span>
+                {m.since && <span class="mark__since">since {m.since}</span>}
+              </p>
+            </div>
+            <p class="mark__body">{m.body}</p>
+            {m.href && (
+              <a href={m.href} class="mark__link" target={m.href.startsWith('http') ? '_blank' : undefined} rel={m.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                {m.href.startsWith('http') ? 'Read the Cambridge case study ↗' : 'Read more →'}
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
+
+      <p class="hist-foot muted">
+        Inspection reports, accreditation certificates, and inspection action plans are available on request from <a href="mailto:office@framschool.com">office@framschool.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    tone="muted"
+    eyebrow="The next chapter"
+    title="The school is still being built. The honest way to see it is to come and walk through."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: "Read the founder's letter", href: '/about/founder' }}
+  />
+</Layout>
+
+<style>
+  .hist-head {
+    max-width: var(--container-reading);
+    margin: 0 0 2.5rem;
+  }
+  .hist-head .eyebrow {
+    color: var(--brand-red);
+    margin-bottom: 0.5rem;
+  }
+  .hist-head__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.875rem;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .hist-head__lead {
+    color: var(--ink);
+    line-height: 1.65;
+    max-width: 58ch;
+    margin: 0;
+  }
+  .hist-foot {
+    margin-top: 2.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    max-width: 60ch;
+  }
+  .hist-foot a { color: var(--brand-red); }
+
+  /* ──────── Timeline ──────── */
+  .timeline { padding-block: clamp(3rem, 5vw + 1.5rem, 5rem); }
+
+  .timeline__list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 56rem;
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .timeline__item:last-child { border-bottom: 0; }
+
+  @media (min-width: 720px) {
+    .timeline__item {
+      grid-template-columns: 8rem 1fr;
+      gap: 2.5rem;
+      padding-block: 2.5rem;
+      align-items: baseline;
+    }
+  }
+
+  .timeline__year-col {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .timeline__year {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.875rem, 1.3rem + 2vw, 2.625rem);
+    color: var(--brand-red);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+  .timeline__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-red);
+    flex-shrink: 0;
+    align-self: center;
+  }
+  @media (max-width: 719px) {
+    .timeline__dot { display: none; }
+  }
+
+  .timeline__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.625rem;
+    color: var(--ink);
+  }
+  .timeline__copy {
+    color: var(--ink);
+    line-height: 1.65;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  /* ──────── Marks (accreditations) ──────── */
+  .marks { padding-block: clamp(3rem, 5vw + 1.5rem, 5rem); }
+
+  .badges {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+    max-width: 56rem;
+    margin: 0 0 3rem;
+  }
+  @media (min-width: 720px) {
+    .badges {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  .marks__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mark {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding-block: 2.25rem;
+    border-bottom: 1px solid var(--rule);
+    max-width: 60rem;
+  }
+  .mark:last-child { border-bottom: 0; }
+
+  @media (min-width: 880px) {
+    .mark {
+      grid-template-columns: 4rem 1fr;
+      column-gap: 2.5rem;
+      padding-block: 2.5rem;
+    }
+    .mark__head, .mark__body, .mark__link { grid-column: 2; }
+  }
+
+  .mark__num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.875rem;
+    color: var(--brand-red);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    grid-row: 1 / span 3;
+  }
+
+  .mark__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.5rem;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .mark__meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.875rem;
+    margin: 0 0 0.875rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .mark__status {
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+  }
+  .mark__status--accredited {
+    background: var(--brand-red);
+    color: var(--paper-pure);
+  }
+  .mark__status--in-progress {
+    background: var(--ochre-soft);
+    color: oklch(0.42 0.12 75);
+    border: 1px solid oklch(0.74 0.13 75);
+  }
+  .mark__status--recognised {
+    background: transparent;
+    color: var(--ink-muted);
+    border: 1px solid var(--rule);
+  }
+  .mark__since {
+    color: var(--ink-muted);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mark__body {
+    color: var(--ink);
+    line-height: 1.65;
+    max-width: 60ch;
+    margin: 0 0 0.875rem;
+  }
+  .mark__link {
+    display: inline-block;
+    color: var(--brand-red);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .mark__link:hover { color: var(--brand-red-deep); }
+</style>

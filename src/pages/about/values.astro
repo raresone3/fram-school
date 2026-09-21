@@ -1,0 +1,30 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import ValuesBlock from '~/components/ValuesBlock.astro';
+import Prose from '~/components/Prose.astro';
+---
+
+<Layout title="Vision & Values · FRAM" description="The seven values that shape life at FRAM School: kindness, curiosity, awareness, leadership, fairness, resilience, respect." current="/about/values">
+  <PageIntro
+    eyebrow="Vision & values"
+    title="To inspire meaningful learning, personal growth, and responsible citizenship."
+    lead="FRAM is built around seven values, lived daily in classrooms, in the playground, in the way teachers and children speak to each other. They are the answer to the question: what kind of person do we hope a FRAM child will become?"
+  />
+
+  <ValuesBlock variant="sticker" />
+
+  <section class="section--tight reading">
+    <Prose>
+      <h2>Four guiding principles</h2>
+      <p>Underneath the seven values are four ideas about children we treat as foundational:</p>
+      <ul>
+        <li>Each child is unique and needs empowerment.</li>
+        <li>Children develop through positive relationships.</li>
+        <li>Balanced learning requires genuine environments.</li>
+        <li>Children progress at individual paces and directions.</li>
+      </ul>
+      <p>These shape how we plan a lesson, how we settle a disagreement in the playground, and how we talk to families when something is hard.</p>
+    </Prose>
+  </section>
+</Layout>

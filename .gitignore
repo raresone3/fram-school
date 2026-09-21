@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.env
+.env.production
+.DS_Store
+*.log
+Pre-inspection report - March 2026.pdf

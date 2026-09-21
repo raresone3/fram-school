@@ -1,0 +1,181 @@
+---
+import Button from './Button.astro';
+import Stamp from './Stamp.astro';
+
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  subhead?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  meta?: string;
+  image?: { src: string; alt: string; caption?: string };
+  variant?: 'home' | 'page';
+}
+
+const {
+  eyebrow,
+  headline,
+  subhead,
+  primaryCta,
+  secondaryCta,
+  meta,
+  image,
+  variant = 'home',
+} = Astro.props;
+---
+
+<section class={`hero hero--${variant}`}>
+  <div class="container hero__inner">
+    <div class="hero__text">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1 class={variant === 'home' ? 'hero-headline' : 'hero__page-title'}>
+        {variant === 'home' ? <em>{headline}</em> : headline}
+      </h1>
+      {subhead && <p class="lead hero__subhead">{subhead}</p>}
+      {(primaryCta || secondaryCta) && (
+        <div class="hero__ctas">
+          {primaryCta && <Button href={primaryCta.href} variant="primary">{primaryCta.label}</Button>}
+          {secondaryCta && <Button href={secondaryCta.href} variant="secondary">{secondaryCta.label}</Button>}
+        </div>
+      )}
+      {meta && (
+        <div class="hero__meta-row">
+          <Stamp size={20} />
+          <p class="hero__meta">{meta}</p>
+        </div>
+      )}
+    </div>
+
+    {image && (
+      <figure class="hero__media">
+        <div class="hero__frame">
+          <img src={image.src} alt={image.alt} loading="eager" decoding="async" fetchpriority="high" />
+        </div>
+        {image.caption && <figcaption class="hero__caption">{image.caption}</figcaption>}
+      </figure>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 4vw + 1.5rem, 5rem) clamp(2.5rem, 4vw + 1.5rem, 5rem);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 880px) {
+    .hero--home .hero__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+  }
+
+  .hero__text {
+    max-width: 36ch;
+  }
+  .hero--home .hero__text { max-width: 19ch; }
+
+  .hero__subhead {
+    margin-top: 1.25rem;
+    max-width: 38ch;
+    color: var(--ink);
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .hero__meta-row {
+    margin-top: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .hero__meta {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.01em;
+  }
+  .hero__meta-row :global(.stamp) {
+    color: var(--brand-red);
+  }
+
+  .hero__media {
+    margin: 0;
+    position: relative;
+  }
+
+  .hero__frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--paper-deep);
+  }
+  @media (min-width: 880px) {
+    .hero__frame { aspect-ratio: 3 / 4; }
+  }
+
+  /* Decorative ochre rule offset behind the photo */
+  .hero__frame::before {
+    content: '';
+    position: absolute;
+    inset: -0.625rem;
+    border: 1px solid var(--ochre);
+    border-radius: 6px;
+    z-index: -1;
+    opacity: 0.5;
+    transform: translate(0.5rem, 0.5rem);
+    pointer-events: none;
+  }
+
+  .hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1200ms var(--ease-out-quart);
+  }
+  .hero__frame:hover img {
+    transform: scale(1.02);
+  }
+  /* Subtle warm overlay to unify photography. */
+  .hero__frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      oklch(0.36 0.14 22 / 0.06) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero__caption {
+    margin-top: 0.875rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    max-width: 28rem;
+  }
+
+  .hero__page-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: var(--t-h1);
+    line-height: var(--lh-heading);
+    letter-spacing: -0.005em;
+  }
+</style>

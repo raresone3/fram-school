@@ -1,0 +1,381 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+
+const preschoolTiers = [
+  {
+    name: 'Early Years',
+    ages: 'Ages 2 to 3',
+    campus: 'Calea Dumbrăvii',
+    note: 'Morning fruit and biscuits included.',
+    options: [
+      { label: 'Short programme', hours: '8:00 – 13:00', price: 350 },
+      { label: 'Standard day',     hours: '8:00 – 16:00', price: 450 },
+      { label: 'Extended day',     hours: '8:00 – 17:00', price: 500 },
+    ],
+  },
+  {
+    name: 'Kindergarten',
+    ages: 'Ages 4 to 5',
+    campus: 'Str. Amnaș',
+    note: 'Afternoon snack included.',
+    options: [
+      { label: 'Short programme', hours: '8:00 – 13:00', price: 400 },
+      { label: 'Standard day',     hours: '8:00 – 16:00', price: 500 },
+      { label: 'Extended day',     hours: '8:00 – 17:00', price: 600 },
+    ],
+  },
+  {
+    name: 'Reception',
+    ages: 'Ages 5 to 6, the year before Year 1',
+    campus: 'Habermann Campus',
+    note: 'Hot lunch included.',
+    options: [
+      { label: 'Basic',           hours: 'Until 13:30',   price: 550 },
+      { label: 'Standard',        hours: '8:00 – 14:00',  price: 600 },
+      { label: 'Complete',        hours: '8:00 – 16:40',  price: 660 },
+    ],
+  },
+];
+---
+
+<Layout title="Fees · FRAM" description="FRAM School fees for 2026–2027. Monthly Preschool tariffs from ages 2 to 6, and the annual Primary programme fee." current="/admissions/fees">
+  <PageIntro
+    eyebrow="Fees, 2026–2027"
+    title="What FRAM costs, in full."
+    lead="Two structures. Monthly fees for the Preschool years from age 2 to 6, with three programme options at each level. A single annual programme fee for Primary, Year 1 through Year 6."
+  />
+
+  {/* ──────────── PRESCHOOL SCHEDULE ──────────── */}
+  <section class="section">
+    <div class="reading">
+      <header class="fees-head">
+        <p class="eyebrow">Preschool · ages 2 to 6</p>
+        <h2 class="fees-head__title">Three levels, three programme options.</h2>
+        <p class="fees-head__lead">
+          Each level runs at a different FRAM campus. The shorter programmes finish before lunch; the standard and extended days run through the afternoon. All figures are per child, per month.
+        </p>
+      </header>
+
+      <div class="fee-schedule">
+        {preschoolTiers.map((tier) => (
+          <article class="fee-group rise">
+            <header class="fee-group__head">
+              <h3 class="fee-group__name"><em>{tier.name}</em></h3>
+              <p class="fee-group__meta">
+                {tier.ages}
+                <span class="fee-group__sep" aria-hidden="true"></span>
+                {tier.campus}
+              </p>
+              <p class="fee-group__note">{tier.note}</p>
+            </header>
+            <ul class="fee-options">
+              {tier.options.map((opt) => (
+                <li class="fee-option">
+                  <span class="fee-option__label">{opt.label}</span>
+                  <span class="fee-option__hours">{opt.hours}</span>
+                  <span class="fee-option__price"><span class="fee-option__amount">{opt.price}</span> <span class="fee-option__unit">€/mo</span></span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ──────────── PRIMARY ANNUAL FEE ──────────── */}
+  <section class="section--paper-deep section">
+    <div class="reading">
+      <article class="primary-fee">
+        <header class="primary-fee__copy">
+          <p class="eyebrow">Primary · Years 1 to 6</p>
+          <h2 class="primary-fee__title"><em>One complete programme,</em> one annual fee.</h2>
+          <p class="primary-fee__body">
+            Mandatory school day until 3:15 PM, Houses and Clubs until 4:15 PM, daily hot lunch, uniform, and all in-school resources. Programme runs September through June, with Summer School in July included.
+          </p>
+        </header>
+        <div class="primary-fee__price">
+          <p class="primary-fee__amount"><span aria-hidden="true">€</span>7,250</p>
+          <p class="primary-fee__unit">per academic year, 2026–2027</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* ──────────── REGISTRATION FEES ──────────── */}
+  <section class="section--tight section">
+    <div class="reading">
+      <header class="fees-head">
+        <p class="eyebrow">Registration</p>
+        <h2 class="fees-head__title">One-off registration fees.</h2>
+        <p class="fees-head__lead">
+          Charged once on first enrolment. Re-registration applies when a child moves up to the next level inside FRAM.
+        </p>
+      </header>
+      <ul class="reg-fees">
+        <li class="reg-fee">
+          <span class="reg-fee__label">Preschool, first-time enrolment</span>
+          <span class="reg-fee__price"><span class="reg-fee__amount">200</span> <span class="reg-fee__unit">€</span></span>
+        </li>
+        <li class="reg-fee">
+          <span class="reg-fee__label">Preschool re-registration, next level</span>
+          <span class="reg-fee__price"><span class="reg-fee__amount">60</span> <span class="reg-fee__unit">€</span></span>
+        </li>
+        <li class="reg-fee">
+          <span class="reg-fee__label">Primary, first-time enrolment <span class="muted reg-fee__note">non-refundable</span></span>
+          <span class="reg-fee__price"><span class="reg-fee__amount">500</span> <span class="reg-fee__unit">€</span></span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {/* ──────────── INCLUDED + EXTRAS ──────────── */}
+  <section class="section reading">
+    <Prose>
+      <h2>What FRAM's fees include</h2>
+      <ul>
+        <li>The <strong>Mandatory School Programme</strong>, Monday to Friday until 3:15 PM (Primary)</li>
+        <li>The <strong>House and Clubs programme</strong>, 3:30 PM to 4:15 PM, Monday to Thursday (Primary)</li>
+        <li>A <strong>hot daily lunch</strong>, eaten with teachers (Reception and Primary; afternoon snack at Kindergarten; morning fruit at Early Years)</li>
+        <li><strong>School uniform</strong> for Primary children</li>
+        <li>All in-school <strong>resources, books and printed manuals</strong></li>
+        <li>Access to <strong>FRAM Summer School</strong> through July (Primary)</li>
+      </ul>
+
+      <h2>Optional, extra-charged</h2>
+      <ul>
+        <li>Morning sandwiches or fruit, on request</li>
+        <li><strong>Educational Digital Resources</strong>: <span class="tabular">100 €</span>/year for Y1–Y3, <span class="tabular">200 €</span>/year for Y4–Y6 (International Line only)</li>
+        <li>School trips and residentials, charged at cost</li>
+        <li>Specialist external tuition arranged through the school</li>
+      </ul>
+
+      <h2>Sibling and bursary considerations</h2>
+      <p>
+        FRAM operates a sibling reduction and a small needs-based bursary fund for families for whom fees would otherwise be a barrier. Both are confidential. Ask admissions for the criteria when you write.
+      </p>
+
+      <h2>How to confirm the figure for your child</h2>
+      <p>
+        The figures above are the published rates for the 2026–2027 academic year. To confirm the exact monthly or annual figure for your child, including any sibling reduction and the start-month proration, write to <a href="mailto:admissions@framschool.com">admissions@framschool.com</a> with your child's age and intended start year. We reply the same day.
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    tone="muted"
+    eyebrow="Ready when you are"
+    title="Write once. We'll send the schedule and registration form the same day."
+    primaryCta={{ label: 'Write to admissions', href: 'mailto:admissions@framschool.com' }}
+    secondaryCta={{ label: 'Or book a tour', href: '/admissions/visit' }}
+  />
+</Layout>
+
+<style>
+  .fees-head {
+    margin-bottom: 2.25rem;
+  }
+  .fees-head__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.625rem, 1.05rem + 1.8vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0.5rem 0 0.875rem;
+    text-wrap: balance;
+  }
+  .fees-head__lead {
+    color: var(--ink);
+    max-width: 60ch;
+  }
+
+  /* ──── Preschool: editorial schedule ──────────────────── */
+  .fee-schedule {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  .fee-group__head {
+    margin-bottom: 1rem;
+  }
+  .fee-group__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.375rem;
+  }
+  .fee-group__name em {
+    font-style: italic;
+    color: var(--brand-red);
+  }
+  .fee-group__meta {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 0 0 0.5rem;
+    flex-wrap: wrap;
+  }
+  .fee-group__sep {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--brand-red);
+  }
+  .fee-group__note {
+    font-size: 0.9375rem;
+    color: var(--ink);
+    margin: 0;
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+
+  /* ──── Row schedule (used inside each fee group) ──────── */
+  .fee-options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .fee-option {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "label price"
+      "hours price";
+    column-gap: 1rem;
+    padding-block: 0.875rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fee-option__label {
+    grid-area: label;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .fee-option__hours {
+    grid-area: hours;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .fee-option__price {
+    grid-area: price;
+    align-self: center;
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .fee-option__amount {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.375rem;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .fee-option__unit {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    margin-left: 0.25rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ──── Primary annual figure: stacked editorial block ─── */
+  .primary-fee {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .primary-fee__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.625rem, 1.1rem + 1.8vw, 2.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    margin: 0.625rem 0 1rem;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .primary-fee__title em {
+    font-style: italic;
+    color: var(--brand-red);
+  }
+  .primary-fee__body {
+    color: var(--ink);
+    max-width: 58ch;
+    margin: 0;
+  }
+  .primary-fee__price {
+    margin-top: 1rem;
+  }
+  .primary-fee__amount {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+  }
+  .primary-fee__unit {
+    margin-top: 0.625rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* ──── Registration fees row list ─────────────────────── */
+  .reg-fees {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .reg-fee {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .reg-fee__label {
+    font-size: var(--t-body);
+    color: var(--ink);
+  }
+  .reg-fee__note {
+    margin-left: 0.5rem;
+    font-size: 0.8125rem;
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+  .reg-fee__price {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .reg-fee__amount {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.375rem;
+    color: var(--ink);
+  }
+  .reg-fee__unit {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-left: 0.125rem;
+  }
+</style>

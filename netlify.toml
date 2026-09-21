@@ -1,0 +1,59 @@
+# Netlify deployment configuration for FRAM School (Astro static).
+# Headers are also expressed in public/_headers; this file adds build settings.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/about-fram-2"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/elementor-2036"
+  to = "/about/leadership"
+  status = 301
+
+[[redirects]]
+  from = "/elementor-1785"
+  to = "/admissions"
+  status = 301
+
+[[redirects]]
+  from = "/our-values-vision"
+  to = "/about/values"
+  status = 301
+
+[[redirects]]
+  from = "/our-team"
+  to = "/about/leadership"
+  status = 301
+
+[[redirects]]
+  from = "/teachers-team"
+  to = "/about/teachers"
+  status = 301
+
+[[redirects]]
+  from = "/message-from-our-founder"
+  to = "/about/leadership#ileana-vranceanu"
+  status = 301
+
+[[redirects]]
+  from = "/welfare-pastoral-pillar"
+  to = "/curriculum/welfare-pastoral"
+  status = 301
+
+[[redirects]]
+  from = "/campus"
+  to = "/about/campus"
+  status = 301
+
+[[redirects]]
+  from = "/fram-open-house"
+  to = "/admissions/visit"
+  status = 301

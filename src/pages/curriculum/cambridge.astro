@@ -1,0 +1,89 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+---
+
+<Layout
+  title="About Cambridge · FRAM"
+  description="FRAM is a Cambridge International School. The Cambridge Pathway is a globally recognised primary curriculum that develops curiosity, critical thinking and transferable skills."
+  current="/curriculum/cambridge"
+>
+  <PageIntro
+    eyebrow="About Cambridge"
+    title="A globally recognised curriculum, taught in Sibiu."
+    lead="FRAM is a fully accredited Cambridge International School, one of around 10,000 schools in 160 countries delivering the Cambridge Pathway. We're also a Romanian-recognised school, and most of our families value both."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/events/reading-day-2.jpg"
+      alt="A FRAM lesson at the interactive whiteboard"
+      caption="An English lesson, on the classroom screen."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="reading section">
+    <Prose>
+      <h2>The Cambridge International Curriculum</h2>
+      <p class="lead">
+        The Cambridge international curriculum sets a global standard of education and is recognised worldwide by universities and employers. It is flexible, both challenging and inspiring, and develops a long-lasting curiosity and passion for learning. It also builds the essential skills children need for success in their later school years and adult life.
+      </p>
+
+      <p>
+        At FRAM, the Cambridge Primary programme runs from Reception through Y6 alongside our Romanian national line. Children move seamlessly from pre-school into primary, with a curriculum that's mostly aligned to the international line but enriched with the foundations of the Romanian National Curriculum.
+      </p>
+
+      <h2>Cambridge Global Perspectives</h2>
+      <p>
+        A unique, transformational subject created by Cambridge, Global Perspectives shapes outstanding transferable skills for the future: critical thinking, collaboration, and research. It complements the core academic subjects and gives children practice asking the kind of questions that don't have one neat answer.
+      </p>
+
+      <h2>The Cambridge Learner Attributes</h2>
+      <p>
+        Cambridge International Education names five attributes its curriculum is designed to develop in every child. We quote them here as Cambridge defines them, not as FRAM's invention:
+      </p>
+      <blockquote class="cambridge-attributes">
+        <p><em>"Confident, responsible, reflective, innovative and engaged."</em></p>
+        <cite>Cambridge International Education, Learner Attributes.</cite>
+      </blockquote>
+      <p>
+        They sit alongside FRAM's own seven values, kindness, curiosity, awareness, leadership, fairness, resilience, respect, and reinforce them.
+      </p>
+
+      <h2>Subjects we teach under the Cambridge Pathway</h2>
+      <ul>
+        <li>English as a first and second language</li>
+        <li>Mathematics</li>
+        <li>Science</li>
+        <li>Cambridge Global Perspectives & Philosophy for Children (P4C)</li>
+        <li>Computing & Digital Literacy</li>
+        <li>Music</li>
+        <li>Art &amp; Design</li>
+        <li>Physical Education</li>
+        <li>Wellbeing &amp; Humanities</li>
+      </ul>
+
+      <h2>Cambridge International Examinations</h2>
+      <p>
+        Children on FRAM's English Line sit Cambridge International Examinations at the appropriate stages, giving them recognised qualifications they can carry into any Cambridge or international secondary school worldwide.
+      </p>
+
+      <h2>Accreditation</h2>
+      <p>
+        FRAM is fully accredited both by Romanian national education authorities and by Cambridge Assessment International Education.
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    eyebrow="See it in practice"
+    title="The honest way to know whether Cambridge fits your child is to watch a lesson."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'How we teach', href: '/curriculum/academic' }}
+  />
+</Layout>

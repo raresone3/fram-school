@@ -1,0 +1,304 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import ClubIcon from '~/components/ClubIcon.astro';
+
+type ClubIconType =
+  'japanese' | 'choir' | 'crafts' | 'graffiti' | 'painting' | 'coding' |
+  'electronics' | 'dance' | 'kinetics' | 'ski' | 'lego' | 'outdoors';
+
+interface Club {
+  name: string;
+  teacher: string;
+  desc: string;
+  level?: string;
+  icon: ClubIconType;
+}
+
+const tuesdayClubs: Club[] = [
+  { name: 'Japanese Club A', teacher: 'Anna', icon: 'japanese', desc: "Children meet the basics of Japanese language and writing in a fun, accessible way. They learn words and phrases while strengthening memory and core language skills, and discovering Japanese culture and everyday life." },
+  { name: 'Choir', teacher: 'Cristi', icon: 'choir', desc: "Children develop their voices, musicality and sense of rhythm by singing together. The club builds teamwork, discipline and confidence, and supports memory, breathing and stress reduction." },
+  { name: 'Crafts A', teacher: 'Yulia', icon: 'crafts', desc: "Cutting, gluing, threading and making projects. A calm, creative space where imagination, patience and focus grow with every piece." },
+  { name: 'Graffiti', teacher: 'Para', icon: 'graffiti', desc: "Large-scale art and design. Children experiment with composition, colour and perspective on bigger surfaces, building motor control, spatial awareness and the courage to express themselves visually." },
+  { name: 'Painting', teacher: 'Yvone', icon: 'painting', desc: "Expressing through colour, shape and composition. Supports emotional regulation and creativity, and builds observation, visual analysis and sustained concentration." },
+  { name: 'Coding', teacher: 'Alex', icon: 'coding', desc: "Children learn to think logically and break problems into smaller steps while creating simple programs and games. Strengthens computational thinking, problem-solving, persistence and confidence." },
+  { name: 'Electronics A', teacher: 'Diana', icon: 'electronics', desc: "Hands-on with circuits, components and simple electronic projects. Group size is limited to keep activities practical and safe." },
+  { name: 'Dance A', teacher: 'Corina', icon: 'dance', desc: "Coordination, flexibility, balance and body awareness through movement and simple routines. Memory, discipline and concentration grow alongside teamwork and self-confidence." },
+  { name: 'Dance B', teacher: 'Gheorghe', icon: 'dance', desc: "Beginners' dance for our youngest children. They learn to move to rhythm and discover the fun of dancing.", level: 'Beginners' },
+];
+
+const fridayClubs: Club[] = [
+  { name: 'Japanese Club B', teacher: 'Anna', icon: 'japanese', desc: "A second slot of the Japanese language club, same approach as Tuesday." },
+  { name: 'Crafts B', teacher: 'Yulia', icon: 'crafts', desc: "A second slot of crafts, a calm, creative space for fine motor skills, imagination and patience." },
+  { name: 'Kinetics', teacher: 'Stefan-Radu', icon: 'kinetics', desc: "Building kinetic constructions boosts critical thinking, problem-solving and creativity, plus fine motor skills, concentration, attention to detail and teamwork." },
+  { name: 'Electronics B', teacher: 'Diana', icon: 'electronics', desc: "A second electronics group. Small numbers, real components, real projects." },
+  { name: 'Ski Club', teacher: 'Tase', icon: 'ski', desc: "During ski season, children spend selected afternoons on the slopes at Păltiniș / Platos Arena. Builds coordination, resilience and confidence in an outdoor sport, with classmates." },
+  { name: 'LEGO', teacher: 'Alex', icon: 'lego', desc: "Imagining, designing and building. Refines fine motor skills, spatial reasoning and problem-solving, while practising patience, creativity and perseverance." },
+  { name: 'Outdoors Club', teacher: 'Tase', icon: 'outdoors', desc: "When skiing isn't in season, indoor physical activities keep children active and ready for spring, relays, team games, balance games." },
+];
+
+const events = [
+  {
+    name: "World Book Day & 100 Days of School",
+    date: "March 2025",
+    image: "/images/events/reading-day-1.jpg",
+    alt: "A FRAM lesson at the interactive whiteboard",
+    desc: "World Book Day at FRAM is a full-school dressing-up celebration. Every child becomes their favourite book character, Hogwarts robes, lab coats, ninja costumes, princess dresses, and the day is built around reading aloud, presenting their character, and trading stories across year groups. The same week, Y1 and Y2 marked their hundredth day at school with a parallel celebration.",
+  },
+  {
+    name: "FRAM Diversity Festival",
+    date: "October 2025",
+    image: "/images/events/world-book-day-1.jpg",
+    alt: "A FRAM lesson at the classroom screen",
+    desc: "One of the happiest (and tastiest) days of the year. Each child chooses a country or culture to represent, their own or one they want to share, and transforms their space with flags, traditional patterns, music, mini-exhibits and food. There are games, quizzes, mini 'travel' stations and lots of chances to learn a new word or dance step. Differences become something to enjoy, share, and celebrate together.",
+  },
+  {
+    name: "Autumn Harvest Event",
+    date: "November 2025",
+    image: "/images/events/reading-day-3.jpg",
+    alt: "A FRAM afternoon lesson in the classroom",
+    desc: "FRAM turns into a cosy, golden mini-village. Classrooms and hallways fill with pumpkins, leaves, lanterns and handmade decorations created by the children and teachers. Students help plan games, decorate spaces and set up activity corners, from craft tables to autumn-themed challenges. The goal is simple: have fun together, celebrate the season, and feel proud of what we've created as a community.",
+  },
+  {
+    name: "Assembly for the School President",
+    date: "Spring 2026",
+    image: "/images/events/assembly-attendance.jpg",
+    alt: "FRAM children at a school-wide gathering in the courtyard",
+    desc: "Each year the school holds an assembly to announce the new School President, voted by the children, supported by the senior leadership team. The assembly itself is a teaching moment: children listen to candidates, debate, and learn how a vote works in practice.",
+  },
+];
+---
+
+<Layout
+  title="Clubs & Events · FRAM"
+  description="Tuesday and Friday afternoon clubs at FRAM: Japanese, Choir, Crafts, Graffiti, Painting, Coding, Electronics, Dance, Kinetics, Ski, LEGO, Outdoors. Plus our school-wide events calendar."
+  current="/curriculum/clubs"
+>
+  <PageIntro
+    eyebrow="Clubs & Events"
+    title="The school day doesn't end at 3:15."
+    lead="Clubs at FRAM run on Tuesday and Friday afternoons between 3:30 and 4:15. Children pick what they want to try. Each club is led by a passionate teacher and designed with clear developmental benefits in mind, fun is the door, growth is what's behind it."
+  />
+
+  <section class="clubs-day">
+    <div class="container">
+      <header class="clubs-day__head">
+        <p class="eyebrow">Tuesday afternoons</p>
+        <h2 class="clubs-day__title">Choose one, 3:30 to 4:15.</h2>
+      </header>
+      <ul class="clubs-day__list">
+        {tuesdayClubs.map((c) => (
+          <li class="club rise">
+            <ClubIcon type={c.icon} size={32} class="club__icon" />
+            <div class="club__head">
+              <h3 class="club__name">{c.name}</h3>
+              <p class="club__teacher">with {c.teacher}{c.level ? ` · ${c.level}` : ''}</p>
+            </div>
+            <p class="club__desc">{c.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hairline" />
+
+  <section class="clubs-day">
+    <div class="container">
+      <header class="clubs-day__head">
+        <p class="eyebrow">Friday afternoons</p>
+        <h2 class="clubs-day__title">Choose one, 3:30 to 4:30.</h2>
+      </header>
+      <ul class="clubs-day__list">
+        {fridayClubs.map((c) => (
+          <li class="club rise">
+            <ClubIcon type={c.icon} size={32} class="club__icon" />
+            <div class="club__head">
+              <h3 class="club__name">{c.name}</h3>
+              <p class="club__teacher">with {c.teacher}</p>
+            </div>
+            <p class="club__desc">{c.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="events section--paper-deep">
+    <div class="container">
+      <header class="events__head">
+        <p class="eyebrow">Recent events</p>
+        <h2 class="events__title">A school year, in moments.</h2>
+        <p class="lead">
+          We love celebrating different things all year round. It's our way of keeping learning diverse and getting out of the monotony of a normal school year.
+        </p>
+      </header>
+
+      <div class="events__list">
+        {events.map((e) => (
+          <article class="event rise">
+            {e.image && (
+              <figure class="event__media">
+                <img src={e.image} alt={e.alt ?? e.name} loading="lazy" decoding="async" />
+              </figure>
+            )}
+            <div class="event__body">
+              <p class="event__date">{e.date}</p>
+              <h3 class="event__name">{e.name}</h3>
+              <p class="event__desc">{e.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="reading section--tight">
+    <Prose>
+      <h2>Across the year</h2>
+      <p>
+        Beyond the day-to-day clubs, the Skills &amp; Events Pillar runs the wider life of the school, themed weeks, assemblies, celebrations, UNESCO days, competitions, the House Cup, and community events. Recurring fixtures include the UNESCO Diversity Fair, Anti-Bullying Day, World Health Day, Green Week, the Imagine Art Festival, school assemblies, and house challenges.
+      </p>
+      <p>
+        <a href="/curriculum/houses">Read about the FRAM House System →</a>
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    eyebrow="Visit"
+    title="Tuesday or Friday afternoons are the best time to drop in. Clubs are at their loudest."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'Skills & Events Pillar', href: '/curriculum/skills-events' }}
+  />
+</Layout>
+
+<style>
+  .clubs-day { padding-block: clamp(2.5rem, 5vw + 1rem, 5rem); }
+  .clubs-day__head { margin-bottom: 2.5rem; }
+  .clubs-day__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.625rem, 1.2rem + 2vw, 2.25rem);
+    letter-spacing: -0.005em;
+  }
+
+  .clubs-day__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem 1.75rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .clubs-day__list { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .clubs-day__list { grid-template-columns: repeat(3, 1fr); } }
+
+  .club {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+    position: relative;
+  }
+  .club :global(.club__icon) {
+    color: var(--brand-red);
+    margin-bottom: 0.625rem;
+    transition: transform var(--t-base) var(--ease-out-quart);
+  }
+  .club:hover :global(.club__icon) {
+    transform: rotate(-4deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .club:hover :global(.club__icon) { transform: none; }
+  }
+  .club__head { margin-bottom: 0.5rem; }
+  .club__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: -0.005em;
+    line-height: 1.2;
+    margin-bottom: 0.125rem;
+  }
+  .club__teacher {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.9375rem;
+    color: var(--brand-red);
+  }
+  .club__desc {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 50ch;
+  }
+
+  .events { padding-block: clamp(3rem, 6vw + 1.5rem, 6rem); }
+  .events__head { margin-bottom: 2.5rem; max-width: 60ch; }
+  .events__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);
+    letter-spacing: -0.005em;
+    margin: 0.75rem 0 1rem;
+  }
+
+  .events__list {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 880px) { .events__list { grid-template-columns: 1fr 1fr; } }
+
+  .event {
+    background: var(--paper-pure);
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .event__media {
+    margin: 0;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--paper-deep);
+  }
+  .event__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 600ms var(--ease-out-quart);
+  }
+  .event:hover .event__media img { transform: scale(1.03); }
+  .event__body {
+    padding: 1.5rem 1.75rem 1.75rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .event__date {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-red);
+    margin-bottom: 0.625rem;
+  }
+  .event__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: -0.005em;
+    line-height: 1.15;
+    margin-bottom: 0.875rem;
+  }
+  .event__desc {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+</style>

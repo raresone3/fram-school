@@ -1,0 +1,42 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import ContactBlock from '~/components/ContactBlock.astro';
+import Prose from '~/components/Prose.astro';
+import Figure from '~/components/Figure.astro';
+---
+
+<Layout title="Contact FRAM" description="Phone, email, address, and the safeguarding contact at FRAM School in Sibiu." current="/contact">
+  <PageIntro
+    eyebrow="Contact"
+    title="Three ways to reach us, and the right one for what you need."
+    lead="General questions go to the school office. Admissions enquiries go to the admissions team. Anything to do with the safety or wellbeing of a child goes directly to our Designated Safeguarding Lead."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/campus/main.jpg"
+      alt="The Habermann Learning Campus front entrance"
+      caption="Habermann Learning Campus, Berăriei 4, Sibiu."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <ContactBlock />
+
+  <section class="section reading">
+    <Prose>
+      <h2>School hours</h2>
+      <p>
+        Mandatory programme: 8:30 – 15:15, Monday to Friday during term.<br />
+        Houses & Clubs: 15:30 – 16:15.<br />
+        The school office is staffed Monday to Friday, 8:00 – 16:30.
+      </p>
+      <h2>Press and media</h2>
+      <p>
+        Press enquiries should go to <a href="mailto:office@framschool.com">office@framschool.com</a>. We do not give children's names or photographs without parental consent.
+      </p>
+    </Prose>
+  </section>
+</Layout>

@@ -1,0 +1,181 @@
+---
+/**
+ * Accreditor badge.
+ *
+ * Renders the official logo file for cambridge, aracip, and bso.
+ * Renders a typographic placeholder for checkpoint (no licensed logo yet).
+ *
+ * Logo files live in /public/images/accreditors/.
+ */
+export type Accreditor = 'cambridge' | 'aracip' | 'bso' | 'checkpoint';
+
+interface Props {
+  type: Accreditor;
+  size?: 'small' | 'medium';
+  class?: string;
+}
+
+const { type, size = 'medium', class: className = '' } = Astro.props;
+
+const meta = {
+  cambridge: {
+    src: '/images/accreditors/cambridge.png',
+    alt: 'Cambridge Assessment International Education',
+    name: 'Cambridge International',
+    sub: 'Accredited School',
+  },
+  aracip: {
+    src: '/images/accreditors/aracip.jpg',
+    alt: 'Ministerul Educației, Guvernul României',
+    name: 'Romanian Ministry',
+    sub: 'of Education',
+  },
+  bso: {
+    src: '/images/accreditors/bso.png',
+    alt: 'British Schools Overseas, DfE',
+    name: 'British Schools Overseas',
+    sub: 'Pre-inspection March 2026',
+  },
+  checkpoint: {
+    src: null,
+    alt: 'Cambridge Primary Checkpoint Examination Centre',
+    name: 'Cambridge Checkpoint',
+    sub: 'Examination Centre',
+  },
+}[type];
+---
+
+<figure class={`accreditor-badge accreditor-badge--${type} accreditor-badge--${size} ${className}`.trim()} aria-label={meta.alt}>
+  <div class="accreditor-badge__mark">
+    {meta.src ? (
+      <img src={meta.src} alt={meta.alt} loading="lazy" decoding="async" />
+    ) : (
+      <span class="accreditor-badge__mono" aria-hidden="true">✓</span>
+    )}
+  </div>
+  <figcaption class="accreditor-badge__caption">
+    <span class="accreditor-badge__name">{meta.name}</span>
+    <span class="accreditor-badge__sub">{meta.sub}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .accreditor-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    margin: 0;
+    padding: 1.25rem 1.25rem 1.125rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    background: var(--paper-pure);
+    gap: 0.875rem;
+    color: var(--ink);
+    transition: transform var(--t-base) var(--ease-out-quart), box-shadow var(--t-base) var(--ease-out-quart);
+    min-height: 11rem;
+  }
+  .accreditor-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .accreditor-badge:hover { transform: none; }
+  }
+
+  /* ──────── Mark area (logo or typographic) ──────── */
+  .accreditor-badge__mark {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 4.5rem;
+    padding: 0.25rem;
+  }
+  .accreditor-badge__mark img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .accreditor-badge__mono {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--brand-red);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+
+  /* ──────── Caption ──────── */
+  .accreditor-badge__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+    width: 100%;
+  }
+  .accreditor-badge__name {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .accreditor-badge__sub {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    line-height: 1.3;
+  }
+
+  /* ──────── Per-type sizing ────────
+     Different aspect ratios per source mark:
+     cambridge = wide horizontal, aracip = square seal, bso = tall stacked.
+     Match each with its natural maximum dimension. */
+  .accreditor-badge--cambridge .accreditor-badge__mark img {
+    max-height: 4.5rem;
+    width: auto;
+  }
+  .accreditor-badge--aracip .accreditor-badge__mark img {
+    max-height: 5.5rem;
+    width: auto;
+  }
+  .accreditor-badge--bso .accreditor-badge__mark img {
+    max-height: 5.25rem;
+    width: auto;
+  }
+
+  /* BSO in-progress signal: subtle dashed outline */
+  .accreditor-badge--bso {
+    border-style: dashed;
+  }
+
+  /* Checkpoint stays typographic */
+  .accreditor-badge--checkpoint .accreditor-badge__mono {
+    color: var(--brand-red);
+    font-size: 3.5rem;
+  }
+
+  /* ──────── Small variant ──────── */
+  .accreditor-badge--small {
+    padding: 0.875rem 1rem 0.75rem;
+    gap: 0.5rem;
+    min-height: 8rem;
+  }
+  .accreditor-badge--small .accreditor-badge__name { font-size: 0.625rem; }
+  .accreditor-badge--small .accreditor-badge__sub { font-size: 0.6875rem; }
+  .accreditor-badge--small .accreditor-badge__mono { font-size: 2.25rem; }
+  .accreditor-badge--small .accreditor-badge__mark {
+    min-height: 3rem;
+  }
+  .accreditor-badge--small.accreditor-badge--cambridge .accreditor-badge__mark img { max-height: 3rem; }
+  .accreditor-badge--small.accreditor-badge--aracip .accreditor-badge__mark img { max-height: 3.5rem; }
+  .accreditor-badge--small.accreditor-badge--bso .accreditor-badge__mark img { max-height: 3.5rem; }
+</style>

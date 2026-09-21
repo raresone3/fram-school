@@ -1,0 +1,71 @@
+# FRAM School
+
+> A Cambridge primary school and kindergarten in Sibiu, Romania, for children aged 3 to 11. Founded 2014. Habermann Learning Campus, Berăriei 4, Sibiu.
+
+FRAM is a fully accredited Cambridge International School and a Romanian-recognised school, teaching the Cambridge Primary Curriculum alongside the Romanian national line in two parallel study lines. The school is built on three pillars (Academic, Welfare & Pastoral, Skills & Events) and seven values (Kindness, Curiosity, Awareness, Leadership, Fairness, Resilience, Respect).
+
+## Key facts
+
+- **Location**: Habermann Learning Campus, Berăriei 4, Sibiu, Romania
+- **Founded**: 2014 (Kindergarten); Primary school opened 2022
+- **Ages**: 3–11 (Kindergarten through Y6 / Pre-Primary through Grade IV)
+- **Curriculum**: Cambridge Primary + Romanian National Curriculum
+- **School day**: 8:00 drop-off, 9:00 lessons, 3:15 mandatory end, 3:30–4:15 Houses & Clubs
+- **Phone**: +40 724 491 440
+- **General email**: office@framschool.com
+- **Admissions**: admissions@framschool.com
+- **Safeguarding (DSL)**: safeguarding@framschool.com (Marieluise Knobloch)
+- **Vacancies**: contact@framschool.com
+
+## Senior leadership (5 people)
+
+- Ileana Vrânceanu — Founder & CEO
+- Tiberiu Popescu — Headmaster
+- Simona Dică — Head of Academics (Academic Pillar)
+- Marieluise Knobloch — Head of Welfare & Pastoral, Designated Safeguarding Lead
+- Raluca Cardoș — Head of Skills & Events Pillar
+
+## The Four Houses
+
+FRAM children are sorted into one of four Houses, each named after a famous explorer:
+
+- House Alexandra David-Néel — Purple, Earth, Tiger, House of the Givers (French heritage)
+- House Fernando Magellan — Turquoise, Water, Peacock, House of Awareness (Portuguese heritage)
+- House Amelia Earhart — Yellow, Air, Swan / Lion, House of Courage (UK heritage)
+- House Neil Armstrong — Magenta, Fire, Wolf, House of Friendship (American heritage)
+
+## Pages
+
+- [Home](/): Overview and entry point
+- [About FRAM](/about): Philosophy, what the school is for
+- [Founder's letter](/about/founder): Ileana Vrânceanu's letter to families
+- [History & accreditations](/about/history): Year by year, plus Cambridge (first in Romania for Early Years), Romanian Ministry, BSO inspection in progress
+- [Senior Leadership](/about/leadership): Profiles of the senior leaders
+- [Governance](/about/governance): Founder, Headmaster, SLT, Board
+- [Teachers](/about/teachers): All twenty teaching staff
+- [Vision & Values](/about/values): The seven values, in detail
+- [Academic results](/about/results): How FRAM measures and reports children's progress
+- [Habermann Campus](/about/campus): Campus location, facilities, photography
+- [Academic calendar](/about/calendar): Three terms, dates emailed each August
+- [Daily Schedule](/about/schedule): Drop-off, pick-up, meals
+- [Curriculum](/curriculum): Overview of the two-line model and six developmental areas
+- [About Cambridge](/curriculum/cambridge): The Cambridge Pathway at FRAM
+- [Academic Pillar](/curriculum/academic): How we teach, learning and assessment, ESL, IIPs, CAT4
+- [Welfare & Pastoral Pillar](/curriculum/welfare-pastoral): Safeguarding, behaviour and anti-bullying, wellbeing and counselling
+- [Skills, Events & Houses Pillar](/curriculum/skills-events): The Yellow Pillar
+- [Clubs & Events](/curriculum/clubs): Tuesday and Friday club roster, recent events
+- [The House System](/curriculum/houses): Four houses, four explorers
+- [A Day at FRAM](/curriculum/day): Hour-by-hour walkthrough, 8:30 to 4:15
+- [Admissions](/admissions): How to apply, four-step process
+- [Fees](/admissions/fees): What's included, how to receive the schedule
+- [Visit / Open Days](/admissions/visit): Tours and open days
+- [For parents](/parents): Handbook for current FRAM families: contacts, communication, attendance, illness, annual calendar
+- [Policies](/policies): All FRAM policies grouped by pillar
+- [Vacancies](/vacancies): Teaching and support roles
+- [Contact](/contact): Phone, email, address, safeguarding contact
+- [Safeguarding](/safeguarding): The DSL and how to report a concern
+
+## Optional
+
+- [framschool.com](https://framschool.com): Live school website
+- [Sitemap](/sitemap-index.xml): Machine-readable site map

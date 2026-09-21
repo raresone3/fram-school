@@ -1,0 +1,283 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Figure from '~/components/Figure.astro';
+
+interface Layer {
+  cadence: string;
+  what: string;
+  who: string;
+}
+
+const layers: Layer[] = [
+  {
+    cadence: 'Daily',
+    what: 'Teacher observation, in-class feedback, marking. The bulk of how each child is understood by their teacher.',
+    who: 'Class teacher',
+  },
+  {
+    cadence: 'Weekly',
+    what: 'Phonics checks, mathematics fluency, reading running records, mini-assessments. Adjusts the next week\'s teaching.',
+    who: 'Class teacher, with subject specialists',
+  },
+  {
+    cadence: 'Termly',
+    what: 'GL Progression Tests in English, mathematics and science. Parents\' evenings. Targeted intervention review.',
+    who: 'Head of Academics, class teacher, family',
+  },
+  {
+    cadence: 'Twice a year',
+    what: 'Written progress reports sent home, covering academic progress and pastoral development across both lines.',
+    who: 'Class teacher, Head of Year, signed off by the Headmaster',
+  },
+  {
+    cadence: 'At key stages',
+    what: 'CAT4 cognitive ability tests to understand strengths, potential and learning preferences. Phonics screening at Year 1.',
+    who: 'Head of Academics, external GL Assessment provider',
+  },
+  {
+    cadence: 'Year 6',
+    what: 'Cambridge Primary Checkpoint examinations in English, mathematics, and science, marked by Cambridge International.',
+    who: 'Cambridge International, marked externally',
+  },
+];
+---
+
+<Layout title="Academic Pillar · FRAM" description="Cambridge Primary Curriculum at FRAM, taught alongside the Romanian national line. How we teach, how we assess, ESL support and intervention plans, and who leads it." current="/curriculum/academic">
+  <PageIntro
+    eyebrow="Academic Pillar"
+    title="Cambridge Primary, taught well, in two languages."
+    lead="The Academic Pillar is the part of FRAM most schools talk about most loudly. We try to talk about it precisely instead. Here is what we teach, how we teach it, how we know it's working, and who leads it."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/events/reading-day-1.jpg"
+      alt="A FRAM lesson at the interactive whiteboard"
+      caption="A primary lesson, on the screen."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="container academic-toc" aria-label="On this page">
+    <ul>
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#teaching">How we teach</a></li>
+      <li><a href="#assessment">Learning &amp; Assessment</a></li>
+      <li><a href="#support">Personalised support</a></li>
+      <li><a href="#leadership">Who leads this</a></li>
+    </ul>
+  </section>
+
+  <section class="section reading">
+    <Prose>
+      <h2 id="curriculum">The curriculum we teach</h2>
+      <p>
+        FRAM follows the Cambridge Primary Curriculum, an internationally recognised programme used in around 160 countries, across ten subjects: English, Mathematics, Science, Computing, Art &amp; Design, Music, Physical Education, and humanities (Geography, History, Global Perspectives). It is taught in English by qualified subject and class teachers.
+      </p>
+      <p>
+        Alongside Cambridge, we teach the Romanian national content for Romanian language, literature and Romanian-context studies, with Romanian subject specialists. Children write essays in both languages, work with primary sources in both languages, and finish primary school able to move into a Romanian or international secondary without scrambling.
+      </p>
+
+      <h2 id="teaching">How we teach</h2>
+      <p>
+        Class sizes stay small, there is no class at FRAM where a teacher does not know every child by name and family. Mixed-ability teaching is the default; we differentiate within the classroom rather than streaming early. P4C (Philosophy for Children) is timetabled across primary, taught by Tiberiu Moldovanu, children learn to argue precisely, listen to disagreement, and change their minds in public.
+      </p>
+      <p>
+        Classrooms are designed for the way children actually learn at primary age:
+      </p>
+      <ul>
+        <li>Structured routines that help children feel secure.</li>
+        <li>Child-appropriate furniture and materials.</li>
+        <li>Spaces for creativity that promote calm focus, exploration, and teamwork.</li>
+        <li>Predictable, caring interactions between teachers and students.</li>
+      </ul>
+    </Prose>
+  </section>
+
+  <section class="section--tight reading">
+    <Prose>
+      <h2 id="assessment">Learning &amp; Assessment</h2>
+      <p class="lead">
+        A layered system, not one annual exam. Daily observation feeds weekly checks, which feed termly tests, which feed the report cards, which sit alongside CAT4 and Checkpoint for the long-arc view of a child's progress.
+      </p>
+    </Prose>
+  </section>
+
+  <section class="section--tight">
+    <div class="container">
+      <ol class="layers">
+        {layers.map((l, i) => (
+          <li class="layer">
+            <span class="layer__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <p class="layer__cadence">{l.cadence}</p>
+            <p class="layer__what">{l.what}</p>
+            <p class="layer__who">{l.who}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section--tight reading">
+    <Prose>
+      <h3>First Cambridge Primary Checkpoint cohort: 2027 to 2028</h3>
+      <p>
+        FRAM's primary line opened in 2022 with Year 1. The first cohort of children will reach Year 6 in the 2027 to 2028 academic year, and will sit the Cambridge Primary Checkpoint examinations in English, mathematics, and science. Results will be published on this page during the summer of that academic year, with appropriate aggregation to protect individual children's privacy and following published Cambridge benchmarks.
+      </p>
+
+      <h3>Internal benchmarks today</h3>
+      <p>
+        Until then, FRAM tracks progress against GL Progression Test benchmarks and CAT4 expectations. Internal aggregated results across the current cohort are available on request from the Head of Academics, Simona Dică, at <a href="mailto:office@framschool.com">office@framschool.com</a>.
+      </p>
+
+      <h3>When something is off</h3>
+      <p>
+        If termly assessment shows that a child is not progressing as expected, the school intervenes early. Most issues are resolved within the classroom by the class teacher; where deeper support is needed the Head of Year and the Head of Academics step in, working closely with the family. The pastoral side, when a child is struggling for non-academic reasons, is led by Marieluise Knobloch, the Head of Welfare &amp; Pastoral.
+      </p>
+    </Prose>
+  </section>
+
+  <section class="section reading section--paper-deep">
+    <Prose>
+      <h2 id="support">Personalised support</h2>
+      <p>
+        To ensure every child makes appropriate progress, FRAM provides:
+      </p>
+      <ul>
+        <li><strong>ESL (English as a Second Language) support</strong> for learners developing English skills.</li>
+        <li><strong>One-to-one or small-group intervention</strong> where needed.</li>
+        <li><strong>Individual Intervention Plans (IIPs)</strong> for personalised goals.</li>
+        <li><strong>Ongoing communication</strong> with parents about progress and next steps.</li>
+      </ul>
+      <p>
+        Where a child needs additional support, an Individual Intervention Plan is written by the class teacher and the Head of Academics. It sets specific, measurable targets and a review date. Parents are part of the cycle: they read it, contribute to it, and review progress alongside the teacher at the agreed dates.
+      </p>
+
+      <h2 id="leadership">Who leads this</h2>
+      <p>
+        Simona Dică is our Head of Academics. She also teaches Y3D, which means academic standards at FRAM are set by someone still in the classroom every day. <a href="/about/leadership#simona-dica">Read her profile →</a>
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    eyebrow="See it for yourself"
+    title="Lessons run from 9:00 to 3:15. Tours can drop into them."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'A day at FRAM', href: '/curriculum/day' }}
+  />
+</Layout>
+
+<style>
+  .academic-toc {
+    padding-block: 1rem 2.5rem;
+    max-width: var(--container-reading);
+    margin: 0 auto;
+  }
+  .academic-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.625rem;
+    border-top: 1px solid var(--rule);
+  }
+  .academic-toc li {
+    margin: 0;
+  }
+  .academic-toc a {
+    display: inline-block;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease-out-quart),
+                border-color var(--t-fast) var(--ease-out-quart),
+                background var(--t-fast) var(--ease-out-quart);
+  }
+  .academic-toc a:hover {
+    color: var(--brand-red);
+    border-color: var(--brand-red);
+    background: var(--brand-red-soft);
+  }
+
+  .layers {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+    max-width: 60rem;
+  }
+  @media (min-width: 720px) {
+    .layers {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  @media (min-width: 1040px) {
+    .layers {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .layer {
+    position: relative;
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    padding: 1.5rem 1.625rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .layer__num {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--brand-red);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.5;
+  }
+  .layer__cadence {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.375rem;
+    color: var(--brand-red);
+    line-height: 1.15;
+    margin: 0 0 0.5rem;
+    padding-right: 2.5rem;
+  }
+  .layer__what {
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+    font-size: 0.9375rem;
+    flex: 1;
+  }
+  .layer__who {
+    color: var(--ink-muted);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.875rem;
+    margin: 0.5rem 0 0;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--rule);
+  }
+</style>

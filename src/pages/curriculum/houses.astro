@@ -1,0 +1,607 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import { breadcrumb } from '~/lib/schema';
+
+const pageSchema = [
+  breadcrumb([
+    { label: 'Home', href: '/' },
+    { label: 'Curriculum', href: '/curriculum' },
+    { label: 'The House System', href: '/curriculum/houses' },
+  ]),
+];
+
+interface House {
+  slug: string;
+  name: string;
+  title: string;
+  explorer: string;
+  heritage: string;
+  language: string;
+  color: string;
+  colorName: string;
+  ink: string;
+  element: string;
+  symbol: string;
+  animal: string;
+  animalImage: string;
+  values: string[];
+  power: string;
+  staffLead: string;
+  description: string;
+}
+
+const houses: House[] = [
+  {
+    slug: 'alexandra-david-neel',
+    name: 'Alexandra David-Néel',
+    title: 'House of the Givers',
+    explorer: 'Alexandra David-Néel, French explorer and spiritual pioneer who ventured into the Himalayas to uncover hidden truths.',
+    heritage: 'France',
+    language: 'French',
+    color: 'oklch(0.42 0.13 305)',
+    colorName: 'Purple',
+    ink: 'oklch(0.97 0.01 305)',
+    element: 'Earth',
+    symbol: 'The Compass',
+    animal: 'The Tiger',
+    animalImage: '/images/houses/tiger.png',
+    values: ['Kindness', 'Excellence'],
+    power: 'Respect, sharing, empowering others.',
+    staffLead: 'Tiberiu Moldovanu',
+    description:
+      'A nurturing community inspired by the fearless explorer who travelled into the unknown to share knowledge. Purple stands for wisdom, nobility, and compassion. The compass guides children to find their true direction by empowering others. The tiger represents fierce dedication to kindness.',
+  },
+  {
+    slug: 'fernando-magellan',
+    name: 'Fernando Magellan',
+    title: 'House of Awareness',
+    explorer: 'Ferdinand Magellan, Portuguese navigator who sailed across uncharted waters and discovered new worlds.',
+    heritage: 'Portugal',
+    language: 'Portuguese',
+    color: 'oklch(0.55 0.10 200)',
+    colorName: 'Turquoise',
+    ink: 'oklch(0.99 0.005 200)',
+    element: 'Water',
+    symbol: 'The Ship',
+    animal: 'The Peacock',
+    animalImage: '/images/houses/peacock.png',
+    values: ['Resilience', 'Awareness'],
+    power: 'Kindness of heart, strength of a true warrior.',
+    staffLead: 'Gaia Robilio',
+    description:
+      'A community for children who want to understand themselves, others, and the world. Turquoise stands for awareness, clarity, and open-mindedness. The ship navigates life\'s uncharted waters; the peacock represents the heart\'s desire to love and protect. Water carries the strength found in unity, even in challenging tides.',
+  },
+  {
+    slug: 'amelia-earhart',
+    name: 'Amelia Earhart',
+    title: 'House of Courage',
+    explorer: 'Amelia Earhart, American aviator who soared beyond horizons and broke boundaries with her daring spirit.',
+    heritage: 'United Kingdom',
+    language: 'English',
+    color: 'oklch(0.78 0.14 80)',
+    colorName: 'Yellow',
+    ink: 'oklch(0.20 0.02 80)',
+    element: 'Air',
+    symbol: 'The Airplane',
+    animal: 'The Swan',
+    animalImage: '/images/houses/swan.png',
+    values: ['Courage', 'Leadership'],
+    power: 'The kindness and courage of a lion.',
+    staffLead: 'Raluca Cardoș',
+    description:
+      'For children who want to dream big, take risks, and embrace the adventure of life. Yellow stands for optimism, energy, and hope. The airplane reminds us that resilience and determination take us to new heights. The lion leads with kindness and bravery; the swan teaches grace under pressure.',
+  },
+  {
+    slug: 'neil-armstrong',
+    name: 'Neil Armstrong',
+    title: 'House of Friendship',
+    explorer: 'Neil Armstrong, American astronaut and the first person to walk on the Moon.',
+    heritage: 'America',
+    language: 'English',
+    color: 'oklch(0.55 0.20 350)',
+    colorName: 'Magenta',
+    ink: 'oklch(0.99 0.005 350)',
+    element: 'Fire',
+    symbol: 'The Spaceship',
+    animal: 'The Wolf',
+    animalImage: '/images/houses/wolf.png',
+    values: ['Fairness', 'Friendship', 'Togetherness'],
+    power: 'Loyalty, community, and the strength found in unity.',
+    staffLead: 'Cristian Boldijar',
+    description:
+      'A community built on the strength of friendship, fairness, and togetherness. Magenta stands for harmony, compassion, and energy. The spaceship reaches for the stars while staying connected with kindness. The wolf reminds us that we move forward together with courage and trust.',
+  },
+];
+---
+
+<Layout
+  title="The FRAM House System"
+  description="Four Houses, four explorers, one community. The FRAM House System builds belonging across year groups through shared values and friendly competition."
+  current="/curriculum/houses"
+  schema={pageSchema}
+>
+  <PageIntro
+    eyebrow="The FRAM House System"
+    title="Four Houses, four explorers, one community."
+    lead="Every child at FRAM belongs to a House, and stays in it through their whole time at the school. Houses are mixed across year groups so older children mentor younger ones, and so a four-year-old has nineteen big siblings from day one."
+  />
+
+  <section class="houses-strip container">
+    <figure>
+      <img src="/images/houses-photos/joy.jpg" alt="FRAM children at an outdoor House activity" loading="eager" decoding="async" fetchpriority="high" />
+    </figure>
+    <figure>
+      <img src="/images/houses-photos/dog-watching.jpg" alt="A whole-school gathering at Habermann Campus" loading="lazy" decoding="async" />
+    </figure>
+    <figure>
+      <img src="/images/houses-photos/sitting-attentive.jpg" alt="A FRAM lesson in the classroom" loading="lazy" decoding="async" />
+    </figure>
+  </section>
+
+  <section class="reading section--tight">
+    <Prose>
+      <p class="lead">
+        Each House is named after an explorer. Each has its own colour, element, animal, motto, and pair of staff leaders, one drawn from the Academic Pillar, one from Welfare and Pastoral. The system is small enough to be personal and big enough to feel like belonging.
+      </p>
+    </Prose>
+  </section>
+
+  <section class="houses">
+    <div class="container">
+      <div class="houses__grid">
+        {houses.map((h) => (
+          <article class="house rise" style={`--house-color: ${h.color}; --house-ink: ${h.ink};`}>
+            <header class="house__head">
+              <div class="house__crest" aria-hidden="true">
+                <img src={h.animalImage} alt="" class="house__crest-img" />
+              </div>
+              <p class="house__title">{h.title}</p>
+              <h2 class="house__name">{h.name}</h2>
+              <p class="house__motto">{h.power}</p>
+            </header>
+
+            <dl class="house__facts">
+              <div>
+                <dt>Colour</dt>
+                <dd>{h.colorName}</dd>
+              </div>
+              <div>
+                <dt>Element</dt>
+                <dd>{h.element}</dd>
+              </div>
+              <div>
+                <dt>Symbol</dt>
+                <dd>{h.symbol}</dd>
+              </div>
+              <div>
+                <dt>Animal</dt>
+                <dd>{h.animal}</dd>
+              </div>
+              <div>
+                <dt>Heritage</dt>
+                <dd>{h.heritage}, {h.language}</dd>
+              </div>
+              <div>
+                <dt>Staff lead</dt>
+                <dd>{h.staffLead}</dd>
+              </div>
+            </dl>
+
+            <p class="house__values">
+              <span class="muted">Values:</span>{' '}
+              {h.values.map((v, i) => (
+                <span class="house__value">{v}{i < h.values.length - 1 ? ', ' : ''}</span>
+              ))}
+            </p>
+
+            <p class="house__description">{h.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="moon section--paper-deep">
+    <div class="container moon__inner">
+      <div class="moon__visual" aria-hidden="true">
+        <div class="moon__orb">
+          <span class="moon__shimmer moon__shimmer--1"></span>
+          <span class="moon__shimmer moon__shimmer--2"></span>
+          <span class="moon__shimmer moon__shimmer--3"></span>
+          <span class="moon__shimmer moon__shimmer--4"></span>
+        </div>
+      </div>
+
+      <div class="moon__copy">
+        <p class="eyebrow">The sorting ceremony</p>
+        <h2 class="moon__title">The Magic FRAM Moon.</h2>
+        <p class="lead">
+          On the first day of school, every new child places their hands above the FRAM Moon. As they do, it changes colour, purple, turquoise, yellow, or magenta, and reveals which House they belong to. Their new House cheers. Their old siblings from a different House cheer too. Then everyone has cake.
+        </p>
+        <p class="muted">
+          Most children move into a House on day one. Once in, they stay there until they graduate; movement happens only on exceptional grounds.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reading section">
+    <Prose>
+      <h2>How points work</h2>
+      <p class="lead">
+        Throughout the year, children earn points for their House, for kindness, for academic excellence, for school spirit, for outstanding effort, for teamwork, for compassion, for responsibility. Anyone who works at FRAM can award them: teachers, the office staff, the cafeteria team. Children quickly learn that friendly eyes are everywhere.
+      </p>
+
+      <h3>Tokens and special awards</h3>
+      <ul>
+        <li><strong>Weekly behaviour tokens</strong> (red, yellow, green): given Fridays by class teachers for in-class conduct.</li>
+        <li><strong>Special points</strong>: awarded by Main Subject Teachers (English, Maths, Romanian) for a perfect score on a major test like CAT4, five points to the House.</li>
+        <li><strong>Group project points</strong>: awarded by class teachers, teacher assistants, or subject teachers for outstanding work on a community or group project.</li>
+        <li><strong>Honor Roll</strong>: a green ultra-point with an A or gold star, awarded only by the Head of Academics.</li>
+        <li><strong>Excellent Behaviour</strong>: a purple special point, awarded only by the Designated Safeguarding Lead.</li>
+        <li><strong>The Kindness Token</strong>: fifty points, awarded at the end of the year by the Headmaster to children whose conduct has been exemplary throughout the year.</li>
+      </ul>
+
+      <p>
+        Two principles never bend: <em>points belong to the child once earned, we never take them away</em>, and <em>children may never ask for points in exchange for doing what they have been asked</em>.
+      </p>
+
+      <h3>The Kindness Cup</h3>
+      <p>
+        At the end of the year, the House with the most points wins the FRAM Kindness Cup, named for the principle that the true measure of a champion is not how they win but how they conduct themselves in victory and defeat. The winning House chooses the theme for the first event of the next school year, and chooses where the Cup lives until the next contest.
+      </p>
+
+      <h3>Two big competitions a year</h3>
+      <p>
+        Beyond the day-to-day, two large House competitions anchor the year. The first is built around the UNESCO Diversity Fair, where each House designs a multicultural stand and games. The second is the Sports Competition timed with UNESCO World Health Day. In both, points reward the values, fairness, kindness, collaboration, at least as much as the score.
+      </p>
+    </Prose>
+  </section>
+
+  <section class="leadership container">
+    <header class="leadership__head">
+      <p class="eyebrow">Leadership in each House</p>
+      <h2 class="leadership__title">Two staff leaders, one Head Boy, one Head Girl.</h2>
+    </header>
+
+    <div class="leadership__grid">
+      <article class="role">
+        <h3>Head Boy & Head Girl</h3>
+        <p>One of each, elected from older children, representing the House at meetings and during competitions. They bring their House's ideas and concerns to the Senior Leadership Team, and see those ideas taken seriously.</p>
+      </article>
+      <article class="role">
+        <h3>Two staff leaders</h3>
+        <p>Each House has two named staff leaders, one drawn from the Academic Pillar, one from Welfare & Pastoral. They run weekly House meetings and embody House spirit alongside the children.</p>
+      </article>
+      <article class="role">
+        <h3>Student committee roles</h3>
+        <p>Attendance Coordinator, Token Count Coordinator, Kindness Ambassador, Coordination Leader. Real responsibilities, rotated, briefed, and reviewed.</p>
+      </article>
+      <article class="role">
+        <h3>House Coordinator</h3>
+        <p>A central role across the school, the point of contact for all House-related questions and the keeper of the calendar of House activities through the year.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="prefects container">
+    <header class="prefects__head">
+      <p class="eyebrow">Prefects, this academic year</p>
+      <h2 class="prefects__title">The children chosen by their Houses.</h2>
+      <p class="prefects__lead">
+        Each House nominates a Head Boy, a Head Girl, and a Kindness Ambassador. The roles are real: they sit on the student committee, bring their House's ideas to the Senior Leadership Team, and represent their community at school-wide events.
+      </p>
+    </header>
+  </section>
+
+  <CtaBand
+    eyebrow="See it in motion"
+    title="The Houses are at their best between 3:30 and 4:15. Visit then."
+    primaryCta={{ label: 'Book a tour', href: '/admissions/visit' }}
+    secondaryCta={{ label: 'A day at FRAM', href: '/curriculum/day' }}
+  />
+</Layout>
+
+<style>
+  /* ──── Header strip of real house-life photos ───────────── */
+  .houses-strip {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 720px) {
+    .houses-strip { grid-template-columns: 1fr; }
+    .houses-strip figure:nth-child(2),
+    .houses-strip figure:nth-child(3) { display: none; }
+  }
+  .houses-strip figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    aspect-ratio: 16 / 9;
+  }
+  .houses-strip figure:first-child { aspect-ratio: 16 / 10; }
+  .houses-strip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ──── House grid ──────────────────────────────────────────── */
+  .houses { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+
+  .houses__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .houses__grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  }
+  @media (min-width: 1100px) {
+    .houses__grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  }
+
+  .house {
+    --house-color: var(--brand-red);
+    --house-ink: var(--paper-pure);
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--t-base) var(--ease-out-quart),
+                box-shadow var(--t-base) var(--ease-out-quart);
+  }
+  .house:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .house__head {
+    background: var(--house-color);
+    color: var(--house-ink);
+    padding: 1.75rem 1.5rem 1.5rem;
+    position: relative;
+  }
+
+  .house__crest {
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    background: color-mix(in oklch, var(--house-ink) 18%, transparent);
+    display: grid;
+    place-items: center;
+    margin-bottom: 1rem;
+    border: 1px solid color-mix(in oklch, var(--house-ink) 30%, transparent);
+    overflow: hidden;
+  }
+  .house__crest-img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    filter: invert(1);
+    opacity: 0.96;
+  }
+
+  .house__title {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.85;
+    margin-bottom: 0.375rem;
+  }
+  .house__name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    color: var(--house-ink);
+    margin-bottom: 0.75rem;
+  }
+  .house__motto {
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    opacity: 0.92;
+  }
+
+  .house__facts {
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    gap: 0.625rem 1rem;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+  .house__facts dt {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 0.125rem;
+  }
+  .house__facts dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .house__values {
+    padding: 1rem 1.5rem 0.5rem;
+    font-size: 0.9375rem;
+  }
+  .house__value {
+    color: var(--house-color);
+    font-weight: 500;
+  }
+
+  .house__description {
+    padding: 0.5rem 1.5rem 1.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  /* ──── Magic Moon ──────────────────────────────────────────── */
+  .moon {
+    padding-block: clamp(3rem, 6vw + 2rem, 7rem);
+  }
+  .moon__inner {
+    display: grid;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+  @media (min-width: 880px) {
+    .moon__inner { grid-template-columns: 1fr 1.4fr; }
+  }
+
+  .moon__visual {
+    display: grid;
+    place-items: center;
+    padding: 2rem 0;
+  }
+  .moon__orb {
+    width: clamp(10rem, 28vw, 18rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, oklch(0.95 0.02 80) 0%, oklch(0.85 0.04 60) 30%, oklch(0.55 0.05 60) 70%);
+    box-shadow:
+      inset -20px -30px 60px oklch(0.30 0.02 60 / 0.4),
+      inset 20px 30px 40px oklch(0.99 0.01 80 / 0.3),
+      0 20px 60px oklch(0.36 0.14 22 / 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .moon__shimmer {
+    position: absolute;
+    inset: -10%;
+    border-radius: 50%;
+    opacity: 0;
+    mix-blend-mode: soft-light;
+    animation: moon-cycle 16s var(--ease-out-quart) infinite;
+  }
+  .moon__shimmer--1 { background: radial-gradient(circle at 30% 40%, oklch(0.50 0.18 305) 0%, transparent 60%); animation-delay: 0s; }
+  .moon__shimmer--2 { background: radial-gradient(circle at 70% 30%, oklch(0.60 0.13 200) 0%, transparent 60%); animation-delay: 4s; }
+  .moon__shimmer--3 { background: radial-gradient(circle at 60% 70%, oklch(0.78 0.14 80) 0%, transparent 60%); animation-delay: 8s; }
+  .moon__shimmer--4 { background: radial-gradient(circle at 30% 70%, oklch(0.55 0.20 350) 0%, transparent 60%); animation-delay: 12s; }
+
+  @keyframes moon-cycle {
+    0%, 8% { opacity: 0; }
+    16%, 22% { opacity: 0.85; }
+    30% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .moon__shimmer { animation: none; opacity: 0.45; }
+  }
+
+  .moon__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.875rem, 1.4rem + 2vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    margin-bottom: 1rem;
+  }
+  .moon__copy .lead { margin-bottom: 1rem; }
+
+  /* ──── Leadership grid ─────────────────────────────────────── */
+  .leadership { padding-block: clamp(2rem, 4vw + 1rem, 4rem) clamp(3rem, 5vw + 1.5rem, 5rem); }
+  .leadership__head { margin-bottom: 2.5rem; }
+  .leadership__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    max-width: 22ch;
+  }
+  .leadership__grid {
+    display: grid;
+    gap: 1.5rem 2rem;
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  @media (min-width: 720px) {
+    .leadership__grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 2.5rem; }
+  }
+  @media (min-width: 1040px) {
+    .leadership__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .role h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: var(--brand-red);
+  }
+  .role p {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  /* ──── Prefects section ──── */
+  .prefects { padding-block: clamp(2rem, 4vw + 1rem, 4rem) clamp(3rem, 5vw + 1.5rem, 5rem); }
+  .prefects__head {
+    margin-bottom: 2.5rem;
+    max-width: 60ch;
+  }
+  .prefects__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0.5rem 0 0.875rem;
+  }
+  .prefects__lead {
+    font-size: var(--t-body-lg);
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .prefects__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .prefects__grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
+
+  .prefect-photo { margin: 0; }
+  .prefect-photo img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
+    background: var(--paper-deep);
+    display: block;
+    transition: transform var(--t-base) var(--ease-out-quart);
+  }
+  .prefect-photo:hover img { transform: scale(1.02); }
+  .prefect-photo figcaption {
+    margin-top: 0.625rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+</style>

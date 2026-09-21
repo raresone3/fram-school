@@ -1,0 +1,125 @@
+---
+import { SITE } from '~/lib/site';
+
+interface Props {
+  variant?: 'full' | 'compact';
+}
+const { variant = 'full' } = Astro.props;
+---
+
+<section class={`contact contact--${variant}`}>
+  <div class="container contact__grid">
+    <article class="contact__card">
+      <h2 class="contact__title">General</h2>
+      <p class="contact__desc muted">For anything not covered below, write to the school office.</p>
+      <dl class="contact__detail">
+        <dt>Address</dt>
+        <dd>
+          {SITE.address.line1}<br />
+          {SITE.address.line2}, {SITE.address.city}<br />
+          {SITE.address.country}
+        </dd>
+        <dt>Phone</dt>
+        <dd><a href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`}>{SITE.contact.phoneDisplay}</a></dd>
+        <dt>Email</dt>
+        <dd><a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a></dd>
+      </dl>
+    </article>
+
+    <article class="contact__card">
+      <h2 class="contact__title">Admissions</h2>
+      <p class="contact__desc muted">For applications, visits, fees and transfers.</p>
+      <dl class="contact__detail">
+        <dt>Email</dt>
+        <dd><a href={`mailto:${SITE.contact.admissionsEmail}`}>{SITE.contact.admissionsEmail}</a></dd>
+        <dt>Phone</dt>
+        <dd><a href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`}>{SITE.contact.phoneDisplay}</a></dd>
+      </dl>
+      <a href="/admissions/visit" class="contact__cta">Book a tour →</a>
+    </article>
+
+    <article class="contact__card contact__card--alert">
+      <h2 class="contact__title">Safeguarding</h2>
+      <p class="contact__desc">For any concern about a child's safety or wellbeing. Marieluise Knobloch, our DSL, replies personally.</p>
+      <dl class="contact__detail">
+        <dt>DSL</dt>
+        <dd>{SITE.dsl.name}</dd>
+        <dt>Email</dt>
+        <dd><a href={`mailto:${SITE.contact.safeguardingEmail}`}>{SITE.contact.safeguardingEmail}</a></dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<style>
+  .contact { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+
+  .contact__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .contact__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .contact__card {
+    padding: 2rem 1.75rem;
+    background: var(--paper-pure);
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact__card--alert {
+    background: var(--brand-red-soft);
+    border-color: oklch(0.85 0.06 25);
+    color: var(--brand-red-deep);
+  }
+  .contact__card--alert .contact__title { color: var(--brand-red-deep); }
+  .contact__card--alert a { color: var(--brand-red); }
+  .contact__card--alert .muted { color: oklch(0.45 0.08 25); }
+
+  .contact__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: -0.005em;
+  }
+
+  .contact__desc {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .contact__detail {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+  .contact__detail dt {
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding-top: 0.125rem;
+  }
+  .contact__detail dd { margin: 0; line-height: 1.5; }
+
+  .contact__cta {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    color: var(--brand-red);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .contact__cta:hover { color: var(--brand-red-deep); }
+</style>

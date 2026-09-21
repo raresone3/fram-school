@@ -1,0 +1,636 @@
+---
+import Button from './Button.astro';
+import Stamp from './Stamp.astro';
+
+/**
+ * Misregister Print hero.
+ *
+ * Concept: a Saxon-Transylvanian printing press setting type and image
+ * for the FRAM school. The page paints with the headline and photo in
+ * a state of slight misregistration (CMYK ghost layers offset from the
+ * "ink" layer). Over ~700ms the ghosts converge into perfect register.
+ * As registration locks, the Fraunces optical-size axis morphs (24→144),
+ * a tiny press-moment scale-dip simulates the printing impact, and the
+ * subhead/stamp/CTAs cascade in.
+ *
+ * Decorative print details:
+ *   - faint paper grain via SVG turbulence (~5% opacity, GPU-cheap)
+ *   - registration crosshair marks at photo corners, fade in after lock
+ *   - crop marks at corners of the text block
+ *   - the existing ochre offset frame slides into place last
+ *
+ * Performance: zero JS for the animation. CSS animations only. Total
+ * weight: ~12 KB extra over the existing static hero.
+ *
+ * Reduced-motion: all converging animations skipped; ghosts start at
+ * full opacity 0 and the page renders to the ink-only final state.
+ */
+
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  subhead?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  meta?: string;
+  image?: { src: string; alt: string; caption?: string };
+}
+
+const {
+  eyebrow,
+  headline,
+  subhead,
+  primaryCta,
+  secondaryCta,
+  meta,
+  image,
+} = Astro.props;
+---
+
+{/* DEV: animation always plays. Session-skip gating disabled during preview tuning. */}
+<script is:inline>
+  (function () {
+    try {
+      sessionStorage.removeItem('fram:hero-print-played');
+      document.documentElement.removeAttribute('data-hero-print-skip');
+    } catch (e) {}
+    console.log('[hero-print] animation will play on this load');
+  })();
+</script>
+
+<section class="hero-print" data-hero-print>
+  {/* Paper grain texture — covers the whole hero, very subtle */}
+  <svg class="hero-print__paper" aria-hidden="true" focusable="false">
+    <filter id="hero-paper-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" stitchTiles="stitch" />
+      <feColorMatrix values="0 0 0 0 0.36 0 0 0 0 0.30 0 0 0 0 0.20 0 0 0 0.12 0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#hero-paper-grain)" />
+  </svg>
+
+  <div class="container hero-print__inner">
+    {/* Crop marks frame the text — appear after registration locks */}
+    <span class="hero-print__crop hero-print__crop--tl" aria-hidden="true"></span>
+    <span class="hero-print__crop hero-print__crop--tr" aria-hidden="true"></span>
+    <span class="hero-print__crop hero-print__crop--bl" aria-hidden="true"></span>
+    <span class="hero-print__crop hero-print__crop--br" aria-hidden="true"></span>
+
+    <div class="hero-print__text">
+      {eyebrow && <p class="eyebrow hero-print__eyebrow">{eyebrow}</p>}
+
+      <h1 class="hero-print__headline">
+        {/* Three stacked spans for CMYK-style print misregistration */}
+        <span class="hero-print__ghost hero-print__ghost--cyan" aria-hidden="true"><em>{headline}</em></span>
+        <span class="hero-print__ghost hero-print__ghost--ochre" aria-hidden="true"><em>{headline}</em></span>
+        <span class="hero-print__ink"><em>{headline}</em></span>
+      </h1>
+
+      {subhead && <p class="lead hero-print__subhead">{subhead}</p>}
+
+      {(primaryCta || secondaryCta) && (
+        <div class="hero-print__ctas">
+          {primaryCta && (
+            <span class="hero-print__cta hero-print__cta--1">
+              <Button href={primaryCta.href} variant="primary">{primaryCta.label}</Button>
+            </span>
+          )}
+          {secondaryCta && (
+            <span class="hero-print__cta hero-print__cta--2">
+              <Button href={secondaryCta.href} variant="secondary">{secondaryCta.label}</Button>
+            </span>
+          )}
+        </div>
+      )}
+
+      {meta && (
+        <div class="hero-print__meta-row">
+          <span class="hero-print__stamp"><Stamp size={20} /></span>
+          <p class="hero-print__meta">{meta}</p>
+        </div>
+      )}
+    </div>
+
+    {image && (
+      <figure class="hero-print__media">
+        <div class="hero-print__frame">
+          {/* Cyan-shifted ghost photo, offset, blends with the real photo */}
+          <img
+            class="hero-print__photo hero-print__photo--ghost-cyan"
+            src={image.src}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+          />
+          {/* Ochre-shifted ghost photo */}
+          <img
+            class="hero-print__photo hero-print__photo--ghost-ochre"
+            src={image.src}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+          />
+          {/* Real photo (the ink layer) */}
+          <img
+            class="hero-print__photo hero-print__photo--ink"
+            src={image.src}
+            alt={image.alt}
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+
+          {/* Registration crosshairs at the four corners */}
+          <svg class="hero-print__regmark hero-print__regmark--tl" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="0.6" />
+            <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="0.6" />
+            <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="0.6" />
+          </svg>
+          <svg class="hero-print__regmark hero-print__regmark--tr" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="0.6" />
+            <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="0.6" />
+            <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="0.6" />
+          </svg>
+          <svg class="hero-print__regmark hero-print__regmark--bl" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="0.6" />
+            <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="0.6" />
+            <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="0.6" />
+          </svg>
+          <svg class="hero-print__regmark hero-print__regmark--br" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="0.6" />
+            <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="0.6" />
+            <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="0.6" />
+          </svg>
+        </div>
+        {image.caption && <figcaption class="hero-print__caption">{image.caption}</figcaption>}
+      </figure>
+    )}
+  </div>
+</section>
+
+<style>
+  /* ──── Layout ──────────────────────────────────────────── */
+
+  .hero-print {
+    position: relative;
+    padding-block: clamp(2.5rem, 4vw + 1.5rem, 5rem);
+    overflow: hidden;
+  }
+
+  .hero-print__paper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+
+  .hero-print__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 880px) {
+    .hero-print__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+  }
+
+  .hero-print__text {
+    max-width: 19ch;
+    position: relative;
+  }
+
+  .hero-print__eyebrow { color: var(--ink-muted); }
+
+  .hero-print__subhead {
+    margin-top: 1.25rem;
+    max-width: 38ch;
+    color: var(--ink);
+  }
+
+  .hero-print__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  .hero-print__cta { display: inline-flex; }
+
+  .hero-print__meta-row {
+    margin-top: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .hero-print__meta {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.01em;
+  }
+  .hero-print__stamp { display: inline-flex; }
+  .hero-print__meta-row :global(.stamp) {
+    color: var(--brand-red);
+  }
+
+  /* ──── Headline (CMYK misregister) ──────────────────── */
+
+  .hero-print__headline {
+    position: relative;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: var(--t-display);
+    line-height: var(--lh-display);
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    text-wrap: balance;
+    margin: 0;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+
+  .hero-print__ink,
+  .hero-print__ghost {
+    display: block;
+    grid-area: 1 / 1;
+  }
+
+  /* Stack all three layers on top of each other. */
+  .hero-print__headline {
+    display: grid;
+  }
+
+  .hero-print__ink {
+    color: var(--ink);
+    position: relative;
+    z-index: 3;
+  }
+
+  .hero-print__ghost {
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+    will-change: transform, opacity;
+  }
+  .hero-print__ghost--cyan {
+    color: oklch(0.55 0.18 220); /* printer's cyan, more saturated */
+    transform: translate(-14px, -16px);
+    opacity: 0.7;
+  }
+  .hero-print__ghost--ochre {
+    color: oklch(0.55 0.22 25); /* warm madder/red */
+    transform: translate(12px, 14px);
+    opacity: 0.6;
+    z-index: 2;
+  }
+
+  /* ──── Photo & frame (also misregistered) ─────────── */
+
+  .hero-print__media {
+    margin: 0;
+    position: relative;
+  }
+
+  .hero-print__frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: visible;
+    border-radius: 4px;
+    background: var(--paper-deep);
+  }
+  @media (min-width: 880px) {
+    .hero-print__frame { aspect-ratio: 3 / 4; }
+  }
+
+  /* The decorative ochre rule — sits behind the photo at offset. */
+  .hero-print__frame::before {
+    content: '';
+    position: absolute;
+    inset: -0.625rem;
+    border: 1px solid var(--ochre);
+    border-radius: 6px;
+    z-index: 0;
+    opacity: 0.5;
+    transform: translate(0.5rem, 0.5rem);
+    pointer-events: none;
+  }
+
+  .hero-print__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .hero-print__photo--ink {
+    z-index: 3;
+    transition: transform 1200ms var(--ease-out-quart);
+  }
+  .hero-print__frame:hover .hero-print__photo--ink {
+    transform: scale(1.02);
+  }
+
+  .hero-print__photo--ghost-cyan {
+    z-index: 1;
+    mix-blend-mode: multiply;
+    filter: hue-rotate(150deg) saturate(1.6) brightness(1.15);
+    opacity: 0.55;
+    transform: translate(-12px, -10px);
+    will-change: transform, opacity;
+  }
+  .hero-print__photo--ghost-ochre {
+    z-index: 2;
+    mix-blend-mode: multiply;
+    filter: hue-rotate(-20deg) saturate(1.3) brightness(1.08);
+    opacity: 0.4;
+    transform: translate(10px, 8px);
+    will-change: transform, opacity;
+  }
+
+  /* Subtle warm overlay at the bottom of the photo. */
+  .hero-print__frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      oklch(0.36 0.14 22 / 0.06) 100%
+    );
+    border-radius: 4px;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .hero-print__caption {
+    margin-top: 0.875rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    max-width: 28rem;
+  }
+
+  /* ──── Registration crosshairs ─────────────────────── */
+
+  .hero-print__regmark {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    color: var(--brand-red);
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .hero-print__regmark--tl { top: -22px; left: -22px; }
+  .hero-print__regmark--tr { top: -22px; right: -22px; }
+  .hero-print__regmark--bl { bottom: -22px; left: -22px; }
+  .hero-print__regmark--br { bottom: -22px; right: -22px; }
+
+  /* ──── Crop marks (around text block) ─────────────── */
+
+  .hero-print__crop {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-style: solid;
+    border-color: var(--ink-muted);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  @media (min-width: 880px) {
+    .hero-print__crop--tl {
+      top: -8px;
+      left: -10px;
+      border-width: 1px 0 0 1px;
+    }
+    .hero-print__crop--tr {
+      top: -8px;
+      right: 50%;
+      margin-right: -2rem;
+      border-width: 1px 1px 0 0;
+    }
+    .hero-print__crop--bl {
+      bottom: -8px;
+      left: -10px;
+      border-width: 0 0 1px 1px;
+    }
+    .hero-print__crop--br {
+      bottom: -8px;
+      right: 50%;
+      margin-right: -2rem;
+      border-width: 0 1px 1px 0;
+    }
+  }
+  @media (max-width: 879px) {
+    .hero-print__crop { display: none; }
+  }
+
+  /* ──── ENTRANCE CHOREOGRAPHY (default = play) ───────── */
+
+  /* Cyan ghost converges (more dramatic for visibility) */
+  @keyframes hero-print-cyan-converge {
+    from { transform: translate(-14px, -16px); opacity: 0.7; }
+    50%  { transform: translate(-6px, -7px); opacity: 0.55; }
+    to   { transform: translate(0, 0); opacity: 0.32; }
+  }
+
+  /* Ochre ghost converges */
+  @keyframes hero-print-ochre-converge {
+    from { transform: translate(12px, 14px); opacity: 0.6; }
+    50%  { transform: translate(5px, 6px); opacity: 0.45; }
+    to   { transform: translate(0, 0); opacity: 0.22; }
+  }
+
+  /* Photo ghosts converge */
+  @keyframes hero-print-photo-cyan {
+    from { transform: translate(-12px, -10px); opacity: 0.55; }
+    to   { transform: translate(0, 0); opacity: 0.32; }
+  }
+  @keyframes hero-print-photo-ochre {
+    from { transform: translate(10px, 8px); opacity: 0.4; }
+    to   { transform: translate(0, 0); opacity: 0.22; }
+  }
+
+  /* The press-impact: tiny scale dip on the ink layer when register locks */
+  @keyframes hero-print-press {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(0.997); }
+  }
+
+  /* Optical-size axis morph (the existing one, kept for continuity) */
+  @keyframes hero-print-headline-morph {
+    from {
+      font-variation-settings: 'opsz' 24, 'SOFT' 50;
+      letter-spacing: 0.005em;
+    }
+    to {
+      font-variation-settings: 'opsz' 144, 'SOFT' 100;
+      letter-spacing: -0.012em;
+    }
+  }
+
+  /* Generic rise + fade */
+  @keyframes hero-print-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes hero-print-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes hero-print-stamp {
+    from { opacity: 0; transform: rotate(-6deg) translateY(2px); }
+    to   { opacity: 1; transform: rotate(0deg) translateY(0); }
+  }
+
+  /* The decorative ochre frame slides into offset */
+  @keyframes hero-print-frame-slide {
+    from { transform: translate(0, 0); opacity: 0; }
+    to   { transform: translate(0.5rem, 0.5rem); opacity: 0.5; }
+  }
+
+  /* Registration marks fade in after the photo locks */
+  @keyframes hero-print-regmark {
+    from { opacity: 0; }
+    to   { opacity: 0.4; }
+  }
+
+  /* Crop marks fade in last */
+  @keyframes hero-print-crop {
+    from { opacity: 0; }
+    to   { opacity: 0.5; }
+  }
+
+  /* Paper grain settles in */
+  @keyframes hero-print-paper {
+    from { opacity: 0; }
+    to   { opacity: 0.55; }
+  }
+
+  /* DEFAULT: every load, animations play */
+  .hero-print__paper {
+    animation: hero-print-paper 1200ms var(--ease-out-quart) both;
+  }
+  .hero-print__eyebrow {
+    animation: hero-print-fade 320ms 100ms var(--ease-out-quart) both;
+  }
+  .hero-print__ghost--cyan {
+    animation: hero-print-cyan-converge 1200ms var(--ease-out-quart) both;
+  }
+  .hero-print__ghost--ochre {
+    animation: hero-print-ochre-converge 1200ms var(--ease-out-quart) both;
+  }
+  .hero-print__ink {
+    animation:
+      hero-print-headline-morph 700ms 1000ms var(--ease-out-quart) both,
+      hero-print-press 240ms 1200ms var(--ease-out-quart) both;
+  }
+  .hero-print__photo--ghost-cyan {
+    animation: hero-print-photo-cyan 1200ms var(--ease-out-quart) both;
+  }
+  .hero-print__photo--ghost-ochre {
+    animation: hero-print-photo-ochre 1200ms var(--ease-out-quart) both;
+  }
+  .hero-print__frame::before {
+    animation: hero-print-frame-slide 500ms 1300ms var(--ease-out-quart) both;
+  }
+  .hero-print__subhead {
+    animation: hero-print-rise 400ms 1400ms var(--ease-out-quart) both;
+  }
+  .hero-print__cta--1 {
+    animation: hero-print-rise 400ms 1550ms var(--ease-out-quart) both;
+  }
+  .hero-print__cta--2 {
+    animation: hero-print-rise 400ms 1650ms var(--ease-out-quart) both;
+  }
+  .hero-print__stamp {
+    animation: hero-print-stamp 400ms 1700ms var(--ease-out-quart) both;
+  }
+  .hero-print__meta {
+    animation: hero-print-rise 400ms 1750ms var(--ease-out-quart) both;
+  }
+  .hero-print__regmark {
+    animation: hero-print-regmark 600ms 1300ms var(--ease-out-quart) both;
+  }
+  .hero-print__crop {
+    animation: hero-print-crop 600ms 1500ms var(--ease-out-quart) both;
+  }
+
+  /* Revisit suppression — set by inline-head script. No flash. */
+  :global([data-hero-print-skip='true']) .hero-print__paper,
+  :global([data-hero-print-skip='true']) .hero-print__eyebrow,
+  :global([data-hero-print-skip='true']) .hero-print__ghost--cyan,
+  :global([data-hero-print-skip='true']) .hero-print__ghost--ochre,
+  :global([data-hero-print-skip='true']) .hero-print__ink,
+  :global([data-hero-print-skip='true']) .hero-print__photo--ghost-cyan,
+  :global([data-hero-print-skip='true']) .hero-print__photo--ghost-ochre,
+  :global([data-hero-print-skip='true']) .hero-print__frame::before,
+  :global([data-hero-print-skip='true']) .hero-print__subhead,
+  :global([data-hero-print-skip='true']) .hero-print__cta--1,
+  :global([data-hero-print-skip='true']) .hero-print__cta--2,
+  :global([data-hero-print-skip='true']) .hero-print__stamp,
+  :global([data-hero-print-skip='true']) .hero-print__meta,
+  :global([data-hero-print-skip='true']) .hero-print__regmark,
+  :global([data-hero-print-skip='true']) .hero-print__crop {
+    animation: none;
+  }
+  /* When skipping, set the ghosts and decorations to their final state */
+  :global([data-hero-print-skip='true']) .hero-print__ghost--cyan {
+    transform: translate(0, 0); opacity: 0.32;
+  }
+  :global([data-hero-print-skip='true']) .hero-print__ghost--ochre {
+    transform: translate(0, 0); opacity: 0.22;
+  }
+  :global([data-hero-print-skip='true']) .hero-print__photo--ghost-cyan {
+    transform: translate(0, 0); opacity: 0.32;
+  }
+  :global([data-hero-print-skip='true']) .hero-print__photo--ghost-ochre {
+    transform: translate(0, 0); opacity: 0.22;
+  }
+  :global([data-hero-print-skip='true']) .hero-print__frame::before {
+    transform: translate(0.5rem, 0.5rem); opacity: 0.5;
+  }
+  :global([data-hero-print-skip='true']) .hero-print__regmark { opacity: 0.4; }
+  :global([data-hero-print-skip='true']) .hero-print__crop { opacity: 0.5; }
+  :global([data-hero-print-skip='true']) .hero-print__paper { opacity: 0.55; }
+
+  /* Reduced motion: everything collapses to a single fade. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-print__paper,
+    .hero-print__eyebrow,
+    .hero-print__ghost--cyan,
+    .hero-print__ghost--ochre,
+    .hero-print__ink,
+    .hero-print__photo--ghost-cyan,
+    .hero-print__photo--ghost-ochre,
+    .hero-print__frame::before,
+    .hero-print__subhead,
+    .hero-print__cta--1,
+    .hero-print__cta--2,
+    .hero-print__stamp,
+    .hero-print__meta,
+    .hero-print__regmark,
+    .hero-print__crop {
+      animation: hero-print-fade 200ms ease-out both !important;
+    }
+    .hero-print__ghost--cyan,
+    .hero-print__photo--ghost-cyan { transform: translate(0, 0); opacity: 0.32; }
+    .hero-print__ghost--ochre,
+    .hero-print__photo--ghost-ochre { transform: translate(0, 0); opacity: 0.22; }
+    .hero-print__frame::before { transform: translate(0.5rem, 0.5rem); opacity: 0.5; }
+    .hero-print__photo--ink { transition: none; }
+  }
+</style>

@@ -1,0 +1,194 @@
+---
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('teachers');
+const teachers = all.sort((a, b) => a.data.order - b.data.order);
+
+const groupLabels = {
+  all: 'All',
+  primary: 'Primary',
+  kindergarten: 'Kindergarten',
+  subject: 'Subject specialists',
+  assistant: 'Teacher assistants',
+};
+---
+
+<section class="teachers">
+  <div class="container">
+    <div class="teachers__filter" data-teacher-filter>
+      <button type="button" class="teachers__chip is-active" data-filter="all">{groupLabels.all}</button>
+      <button type="button" class="teachers__chip" data-filter="primary">{groupLabels.primary}</button>
+      <button type="button" class="teachers__chip" data-filter="kindergarten">{groupLabels.kindergarten}</button>
+      <button type="button" class="teachers__chip" data-filter="subject">{groupLabels.subject}</button>
+      <button type="button" class="teachers__chip" data-filter="assistant">{groupLabels.assistant}</button>
+    </div>
+
+    <ul class="teachers__grid" data-teacher-list>
+      {teachers.map((t) => (
+        <li class="teacher rise" data-group={t.data.group}>
+          <figure class="teacher__portrait">
+            {t.data.portrait ? (
+              <img src={t.data.portrait} alt={`Portrait of ${t.data.name}`} loading="lazy" decoding="async" />
+            ) : (
+              <div class="teacher__placeholder" aria-hidden="true">
+                <span>{t.data.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}</span>
+              </div>
+            )}
+          </figure>
+          <h3 class="teacher__name">{t.data.name}</h3>
+          <p class="teacher__role">{t.data.role}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .teachers { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+
+  .teachers__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .teachers__chip {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.875rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all var(--t-fast) var(--ease-out-quart);
+  }
+  .teachers__chip:hover {
+    border-color: var(--brand-red);
+    color: var(--brand-red);
+  }
+  .teachers__chip.is-active {
+    background: var(--ink);
+    color: var(--paper-pure);
+    border-color: var(--ink);
+  }
+
+  .teachers__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2rem 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 720px) {
+    .teachers__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1040px) {
+    .teachers__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .teacher {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    transition: opacity var(--t-base) var(--ease-out-quart),
+                transform var(--t-base) var(--ease-out-quart);
+  }
+  .teacher:hover {
+    transform: translateY(-2px);
+  }
+  .teacher[data-hidden] {
+    display: none;
+  }
+
+  .teacher__portrait {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--paper-deep);
+    position: relative;
+  }
+  .teacher__portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 600ms var(--ease-out-quart);
+  }
+  .teacher:hover .teacher__portrait img {
+    transform: scale(1.03);
+  }
+  /* Subtle warm wash for tone consistency. */
+  .teacher__portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, oklch(0.36 0.14 22 / 0.05));
+    pointer-events: none;
+  }
+  .teacher__placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--brand-red-soft), var(--ochre-soft));
+    color: var(--brand-red);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .teacher__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.0625rem;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin-top: 0.25rem;
+  }
+
+  .teacher__role {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+</style>
+
+<script>
+  const filterRoot = document.querySelector('[data-teacher-filter]');
+  const list = document.querySelector('[data-teacher-list]');
+  if (filterRoot && list) {
+    filterRoot.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.matches('[data-filter]')) return;
+      const filter = target.getAttribute('data-filter');
+      if (!filter) return;
+
+      filterRoot.querySelectorAll('[data-filter]').forEach((b) =>
+        b.classList.toggle('is-active', b === target)
+      );
+
+      list.querySelectorAll('[data-group]').forEach((el) => {
+        if (filter === 'all' || el.getAttribute('data-group') === filter) {
+          el.removeAttribute('data-hidden');
+        } else {
+          el.setAttribute('data-hidden', '');
+        }
+      });
+    });
+  }
+</script>

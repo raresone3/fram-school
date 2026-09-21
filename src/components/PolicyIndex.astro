@@ -1,0 +1,204 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from '~/components/Icon.astro';
+
+type IconName =
+  'mail' | 'door' | 'clipboard' | 'rosette' | 'book' | 'heart' |
+  'compass' | 'shield' | 'phone' | 'building' | 'people' | 'star';
+
+const all = await getCollection('policies');
+const policies = all.sort((a, b) => a.data.order - b.data.order);
+
+const grouped = {
+  academic: policies.filter((p) => p.data.category === 'academic'),
+  wellbeing: policies.filter((p) => p.data.category === 'wellbeing'),
+  skills: policies.filter((p) => p.data.category === 'skills'),
+};
+
+const categoryLabels: Record<string, string> = {
+  academic: 'Academic',
+  wellbeing: 'Wellbeing & Pastoral',
+  skills: 'Skills & Events',
+};
+
+const categoryIcons: Record<string, IconName> = {
+  academic: 'book',
+  wellbeing: 'heart',
+  skills: 'compass',
+};
+
+const labels = { search: 'Search policies…', updated: 'Updated', empty: 'No matching policies.' };
+---
+
+<section class="policies">
+  <div class="container">
+    <div class="policies__search">
+      <label for="policy-search" class="visually-hidden">{labels.search}</label>
+      <input
+        id="policy-search"
+        type="search"
+        placeholder={labels.search}
+        autocomplete="off"
+        data-policy-search
+      />
+    </div>
+
+    <div data-policy-empty hidden class="policies__empty">{labels.empty}</div>
+
+    {Object.entries(grouped).map(([cat, items]) => (
+      <section class={`policies__group policies__group--${cat}`} data-policy-group>
+        <h2 class="policies__group-title">
+          <Icon name={categoryIcons[cat]} size={22} class="policies__group-icon" />
+          <span>{categoryLabels[cat]}</span>
+        </h2>
+        <ul class="policies__list">
+          {items.map((p) => (
+            <li class="policy" data-policy-title={p.data.title.toLowerCase()}>
+              <a href={p.data.file} class="policy__link" download>
+                <span class="policy__title">{p.data.title}</span>
+                <span class="policy__meta">
+                  {p.data.updated && <span>{labels.updated} {p.data.updated}</span>}
+                  <span class="policy__icon" aria-hidden="true">↓ PDF</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</section>
+
+<style>
+  .policies { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+
+  .policies__search {
+    margin-bottom: 2.5rem;
+    max-width: 32rem;
+  }
+  .policies__search input {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.875rem 1rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink);
+    transition: border-color var(--t-fast) var(--ease-out-quart);
+  }
+  .policies__search input:focus {
+    border-color: var(--brand-red);
+    outline-offset: -1px;
+  }
+
+  .policies__empty {
+    color: var(--ink-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  .policies__group {
+    margin-bottom: 3rem;
+  }
+  .policies__group:last-of-type { margin-bottom: 0; }
+
+  .policies__group-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: -0.005em;
+    color: var(--brand-red);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    width: 100%;
+  }
+  .policies__group-title :global(.policies__group-icon) {
+    color: var(--brand-red);
+    opacity: 0.9;
+  }
+
+  .policies__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .policy { border-bottom: 1px solid var(--rule); }
+  .policy[data-hidden] { display: none; }
+
+  .policy__link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease-out-quart);
+  }
+  .policy__link:hover { color: var(--brand-red); }
+
+  .policy__title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .policy__meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+  }
+  .policy__icon {
+    font-family: var(--font-body);
+    color: var(--brand-red);
+    font-weight: 500;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
+
+<script>
+  const input = document.querySelector('[data-policy-search]') as HTMLInputElement | null;
+  const policies = document.querySelectorAll('[data-policy-title]');
+  const groups = document.querySelectorAll('[data-policy-group]');
+  const empty = document.querySelector('[data-policy-empty]') as HTMLElement | null;
+
+  if (input) {
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      let visible = 0;
+      policies.forEach((el) => {
+        const title = el.getAttribute('data-policy-title') ?? '';
+        const match = !q || title.includes(q);
+        if (match) {
+          el.removeAttribute('data-hidden');
+          visible++;
+        } else {
+          el.setAttribute('data-hidden', '');
+        }
+      });
+      groups.forEach((g) => {
+        const anyVisible = g.querySelectorAll('[data-policy-title]:not([data-hidden])').length > 0;
+        (g as HTMLElement).style.display = anyVisible ? '' : 'none';
+      });
+      if (empty) empty.hidden = visible !== 0;
+    });
+  }
+</script>

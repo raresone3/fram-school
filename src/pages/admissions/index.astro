@@ -1,0 +1,268 @@
+---
+import Layout from '~/components/Layout.astro';
+import PageIntro from '~/components/PageIntro.astro';
+import Prose from '~/components/Prose.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import Button from '~/components/Button.astro';
+import Figure from '~/components/Figure.astro';
+import Icon from '~/components/Icon.astro';
+import { breadcrumb, faq } from '~/lib/schema';
+
+const schema = [
+  breadcrumb([
+    { label: 'Home', href: '/' },
+    { label: 'Admissions', href: '/admissions' },
+  ]),
+  faq([
+    { q: 'What ages can apply to FRAM?', a: 'FRAM admits children aged 3–11, from Kindergarten (Pre-Primary) through Year 6 of primary school.' },
+    { q: 'How do I apply?', a: 'Write to admissions@framschool.com with your child\'s age and intended start year. We schedule a private tour, an assessment morning, and respond with an offer within five working days.' },
+    { q: 'What does FRAM look for in applicants?', a: 'FRAM is not selective in the academic-arms-race sense. We admit children whose families want what FRAM offers and who are ready emotionally and developmentally for the year they would join.' },
+    { q: 'How are fees structured?', a: 'Fees are issued by email on enquiry, they include the mandatory school programme until 3:15 PM, the after-school House and Clubs programme until 4:15 PM, daily lunch, school uniform, and access to FRAM Summer School in July.' },
+    { q: 'Do you offer financial assistance?', a: 'FRAM operates a sibling reduction and a small needs-based bursary fund for families for whom fees would otherwise be a barrier.' },
+  ]),
+];
+---
+
+<Layout title="Admissions · FRAM" description="How to apply to FRAM School in Sibiu: the four-step admissions process, what we look for, and what to expect during a school visit." current="/admissions" schema={schema}>
+  <PageIntro
+    eyebrow="Admissions"
+    title="How to join FRAM."
+    lead="FRAM admits children for kindergarten (ages 3–6) and primary (Y1–Y6, ages 6–11). The process is straightforward, a visit, a meeting, a friendly assessment day. Below is what to expect at each step."
+  />
+
+  <div class="container">
+    <Figure
+      src="/images/scenes/bike-club-group.jpg"
+      alt="FRAM children with bicycles at a school activity in the courtyard"
+      caption="Tuesday afternoon at Bike Club, Habermann Campus."
+      variant="wide"
+      loading="eager"
+    />
+  </div>
+
+  <section class="container admissions-steps">
+    <ol class="steps">
+      <li class="step rise">
+        <span class="step__num">01</span>
+        <span class="step__icon" aria-hidden="true"><Icon name="mail" size={28} /></span>
+        <div class="step__body">
+          <h2 class="step__title">Get in touch & download the form</h2>
+          <p>
+            Write to us at <a href="mailto:admissions@framschool.com">admissions@framschool.com</a> with your child's age, the year you're applying for, and any questions you have. You will get a personal reply within two working days.
+          </p>
+          <p>
+            To save a step, download our application form now and return it completed by email or in person at your visit:
+          </p>
+          <div class="step__form-cta">
+            <a href="/forms/fram-application-form.pdf" download class="step__download">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <path d="M12 18v-6"/>
+                <path d="M9 15l3 3 3-3"/>
+              </svg>
+              <span>
+                <strong>Download the FRAM Application Form</strong>
+                <span class="step__download-meta">PDF · ~180 KB</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="step rise">
+        <span class="step__num">02</span>
+        <span class="step__icon" aria-hidden="true"><Icon name="door" size={28} /></span>
+        <div class="step__body">
+          <h2 class="step__title">Visit the school</h2>
+          <p>We schedule a private tour with the Headmaster or Head of the relevant year. You see classrooms in use, meet staff, and ask the questions you couldn't ask online. Most families visit before they apply, not after.</p>
+          <p><a href="/admissions/visit">See open days and book a private tour →</a></p>
+        </div>
+      </li>
+      <li class="step rise">
+        <span class="step__num">03</span>
+        <span class="step__icon" aria-hidden="true"><Icon name="clipboard" size={28} /></span>
+        <div class="step__body">
+          <h2 class="step__title">Assessment day</h2>
+          <p>A morning at FRAM with the year your child would join. They take part in normal lessons; teachers observe how they engage, communicate, and play. There is no "test" for a four-year-old, for older children, age-appropriate work in English and Mathematics is part of the morning.</p>
+        </div>
+      </li>
+      <li class="step rise">
+        <span class="step__num">04</span>
+        <span class="step__icon" aria-hidden="true"><Icon name="rosette" size={28} /></span>
+        <div class="step__body">
+          <h2 class="step__title">Offer and welcome</h2>
+          <p>You hear back within five working days, with an offer letter, fee schedule, and the start date. Once you accept, the welcome process begins, uniform, induction, a meeting with the class teacher before the term starts.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="admissions-actions">
+      <Button href="/admissions/visit" variant="primary">Book a tour</Button>
+      <Button href="mailto:admissions@framschool.com" variant="secondary">Write to admissions</Button>
+    </div>
+  </section>
+
+  <section class="section reading">
+    <Prose>
+      <h2>What we look for</h2>
+      <Figure
+        src="/images/houses-photos/sitting-attentive.jpg"
+        alt="A FRAM lesson at the interactive whiteboard"
+        caption="A morning lesson, in the classroom."
+        variant="inset"
+      />
+      <p>
+        FRAM is not a selective school in the academic-arms-race sense. We admit children whose families want what FRAM offers, and whose children are ready, emotionally and developmentally, for the year they would join. The visit and the assessment morning give us, and you, an honest read on fit.
+      </p>
+      <h2>Fees and what they cover</h2>
+      <p>
+        Our annual fees include the Mandatory School Programme (Mon–Fri until 3:15), the after-school House and Clubs programme (3:30–4:15), daily lunch, school uniform, and access to the Summer School in July.
+      </p>
+      <p>
+        For the current fee schedule, <a href="/admissions/fees">see fees</a> or write to <a href="mailto:admissions@framschool.com">admissions@framschool.com</a>.
+      </p>
+    </Prose>
+  </section>
+
+  <CtaBand
+    eyebrow="Ready to start?"
+    title="Download the form, then come and visit."
+    primaryCta={{ label: 'Download application form', href: '/forms/fram-application-form.pdf' }}
+    secondaryCta={{ label: 'Or book a tour first', href: '/admissions/visit' }}
+  />
+</Layout>
+
+<style>
+  .admissions-steps { padding-block: clamp(2rem, 4vw + 1rem, 4rem); }
+
+  .steps {
+    list-style: none;
+    margin: 0 0 2rem 0;
+    padding: 0;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "num body"
+      "icon body";
+    gap: 0.75rem 1.5rem;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  @media (min-width: 720px) {
+    .step {
+      grid-template-columns: 6rem 1fr;
+      grid-template-areas:
+        "num body"
+        "icon body";
+      gap: 1rem 3rem;
+      padding-block: 2.5rem;
+    }
+  }
+
+  .step__num {
+    grid-area: num;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 2rem;
+    color: var(--brand-red);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .step__icon {
+    grid-area: icon;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: var(--brand-red-soft);
+    color: var(--brand-red);
+    border-radius: 50%;
+    margin-top: 0.25rem;
+    transition: transform var(--t-base) var(--ease-out-quart), background var(--t-fast) var(--ease-out-quart);
+  }
+  .step:hover .step__icon {
+    transform: rotate(-6deg);
+    background: var(--brand-red);
+    color: var(--paper-pure);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step:hover .step__icon { transform: none; }
+  }
+  .step__body { grid-area: body; }
+
+  .step__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.375rem, 1rem + 1.4vw, 1.75rem);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .step__body p {
+    font-size: var(--t-body-lg);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin-bottom: 0.75rem;
+  }
+  .step__body p:last-child { margin-bottom: 0; }
+  .step__body a { color: var(--brand-red); }
+
+  .admissions-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .step__form-cta {
+    margin-top: 1rem;
+  }
+  .step__download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.25rem;
+    background: var(--brand-red-soft);
+    border: 1px solid color-mix(in oklch, var(--brand-red) 22%, transparent);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--brand-red-deep);
+    transition: background var(--t-fast) var(--ease-out-quart),
+                border-color var(--t-fast) var(--ease-out-quart),
+                transform var(--t-base) var(--ease-out-quart);
+    max-width: 28rem;
+  }
+  .step__download:hover {
+    background: oklch(0.91 0.05 25);
+    border-color: var(--brand-red);
+    transform: translateY(-1px);
+    color: var(--brand-red-deep);
+  }
+  .step__download svg {
+    flex-shrink: 0;
+    color: var(--brand-red);
+  }
+  .step__download strong {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    color: var(--brand-red-deep);
+    margin-bottom: 0.125rem;
+  }
+  .step__download-meta {
+    display: block;
+    font-size: 0.8125rem;
+    color: oklch(0.45 0.08 25);
+    letter-spacing: 0.02em;
+  }
+</style>
