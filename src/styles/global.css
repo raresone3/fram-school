@@ -208,7 +208,7 @@ time,
 /* ──── Scroll-rise (one-shot) ──────────────────────────────── */
 
 .rise {
-  opacity: 0;
+  opacity: 0.4;
   transform: translateY(12px);
   transition: opacity var(--t-slow) var(--ease-out-quart),
               transform var(--t-slow) var(--ease-out-quart);
